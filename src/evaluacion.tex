@@ -460,7 +460,7 @@ porcentaje esto es 100\%.\newline
 \label{subsec:fjp}
 %las tablas confirman lo que ya se sabia segun la literatura existe.
 
-En base a los resultados de evaluación para el conjunto de
+En base a los resultados para el conjunto de
 evaluación(compuesto por 20 testcases, de los cuales 14 presentan leaks),
 obtenidos en los anteriores apartados, 
 % donde se presentó un análisis detallado para la evaluación entre FlowDroid vs
@@ -539,7 +539,7 @@ cantidad de FP frente a FlowDroid y JoDroid, deja pasar menos fugas de
 información.\newline
 En lo que respecta a flujos implícitos, a diferencia de FlowDroid, tanto JoDroid
 como el Prototipo detectan fugas de información a través de Flujos
-implícitos.\newline
+implícitos.
 
 % EXPLICAR POR QUE DE ACUERDO A LAS TECNICAS DE ANALISIS?\newline
 % El análisis de flujo de información mediante lenguajes tipados de
@@ -567,9 +567,59 @@ precisos.
 Al basar su técnica de análisis en flujo de información, el Prototipo y JoDroid
 ofrecen mayor Recall que FlowDroid, que se basa en flujo de datos.\newline
 Una ventaja de las técnicas basadas en control de flujo de información es la
-detección de fugas de información a través de flujos implícitos.
+detección de fugas de información a través de flujos implícitos.\newline
 
-  
+La tabla \ref{tab:comparacion} resume las ventajas, desventajas, similutes y
+diferencias entre el Prototipo y las herramientas de comparación, FlowDroid y
+JoDroid, respectivamente. En esta se ilustra por ejemplo, como el prototipo
+detecta automáticamente los sources y sinks, mientras que JoDroid no.
+
+\begin{table}[H]
+%\begin{center}
+\small\addtolength{\tabcolsep}{-3pt}
+%\begin{tabular}{|p{4cm}|p{1cm}|p{1cm}|}
+\begin{tabular}{|p{4cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
+	\hline
+	{\multirow{2}{*}{\textbf{Item}}}
+	&\multicolumn{4}{c|}{\cellcolor{gray!30}\textbf{Prototipo vs FlowDroid}} &
+	\multicolumn{4}{c|}{\cellcolor{gray!55}\textbf{Prototipo vs JoDroid}}\\
+	\cline{2-9}
+	 & \cellcolor{gray!30}\tiny{\textbf{ventaja}} &
+	 \cellcolor{gray!30}\tiny{\textbf{desvent}} &
+	 \cellcolor{gray!30}\tiny{\textbf{similit}}&
+	 \cellcolor{gray!30}\tiny{\textbf{diff}} &
+	 \cellcolor{gray!55}\tiny{\textbf{ventaja}} &
+	 \cellcolor{gray!55}\tiny{\textbf{desvent}} &
+	 \cellcolor{gray!55}\tiny{\textbf{similit}}&
+	 \cellcolor{gray!55}\tiny{\textbf{diff}}\\
+	\hline
+	\footnotesize{Menor Precisión} & &\checkmark & & & &\checkmark& &\\
+	\hline
+	Mayor Recall &\checkmark& & & &\checkmark& & &\\
+	\hline
+	Menor costo en desempeño & & & & &\checkmark& & &\\
+	\hline
+	Bajo costo en desempeño & & &\checkmark& & & & & \\
+	\hline
+	Detección de flujos implícitos & \checkmark& & & & & &\checkmark&\\
+	\hline
+	Detección automática de sources y sinks & & &\checkmark& &\checkmark& & & \\
+	\hline
+	No soporte para Análisis interApp & &\checkmark& & & & &\checkmark&\\
+	\hline
+	\footnotesize{Tipo de análisis(flujo de informacion; flujo de datos)} & & &
+	&\checkmark& & & &\\
+	\hline
+	Tipo de análisis IFC & & & & & & &\checkmark&\\
+	\hline
+	Técnica de análisis: PDG, slicing & & & & & & & &\checkmark\\
+	\hline
+\end{tabular}
+%\end{center}
+\caption{Sintesis ventajas, desventajas, similitudes y diferencias; del
+protótipo frente a FlowDroid y JoDroid(respectivamente).\newline}
+\label{tab:comparacion}
+\end{table}
 
 \subsection{Comparación técnicas de análisis evaluadas}
 % En las subsecciones anteriores(4.2.1 a 4.2.3), se analizaron los resultados de
@@ -666,76 +716,6 @@ anteriormente.
 \label{tab:comparacion}
 \end{table}	
 
-
-\begin{table}[H]
-\begin{center}
-\small\addtolength{\tabcolsep}{-3pt}
-\begin{tabular}{|p{2,3cm}|p{2cm}|p{2,5cm}|p{3cm}|p{3cm}|}
-	\hline
-	\textbf{Herramienta} & \textbf{ventajas } & \textbf{desventajas} 
-	& \textbf{similitudes} & \textbf{diferencias}\\
-	\hline
-	Prototipo vs FlowDroid &  Mejor Recall.  &  Menor Precisión. &
-	Detección automática de sources y sinks & Tipo de análisis(flujo de
-	informacion; flujo de datos)\\
-	 & Detección de flujos implícitos.  & No soporte para análisis interApp. & Bajo
-	 costo en desempeño. & \\
-	\hline
-	Prototipo vs JoDroid & Mejor Recall. &  Menor Precisión. &  & \\ 
-	 & Detección automática de sources y sinks. &  & No soporte para análisis
-	 interApp &
-	\\
-	& Menor costo en desempeño & & Tipo de análisis IFC & Técnica de análisis: PDG,
-	slicing\\
-	\hline
-\end{tabular}
-\end{center}
-\caption{Comparación técnicas de FlowDroid y JoDroid, frente a técnicas
-del Prototipo.\newline Ventajas y desventajas comparando el prototipo(Propuesta
-de solución)}
-\label{tab:comparacion}
-\end{table}	
-
-\begin{table}[H]
-\begin{center}
-\small\addtolength{\tabcolsep}{-3pt}
-%\begin{tabular}{|p{4cm}|p{1cm}|p{1cm}|}
-\begin{tabular}{|p{4cm}|p{1cm}|p{0,5cm}|p{0,5cm}|p{0,5cm}|p{0,5cm}|p{0,5cm}|p{0,5cm}|p{0,5cm}|p{0,5cm}|p{0,5cm}|}
-	\hline
-	\textbf{Item} & \textbf{P vs F} & \textbf{P vs J}\\
-	%\multirow{4}{*}\textbf{Item} & \textbf{P vs F} & \textbf{P vs J}\\
-	\hline
-	 & & \\
-	\hline
-	Mayor Precisión & & & & & & & & & &\\
-	\hline
-	Menor Precisión & & \\
-	\hline
-	Mayor Recall & & \\
-	\hline
-	Mayor Recall & & \\
-	\hline
-	Mayor costo en desempeño & & \\
-	\hline
-	Bajo costo en desempeño & & \\
-	\hline
-	Detección automática de sources y sinks & & \\
-	\hline
-	No soporte para Análisis interApp & & \\
-	\hline
-	Tipo de análisis(flujo de informacion; flujo de datos) & & \\
-	\hline
-	Tipo de análisis IFC & & \\
-	\hline
-	Técnica de análisis: PDG, slicing & & \\
-	\hline
-\end{tabular}
-\end{center}
-\caption{CoOMPARACION técnicas de FlowDroid y JoDroid, frente a técnicas
-del Prototipo.\newline Ventajas y desventajas comparando el prototipo(Propuesta
-de solución)}
-\label{tab:comparacion}
-\end{table}
 
 \subsection{Qué tanto cambia la anotación del código original}
 (\textbf{Martín: esta parte debería ir en esta sección, o en la
