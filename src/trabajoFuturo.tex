@@ -1,7 +1,65 @@
 \label{ch:trabajoFuturo}
 \chapter{Trabajo Futuro y Conclusiones}
 \section{Discusión}
-Límites de la solución propuesta 
+Límites de la solución propuesta\newline
+
+\subsection{dificultades implicitas de usar Jif:}
+-poca documentación 
+-a parte del trabajo que implica escribir la versión Jif para clases de la Api
+de Android, hace falta soporte para una serie de clases estandar del propio
+lenguane Java. \newline
+
+\subsection{Qué tanto cambia la anotación del código original}
+En el diseño de la solución se describieron los retos
+técnicos\ref{sec:limitaciones} que implica anotar código Android, y cómo superar
+algunos de estos. Específicamente, las limitaciones para las que se propone un
+mecanismo que permita soportarlas son: Statement @Override; Casting entre tipos
+EditText y View; Clase Nested R y Enhanced for loop.
+
+% 
+% Dentro de las limitaciones técnicas \ref{sec:limitaciones} descritas en el
+% diseño de la solución, se describieron una serie de limitaciones para generar la
+% versión Jif del programa Android a analizar. Para algunas de tales limitaciones
+% se propuso un mécanismo que permita soportarlas, estas son:
+% \begin{itemize}
+%   \item Statement @Override
+%   \item Casting entre tipos EditText y View
+%   \item Clase Nested R 
+%   \item Enhanced for loop
+% \end{itemize}
+Adicionalmente, se describió que el compilador de Jif exige la declaración del
+chequeo de excepciones tipo runtime, en programas que lo
+requieran\ref{subsec:consVerPol}. Ahora, cumplir con los requisitos del
+compilador de Jif y aplicar mecanismos que soporten tales limitaciones, implica
+una serie de transformaciones en el código fuente del programa Android a
+analizar, tanto en la etapa previa a la anotación como en la anotación
+misma.\newline
+% para soportar tales limitaciones y
+% cumplir con los requisitos del compilador de Jif, el código fuente del programa
+% Android a analizar, pasa por una serie de transformaciones tanto en la etapa
+% previa a la anotación como en la anotación misma.\newline
+Prevía a la anotación el desarrollador debe garantizar dos cosas, primero debe
+adicionar las runtime exceptions que su programa necesite, segundo cuando
+requiera el uso de bucles for, debe usar la versión sencilla y no la versión
+mejorada del mismo(Enhanced for loop).\newline 
+Durante la anotación, además de aplicar los criterios de anotación definidos en
+el diseño de la solución \ref{subsec:pasosSol}, se aplican los mecanismos
+propuestos para soportar el Statement @Override, Casting entre tipos EditText y
+View; y Clase Nested R. Así, en el caso de  la sentencia Statement @Override, se
+comenta la línea que lo contenga; para el casting entre tipos EditText y View,
+la información implicada en este tipo de casting es abstraída mediante un tipo
+de dato String; finalmente para la clase nested R se crea una clase que define
+los define los recursos utilizados por la aplicación a través de
+variables.\newline 
+Si bien, la idea que fundamenta el diseño de la solución consiste en generar la
+versión Jif del aplicativo Android a analizar, lo cual se traduce en adicionar
+las anotaciones correspondientes para evaluar determinada política de seguridad,
+de modo que el compilador de Jif entienda el programa y permita analizar el
+flujo de información en el mismo; no es suficiente con sólo anotar el código, en
+otras palabras, sin los ajustes previamente mencionados, el compilador genera
+error. Por otro lado, lo positivo es que tales ajustes no alteran la lógica del
+programa.
+
 
 \section{Trabajo Futuro}
 Cómo puede ser extendido el trabajo y qué beneficios tendría esa extensión 
@@ -9,14 +67,105 @@ Cómo puede ser extendido el trabajo y qué beneficios tendría esa extensión
 \section{Conclusiones}
 Qué aprendimos con este trabajo.\newline
 
-- tipos de análisis y técnicas
+En el presente trabajo se exploró el análisis de flujo de información en
+aplicaciones Android, mediante técnicas de lenguajes tipados de seguridad,
+específicamente mediante el sistema de anotaciones de Jif.\newline 
+Acorde a la literatura científica consultada, el análisis de aplicaciones
+Android mediante el sistema de anotaciones de Jif, es una opción no antes
+explorada.\newline
+Habiendo superado una serie de limitaciones técnicas, se diseño un prototipo, y
+se comparo con otras herramientas de análisis. De esa comparación es importante
+resaltar los tipos de análisis y técnicas; con el fin de concluir cual o cuales
+de ellas resultan más adecuadas para contribuir en el desarrollo de Aplicaciones
+Android que cumplan con determinadas políticas de seguridad.\newline
+\textbf{Tipos de análisis y técnicas }\newline
+% En las subsecciones anteriores(4.2.1 a 4.2.3), se analizaron los resultados de
+% evaluación con respecto a un conjunto de aplicaciones específico. En la presente
+% sección, el análisis se basa en las herramientas previamente evaluadas, pero
+% haciendo enfásis en las técnicas utilizadas por las mismas.
+%tipo de analisis y técnica
+FlowDroid se fundamenta en análisis de flujo de datos, mediante técnicas
+tainting.\\
+El código .dex a ser analizadado es transformado a una representación
+intermedia(Jimple representation).\\
+El análisis parte de la construcción de un super-grafo del programa que se
+analiza, el super-grafo es una colección de grafos dirijidos, mediante los
+cuales se representa el programa, donde los nodos asocian las sentencias del
+programa y las aristas, la forma en que estas se conectan. Para recorrer el
+super-grafo utiliza un algoritmo basado en el problema de
+graph-reachability\cite{Graph-reachability}; cuyo costo computacional es de
+orden polinomial O(ED3), donde E representa funciones de flujo de datos(dataflow
+functions) y D conjunto de elementos para guiar el seguimiento de los
+datos marcados(set of data flow facts).\newline
+Para propagar la marca en los datos que análiza omite el control de flujo de
+información, sólo se centra en el flujo de datos marcados como sources y
+sinks.\newline
+La herramienta recibe como entrada el apk del aplicativo, detecta
+automáticamente los sources y sinks del programa mediante el uso de SuSi y
+genera un reporte del análisis.
 
-- dificultades implicitas de usar Jif:\newline
--poca documentación
-- a parte del trabajo que implica escribir la versión Jif para clases de la Api
-de Android, hace falta soporte para una serie de clases estandar del propio
-lenguane Java. \newline
+JoDroid se fundamenta en analísis de control de flujo de información, aplicando
+técnicas de grafos de dependencia(PDG) y técnicas slicing.\newline 
+El código .dex es transformado a código de representación intermedio(SSA-form).
+Construye un grafo PDG, donde los nodos representan statements y expresiones, y
+las aristas modelan las dependencias sintacticas entre los statements y
+expresiones. Este PDG permite modelar flujos explícitos e implícitos.\newline
+El costo computacional un análisis basado en PDG es de orden polinomial
+O(N)3\cite[page 3]{FCO-PDG}.\newline 
+Para hacer seguimiento al control de flujo de información, utiliza labels de
+seguridad, estos califican con nivel de seguridad alto o bajo información de
+variables y statements.\newline
+Los procedimientos para usar la herramienta comprenden: generar el punto de
+entrada del análisis, generar el PDG, ejecutar el respectivo análisis. Primero,
+recibe como entrada el apk y manifest del aplicativo para generar un archivo con
+el punto de entrada del análisis; luego, a partir del archivo devuelto
+anteriormente genera el PDG, finalmente, recibe como entrada el PDG, lista los
+statements y variables del aplicativo para que se indique manualmente los
+sources y sinks, y genera el respectivo análisis.\newline
 
-- la técnica de lenguaje tipado de seguridad es muy util ..
+La propuesta está basada en análisis de flujo de información mediante lenguajes
+tipados de seguridad, más específicamente mediante Jif.\newline
+Para cada programa a analizar se debe implementar la versión Jif, es decir
+el programa debe estar implementado acorde al sistema de anotaciones de Jif. A
+partir de tales anotaciones el compilador verifica la generación de flujos de
+información que incumplan la política de seguridad establecida, para reportalos
+como flujos de información indebidos. 
+Al ser evaluado directamente por un
+compilador, obtiene los beneficios de bajo costo computacional del mismo.\newline
+La generación del análisis para verificar la política de seguridad
+definida, requiere dos pasos. Primero, se genera la versión Jif del aplicativo a
+analizar usando el prototipo de anotación, este recibe como entrada el
+código fuente del aplicativo a analizar. No requiere la espcificación de sources
+y sinks.\\
+Segundo, se compila el .jif, para obtener el reporte de análisis.
+
+En el cuadro \ref{tab:comparacion} se resumen los puntos comparados
+anteriormente.
+\begin{table}[H]
+\begin{center}
+\small\addtolength{\tabcolsep}{-3pt}
+\begin{tabular}{|p{2,2cm}|p{1,3cm}|p{5cm}|p{2cm}|p{2cm}|}
+	\hline
+	\textbf{Herramienta} & \textbf{Tipo} & \textbf{Técnicas} & \textbf{Costo
+	computacional} & \textbf{ Entradas} \\
+	\hline
+	FlowDroid & Flujo de datos & 
+	Tainting; super-grafo integrado por grafos dirigidos; Representación intermedia
+	Jimple; algoritmo graph-reachability & Polinomial
+	O(ED3)\cite{Graph-reachability} & apk\\
+	\hline
+	JoDroid & Flujo de información & PDG; slicing; Representación intermedia(SSA-
+	form) & polinomial O(N)3\cite{FCO-PDG} & apk; Manifest; sources y sinks
+	\\
+	\hline
+	Prototipo & Flujo de información  & Lenguajes tipados de seguridad; Type
+	checking & Tiempo de compilación(Tiempo realmente bajo) & código fuente
+	\\
+	\hline
+\end{tabular}
+\end{center}
+\caption{Generalidades técnicas de análisis evaluadas}
+\label{tab:comparacion}
+\end{table}	
 
 
