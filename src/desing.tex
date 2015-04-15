@@ -1,7 +1,7 @@
 \label{ch:desing}
 \chapter{Diseño e Implementación}
 
-\section{Limitaciones técnicas para implementar el prototipo}
+\section{Limitaciones técnicas}
 \label{sec:limitaciones}
 Como parte del diseño de la solución, se inicia con una etapa exploratoria. En
 esta se anotan manualmente varias aplicaciones de Android, y se identifican
@@ -84,7 +84,7 @@ con este tipo de casting es que para el sistema de anotaciones de jif no es
 válido. Luego de probar con la anotación manual de ambas clases, tratando de
 dar soporte a este tipo de casting, sin obtener resultados satisfactorios, se
 opta por ``simular'' estos casos, es decir, si el tipo de dato de una variable
-es de tipo EditText, se crea una varible tipo String con un valor determinado,
+es de tipo EditText, se crea una variable tipo String con un valor determinado,
 así se omite el casting y se puede analizar el flujo de información.
 
 - \textit{Clase nested R}\newline
@@ -208,7 +208,7 @@ evaluar tiene un único punto de entrada, que depende del tipo de componente que
 implemente.} }
 
 \textit{Chequeo de excepciones tipo Runtime}\newline
-En lenguaje Java las excepciones tipo Runtime tales como NullPonterException, no
+En lenguaje Java las excepciones tipo Runtime tales como NullPointerException, no
 son verificadas a tiempo de compilación, sin embargo, buscando evitar la
 generación de canales encubiertos mediante las mismas, Jif si las verifica. 
 En consecuencia, si un programa requiere excepciones NullPointerException,
