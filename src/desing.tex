@@ -158,6 +158,32 @@ su implementación las estructuras de datos descritas.\newline
 %(\{\}):}\newline
 
 \section{Diseño de la solución} 
+En los preeliminares para el diseño de la solución se consideró la siguiente
+opción de solución: Anotar un conjunto de aplicaciones de la Api de Android
+mediante el sistema de anotaciones de Jif, de modo que el compilador de Jif
+reconciera clases propias de la Api de android.\newline
+Habiendo asegurado el reconocimiento a un conjunto de aplicaciones de la Api de
+Android, era tarea del desarrollador implementar la versión Jif del aplicativo a
+evaluar.
+Si bien, con dicha opción de diseño se aportaba para 
+% Si bien, al reconocer clases de la Api de Android mediante anotaciones Jif, era
+% ya un aporte para 
+que el desarrollador pudiese evaluar flujos de información en su
+aplicación, mediante Jif; también se incrementaba su carga de progración, puesto
+que, al delegarle la anotación de la aplicación, este debía pensar dos versiones
+de la misma, la versión .java donde utiliza clases de la Api de Android para
+describir el comportamiento de la aplicación, y la versión .jif , donde mediante
+el sistema de anotaciones describía la política a evaluar, es decir, el
+desarrolador debía aprender a implentar aplicaciones en Jif.\newline
+
+Ante lo anterior, se opta por un diseño en que el analisis del aplicativo no
+implique carga de programación adicional para el desarrollador, sino que por el
+contrario, facilite la labor del análisis.
+Así, se define una política de seguridad, se anota un conjunto de aplicaciones
+de la API Android, y se diseña un anotador de aplicaciones. Con el anotador se
+libera al programador de la necesidad de aprender a implementar en Jif para
+analizar determinada aplicación.
+
 \subsection{Definición de la política de seguridad}
 \label{subsection:politica}
 Detectar si una aplicación Android(perteneciente al conjunto evaluable) presenta
