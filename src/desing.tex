@@ -5,7 +5,7 @@
 \label{sec:limitaciones}
 Como parte del diseño de la solución, se inicia con una etapa exploratoria. En
 esta se anotan manualmente varias aplicaciones de Android, y se identifican
-limitaciones del lenguaje Jif para anotar código del framework Android.
+limitaciones del lenguaje Jif para anotar código de la API de Android.
 Tales limitaciones son adicionales a las características del lenguaje Java no
 reconocidas por Jif, a continuación se describen tanto las encontradas, como las
 especificadas en el manual de referencia de Jif.
@@ -97,8 +97,8 @@ versión Jif generalizada de la clase R, que contenga los recursos utilizados en
 una aplicación, definidos como variables y no como clases.
 
 - \textit{Sources y Sinks}\newline
-En el diseño inicial de la solución se propone utilizar SuSi para clasificar
-los sources y sinks en las aplicaciones a analizar, sin embargo, partir del
+En los preeliminares para el diseño de la solución se propone utilizar SuSi
+para clasificar los sources y sinks en las aplicaciones a analizar, sin embargo, partir del
 extenso conjunto de sources y sinks, clasificados por SuSi para la API de
 Android, implica una mayor complejidad en el análisis, puesto que, en un
 aplicativo todo el código que le conforma puede hacer parte de sources o de
@@ -157,32 +157,35 @@ su implementación las estructuras de datos descritas.\newline
 %- \textit{Paso de statements dentro de los argumentos de un método
 %(\{\}):}\newline
 
-\section{Diseño de la solución} 
+\section{\textcolor{red}{Diseño de la solución}}
 En los preeliminares para el diseño de la solución se consideró la siguiente
-opción de solución: Anotar un conjunto de aplicaciones de la Api de Android
-mediante el sistema de anotaciones de Jif, de modo que el compilador de Jif
-reconciera clases propias de la Api de android.\newline
-Habiendo asegurado el reconocimiento a un conjunto de aplicaciones de la Api de
-Android, era tarea del desarrollador implementar la versión Jif del aplicativo a
-evaluar.
-Si bien, con dicha opción de diseño se aportaba para 
-% Si bien, al reconocer clases de la Api de Android mediante anotaciones Jif, era
-% ya un aporte para 
-que el desarrollador pudiese evaluar flujos de información en su
-aplicación, mediante Jif; también se incrementaba su carga de progración, puesto
-que, al delegarle la anotación de la aplicación, este debía pensar dos versiones
-de la misma, la versión .java donde utiliza clases de la Api de Android para
-describir el comportamiento de la aplicación, y la versión .jif , donde mediante
-el sistema de anotaciones describía la política a evaluar, es decir, el
-desarrolador debía aprender a implentar aplicaciones en Jif.\newline
+opción: Anotar un conjunto de clases de la API de Android mediante el sistema de
+anotaciones de Jif, de modo que el compilador de Jif reconciera clases propias
+de esa API, y por tanto, permitiese el análisis de flujo de información a través
+de estas. Habiendo asegurado el reconocimiento a un
+conjunto de clases de la Api de Android, era tarea del desarrollador implementar
+la versión Jif del aplicativo a evaluar.
 
-Ante lo anterior, se opta por un diseño en que el analisis del aplicativo no
+Si bien, con dicha opción de diseño se aporta para que el desarrollador logre
+evaluar flujos de información en su aplicación, mediante Jif; también se
+incrementa su carga de programación, puesto que, al delegarle la anotación de la
+aplicación a analizar, este debe pensar dos versiones. La versión .java, donde
+utiliza los métodos proveídos por la API para definir las funcionalidades de su aplicación;
+y la versión .jif, donde define las anotaciones pertinentes para evaluar flujos
+de información; tarea para la cual, se requiere un conocimiento previo
+del sistema de anotaciones de Jif y la implementación de aplicaciones
+haciendo uso de las mismas.\newline 
+En consecuencia, se opta por un diseño en que el analisis del aplicativo no
 implique carga de programación adicional para el desarrollador, sino que por el
-contrario, facilite la labor del análisis.
-Así, se define una política de seguridad, se anota un conjunto de aplicaciones
-de la API Android, y se diseña un anotador de aplicaciones. Con el anotador se
-libera al programador de la necesidad de aprender a implementar en Jif para
-analizar determinada aplicación.
+contrario, facilite la labor del análisis.\newline 
+La solución a diseñar consiste en un anotador que genere las anotaciones
+respectivas del aplicativo, acorde a una política de seguridad previamente
+definida.
+Así, (1) se parte definiendo la política de seguridad a evaluar
+\ref{subsection:politica}, (2) se toman a consideración elementos influyentes
+para verificar el cumplimiento de la política mediante Jif
+\ref{subsec:consVerPol}, y finalmente, teniendo en cuenta (1) y (2), se definen
+los pasos necesarios para el diseño del anotador \ref{subsec:pasosSol}.
 
 \subsection{Definición de la política de seguridad}
 \label{subsection:politica}
@@ -273,7 +276,7 @@ que se pueden sobreescribir, todo programa Android que extienda de tales clases
 debe poder utilizarlos.
 
 
-\subsection{Pasos para el diseño de la solución}
+\subsection{Pasos para del anotador}
 \label{subsec:pasosSol}
 \begin{figure}[t!]
 	\begin{center}
@@ -282,16 +285,23 @@ debe poder utilizarlos.
 	\caption{Entradas y salidas para el generador de anotaciones.}
 	\label{fig:desingSolution} 
 \end{figure}
+\textcolor{red}
+{
 Una vez clarificadas las limitaciones técnicas y los elementos a considerar para
 el diseño de la solución, se describen los pasos necesarios para la
-implementación de la misma. Como se ilustra en la figura
+implementación de la misma.\newline 
+Como se ilustra en la figura
 \ref{fig:desingSolution}, la solución a implementar consiste en un anotador de
 aplicaciones Android, que recibe como entrada una aplicación
 Android(perteneciente al conjunto evaluable), y devuelve la versión Jif del
 mismo, el cual contiene las anotaciones para evaluar la política de seguridad
-definida. Luego el programa obtenido se compila con el compilador de
-Jif.\newline
-
+definida. Luego el programa obtenido se evalua con el compilador de Jif.\newline
+Ahora, para que el compilador de Jif reconozca classes específicos de la Api de
+Android, es necesario Anotarlas. De este modo, son dos los pasos para el diseño
+de la solución.\newline
+Paso uno: anotación de clases de la API de Android; y, Paso dos: criterios para
+implementar el anotador. A continuación, se describen los pasos detalladamente.
+}
 \textit{Paso uno: hacer que Jif reconozca determinadas clases de la API de
 Android}.
 
@@ -350,7 +360,7 @@ influenciar(acceder, modificar) o no, información anotada con nivel de segurida
 alto.
 
 En base a lo anterior, se define un algoritmo de anotación que se condensa en un
-generador de anotaciones; y se fundamentado en las siguientes
+generador de anotaciones; y está fundamentado en las siguientes
 definiciones:\newline \textit{Definición A:} anotación de variables con nivel de
 seguridad alto:\newline modifier type\{Alice:\} varName;\newline 
 \textit{Definición B:} métodos que se sobreescriben. El sistema de anotaciones
