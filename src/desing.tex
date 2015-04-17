@@ -97,7 +97,7 @@ versión Jif generalizada de la clase R, que contenga los recursos utilizados en
 una aplicación, definidos como variables y no como clases.
 
 - \textit{Sources y Sinks}\newline
-En los preeliminares para el diseño de la solución se propone utilizar SuSi
+En los preliminares para el diseño de la solución se propone utilizar SuSi
 para clasificar los sources y sinks en las aplicaciones a analizar, sin embargo, partir del
 extenso conjunto de sources y sinks, clasificados por SuSi para la API de
 Android, implica una mayor complejidad en el análisis, puesto que, en un
@@ -158,25 +158,25 @@ su implementación las estructuras de datos descritas.\newline
 %(\{\}):}\newline
 
 \section{Diseño de la solución}
-En los preeliminares para el diseño de la solución se consideró la siguiente
+En los preliminares para el diseño de la solución se consideró la siguiente
 opción: Anotar un conjunto de clases de la API de Android mediante el sistema de
-anotaciones de Jif, de modo que el compilador de Jif reconciera clases propias
+anotaciones de Jif, de modo que el compilador de Jif reconociera clases propias
 de esa API, y por tanto, permitiese el análisis de flujo de información a través
 de estas. Habiendo asegurado el reconocimiento a un
-conjunto de clases de la Api de Android, era tarea del desarrollador implementar
+conjunto de clases de la API de Android, era tarea del desarrollador implementar
 la versión Jif del aplicativo a evaluar.
 
-Si bien, con dicha opción de diseño se aporta para que el desarrollador logre
-evaluar flujos de información en su aplicación, mediante Jif; también se
+Si bien, con dicha opción de diseño se aporta para que el desarrollador
+Android evalúe flujos de información en su aplicación, mediante Jif; también se
 incrementa su carga de programación, puesto que, al delegarle la anotación de la
 aplicación a analizar, este debe pensar dos versiones. La versión .java, donde
-utiliza los métodos proveídos por la API para definir las funcionalidades de su aplicación;
-y la versión .jif, donde define las anotaciones pertinentes para evaluar flujos
-de información; tarea para la cual, se requiere un conocimiento previo
-del sistema de anotaciones de Jif y la implementación de aplicaciones
-haciendo uso de las mismas. 
+utiliza los métodos proveídos por la API para definir las funcionalidades de su
+aplicación; y la versión .jif, donde define las anotaciones pertinentes para
+evaluar flujos de información; tarea para la cual, se requiere un conocimiento
+previo del sistema de anotaciones de Jif y la implementación de aplicaciones
+haciendo uso de las mismas.
 
-En consecuencia, se opta por un diseño en que el analisis del aplicativo no
+En consecuencia, se opta por un diseño en que el análisis del aplicativo no
 implique carga de programación adicional para el desarrollador, sino que por el
 contrario, facilite la labor del análisis.\newline 
 El diseño de solución consta de dos elementos fundamentales: anotaciones a la
@@ -301,11 +301,10 @@ debe poder utilizarlos.
 \end{figure}
 
 El compilador de Jif tiene implementadas mediante el sistema de anotaciones Jif,
-las clases estandar del lenguaje Java para las que brinda soporte.\newline
+las clases estándar del lenguaje Java para las que brinda soporte.\newline
 Ahora, para incluir clases Java ya existentes es posible recurrir a signaturas
 nativas, con las cuales se implementa la versión Jif de las clases fuentes, esto
-es, declarando constructores y cuerpo de los métodos a utilizar de la clase
-fuente.
+es, declarando constructores y cuerpo de los métodos a utilizar.
 
 Para dar soporte a clases específicas de la API de Android se recurre a ambas
 opciones de anotación. Tal como se ilustra en la figura
@@ -337,7 +336,7 @@ Android(perteneciente al conjunto evaluable), para retornar su respectiva
 implementación en Jif, versión que contiene las anotaciones para evaluar la
 política de seguridad definida. Tal como se ilustra en la figura
 \ref{fig:desingSolution}\newline 
-Luego la versión obtenida se evalua con el compilador de Jif.
+Luego la versión obtenida se evalúa con el compilador de Jif.
 
 A continuación, se definen los lineamientos de anotación:\newline
 % \textit{Paso dos: Definir Autoridades y forma de anotación del aplicativo
