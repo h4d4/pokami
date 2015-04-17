@@ -157,7 +157,7 @@ su implementación las estructuras de datos descritas.\newline
 %- \textit{Paso de statements dentro de los argumentos de un método
 %(\{\}):}\newline
 
-\section{\textcolor{red}{Diseño de la solución}}
+\section{Diseño de la solución}
 En los preeliminares para el diseño de la solución se consideró la siguiente
 opción: Anotar un conjunto de clases de la API de Android mediante el sistema de
 anotaciones de Jif, de modo que el compilador de Jif reconciera clases propias
@@ -174,18 +174,24 @@ utiliza los métodos proveídos por la API para definir las funcionalidades de s
 y la versión .jif, donde define las anotaciones pertinentes para evaluar flujos
 de información; tarea para la cual, se requiere un conocimiento previo
 del sistema de anotaciones de Jif y la implementación de aplicaciones
-haciendo uso de las mismas.\newline 
+haciendo uso de las mismas. 
+
 En consecuencia, se opta por un diseño en que el analisis del aplicativo no
 implique carga de programación adicional para el desarrollador, sino que por el
 contrario, facilite la labor del análisis.\newline 
-La solución a diseñar consiste en un anotador que genere las anotaciones
-respectivas del aplicativo, acorde a una política de seguridad previamente
-definida.
+El diseño de solución consta de dos elementos fundamentales: anotaciones a la
+API de Android, más el anotador que genere la versión Jif del aplicativo a
+analizar, acorde a una política de seguridad previamente definida.\newline
+Ambos elementos son complementarios, puesto que, por más que se genere la
+versión Jif del aplicativo a analizar, si el compilador no reconoce clases
+específicas de la API que allí se usan, .jif no puede ser compilado.
+
 Así, (1) se parte definiendo la política de seguridad a evaluar
 \ref{subsection:politica}, (2) se toman a consideración elementos influyentes
 para verificar el cumplimiento de la política mediante Jif
-\ref{subsec:consVerPol}, y finalmente, teniendo en cuenta (1) y (2), se definen
-los pasos necesarios para el diseño del anotador \ref{subsec:pasosSol}.
+\ref{subsec:consVerPol}, y finalmente, teniendo en cuenta (1) y (2), se
+especifican anotaciones a la API de Android \ref{subsec:apiAnnotations} y se
+definen los lineamientos del anotador \ref{subsec:anotador}.
 
 \subsection{Definición de la política de seguridad}
 \label{subsection:politica}
@@ -275,35 +281,8 @@ Los métodos de las clases Activity, Service y BroadcastReceiver, son métodos
 que se pueden sobreescribir, todo programa Android que extienda de tales clases
 debe poder utilizarlos.
 
-
-\subsection{Pasos para del anotador}
-\label{subsec:pasosSol}
-\begin{figure}[t!]
-	\begin{center}
-	\includegraphics[width=7cm]{desingSolution.jpg}
-	\end{center}
-	\caption{Entradas y salidas para el generador de anotaciones.}
-	\label{fig:desingSolution} 
-\end{figure}
-\textcolor{red}
-{
-Una vez clarificadas las limitaciones técnicas y los elementos a considerar para
-el diseño de la solución, se describen los pasos necesarios para la
-implementación de la misma.\newline 
-Como se ilustra en la figura
-\ref{fig:desingSolution}, la solución a implementar consiste en un anotador de
-aplicaciones Android, que recibe como entrada una aplicación
-Android(perteneciente al conjunto evaluable), y devuelve la versión Jif del
-mismo, el cual contiene las anotaciones para evaluar la política de seguridad
-definida. Luego el programa obtenido se evalua con el compilador de Jif.\newline
-Ahora, para que el compilador de Jif reconozca classes específicos de la Api de
-Android, es necesario Anotarlas. De este modo, son dos los pasos para el diseño
-de la solución.\newline
-Paso uno: anotación de clases de la API de Android; y, Paso dos: criterios para
-implementar el anotador. A continuación, se describen los pasos detalladamente.
-}
-\textit{Paso uno: hacer que Jif reconozca determinadas clases de la API de
-Android}.
+\subsection{Anotaciones a la API de Android}
+\label{subsec:apiAnnotations}
 
 \begin{figure}[h!]
 	\begin{center}
@@ -317,29 +296,52 @@ Android}.
 	\begin{center}
 	\includegraphics[width=12cm]{desingSol-step1-details.jpg}
 	\end{center}
-	\caption{Diseño de la solución paso 1. Ilustra las clases especificas de la
-	API de Android, anotadas manualmente.}
+	\caption{Clases de la API a anotar.}
 	\label{fig:desingSol-details}
 \end{figure}
-Adicional al mecanismo de anotación que se maneja en Jif, en que para hacer
-análisis al flujo de información de un programa Java, se debe implementar la
-versión del respectivo programa para Jif. También es posible adicionar clases
-Java ya existentes, utilizando signaturas nativas para que el compilador Jif las
-reconozca, esto es: generando una versión Jif de la clase java, donde se
-declaran constructores y cuerpo de los métodos a utilizar de la clase fuente
-Java.\newline
-Para el presente trabajo se utilizan ambas opciones de anotación. Tal como se
-ilustra en la figura \ref{fig:desingSol-steps1}. 
-El criterio para decidir que se anota de una u otra forma, depende de lo que
-represente la clase Android para verificar la política de seguridad establecida.
-Las clases Log y SmsManager, que representan canales para conocer información,
-son anotadas de forma no nativa. La opción de anotación nativa se utiliza para
-librerías Android, por ejemplo la clase TelephonyManager necesaria para utilizar
-el método getDeviceId. En la figura \ref{fig:desingSol-details} se especifican
-clases de la API Android a anotar.\newline
 
-\textit{Paso dos: Definir Autoridades y forma de anotación del programa Android
-a analizar.}\newline
+El compilador de Jif tiene implementadas mediante el sistema de anotaciones Jif,
+las clases estandar del lenguaje Java para las que brinda soporte.\newline
+Ahora, para incluir clases Java ya existentes es posible recurrir a signaturas
+nativas, con las cuales se implementa la versión Jif de las clases fuentes, esto
+es, declarando constructores y cuerpo de los métodos a utilizar de la clase
+fuente.
+
+Para dar soporte a clases específicas de la API de Android se recurre a ambas
+opciones de anotación. Tal como se ilustra en la figura
+\ref{fig:desingSol-steps1}.\newline 
+El criterio para decidir que se anota de una u otra forma, depende de lo que
+represente la clase Android para verificar la política de seguridad
+establecida.\newline
+Las clases Log y SmsManager, que representan canales para conocer información,
+son anotadas de forma no nativa.\newline
+La opción de anotación nativa se utiliza
+para librerías Android, por ejemplo la clase TelephonyManager necesaria para utilizar
+el método getDeviceId.\newline
+En la figura \ref{fig:desingSol-details} se
+especifican clases de la API Android a anotar.\newline
+
+\subsection{Diseño del anotador}
+\label{subsec:anotador}
+\label{subsec:pasosSol}
+\begin{figure}[H]
+	\begin{center}
+	\includegraphics[width=7cm]{desingSolution.jpg}
+	\end{center}
+	\caption{Entradas y salidas para el generador de anotaciones.}
+	\label{fig:desingSolution} 
+\end{figure}
+
+El anotador debe recibir como entrada el código fuente de la aplicación
+Android(perteneciente al conjunto evaluable), para retornar su respectiva
+implementación en Jif, versión que contiene las anotaciones para evaluar la
+política de seguridad definida. Tal como se ilustra en la figura
+\ref{fig:desingSolution}\newline 
+Luego la versión obtenida se evalua con el compilador de Jif.
+
+A continuación, se definen los lineamientos de anotación:\newline
+% \textit{Paso dos: Definir Autoridades y forma de anotación del aplicativo
+% Android a analizar.}\newline
 Una clase Android tendrá una Autoridad máxima(un principal), en este caso Alice,
 así que, información con nivel de seguridad alto deberá pertenecer a dicha
 autoridad.\newline
