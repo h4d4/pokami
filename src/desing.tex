@@ -158,6 +158,15 @@ su implementación las estructuras de datos descritas.\newline
 %(\{\}):}\newline
 
 \section{Diseño de la solución}
+
+\textcolor{red}
+{Pregunta: los siguientes tres parrafos explican que se cambió la propuesta
+incial y por qué. Es adecuado clarificarlo aquí, o se debe actualizar la
+propuesta inicial acorde al diseño real? Nota: Sandra recomienda que discutamos
+si los cambios han sido en el diseño o en la implementación. De ello depende
+dónde deben ir, es decir, si se cambian los preliminares para el diseño de la
+solución o si se dejan aquí.}
+
 En los preliminares para el diseño de la solución se consideró la siguiente
 opción: Anotar un conjunto de clases de la API de Android mediante el sistema de
 anotaciones de Jif, de modo que el compilador de Jif reconociera clases propias
@@ -170,8 +179,8 @@ Si bien, con dicha opción de diseño se aporta para que el desarrollador
 Android evalúe flujos de información en su aplicación, mediante Jif; también se
 incrementa su carga de programación, puesto que, al delegarle la anotación de la
 aplicación a analizar, este debe pensar dos versiones. La versión .java, donde
-utiliza los métodos proveídos por la API para definir las funcionalidades de su
-aplicación; y la versión .jif, donde define las anotaciones pertinentes para
+utiliza los métodos proveídos por la API Android para definir las
+funcionalidades de su aplicación; y la versión .jif, donde define las anotaciones pertinentes para
 evaluar flujos de información; tarea para la cual, se requiere un conocimiento
 previo del sistema de anotaciones de Jif y la implementación de aplicaciones
 haciendo uso de las mismas.
@@ -281,6 +290,96 @@ Los métodos de las clases Activity, Service y BroadcastReceiver, son métodos
 que se pueden sobreescribir, todo programa Android que extienda de tales clases
 debe poder utilizarlos.
 
+\subsection{Cómo funciona el sistema de anotaciones en Jif(Para
+Justificar, las anotaciones propuestas)(Ubicación temporal)}
+Jif es un lenguaje tipado de seguridad que extiende al lenguaje Java con labels
+de seguridad, a través de los cuales se especifican restricciones de cómo
+debería ser utilizada la información.\newline 
+Jif está compuesto por un compilador y un sistema de anotaciones.\newline
+% El sistema de anotaciones está basado en un modelo de etiquetas
+% DLM(Decentralized Label Model), donde existen principals, políticas y
+% labels.\newline
+Para hacer seguimiento al control de flujo de información de un programa
+implementado en Java, se debe implementar la respectiva versión Jif, es decir,
+la versión del programa donde mediante el sistema de anotaciones se especifican
+las políticas de seguridad a evaluar.\newline 
+Luego, la versión Jif del programa se compila con el compilador de Jif.
+Este aplica chequeo de labels(label checking)\cite{jifRef} para verificar que
+los flujos de información que se generan al interior del programa, cumplen con
+las políticas definidas.\newline
+
+-DML(Decentralized Label Model)\newline
+Jif basa su sistema de anotaciones en el modelo de etiquetas DLM(Decentralized
+Label Model), donde se manejan tres elementos fundamentales: Principals,
+Políticas y Labels.\newline
+Principals: un principal es una entidad con autoridad para observar y cambiar
+aspectos del sistema. Jif cuenta con una serie de principals ya
+definidos, por ejemplo, Alice, Bob, Chunck, etc, que pueden ser
+utilizados al momento de anotar.\newline 
+Políticas: mediante políticas de seguridad el dueño de la política, que es el
+principal que la define, determina qué otros principals pueden leer o
+influenciar la información. Así, una política puede ser de confidencialidad o de
+integridad, y se especifican de la forma: \{owner: reader list\} u
+\{owner: writer list\}.\newline 
+Labels: un label consiste en un conjunto de políticas de confidencialidad e
+integridad. Los labels se escriben en las expresiones del progrma que se
+anota(labels de seguridad), esto es métodos, variables, arrays, etc..\newline 
+En sisntesís, las políticas de seguridad definen que principals pueden leer o
+modificar la información, y esas políticas se expresan mediante labels.\newline
+
+- Label Checking\newline
+Para hacer seguimiento al flujo de información de un programa, el compilador de
+Jif asocia un label al program counter de cada punto del programa,
+progam-counter label(\underline{pc}). En cada punto del programa, el
+(\underline{pc}) representa la información que podría conocerse tras la
+ejecución de ese punto del programa.
+El (\underline{pc}) es afectado por los labels con que se define cada sentencia
+y expresión del programa, por tanto este es considerado como el límite
+superior(máxima información que podría conocerse) de los labels que han afectado
+el flujo de información para llegar a un determinado punto de ejecución.\newline
+Adicionalmente, jif define labels que representan la información que podría
+conocerse tras la terminación normal, o terminación por excepción de las
+sentencias del programa. Y labels enviroments, que para cada punto del programa
+determinan la forma en que se relacionan labels y principals.\newline
+El valor dichos labels es verificado durante la compilación del programa, si se
+detecta que no cumplen con las restricciones establecidas en la anotación del
+mismo, el compilador genera error, indicando los puntos del programa que las
+incumple.\newline
+
+- Sintaxis de labels y sintaxis para anotación de sentencias en Jif\newline
+
+En Jif, cada expresión del programa está conformada por dos partes: java type +
+security labels un label.\newline
+
+-Llamada a métodos
+-Implicit flows and program-counter labels\newline
+
+\subsection{Diseño de anotación}
+Para verificar el cumplimiento de la política de seguridad
+establecida\ref{subsection:politica} mediante el sistema de anotaciones de Jif,
+se requiere: (a)anotaciones a determinadas clases de la API de Android y
+(b)anotación del aplicativo a evaluar frente a esa política de
+seguridad.\newline
+Previamente en \ref{subsec:consVerPol}, se definieron los canales que muestran
+información con nivel de seguridad bajo y la información considerada con nivel
+de seguridad alto. Ahora, para detectar flujos desde información considera con
+nivel de seguridad alto hacia canales con nivel de seguridad bajo, se propone el
+siguiente esquema de anotación:\newline
+Primero, debe existir un top principal al que se le atribuya la autoridad
+máxima.\newline
+Segundo, en el caso de las variables que almacenan información considerada con
+nivel de seguridad alto, el label de seguridad debe indicar que pertenecen al
+top principal.\newline
+Tercero, en el caso de los canales considerados con nivel de seguridad bajo, los
+AL de los argumentos que muestran información que sólo debería ser conocida por
+el top Principal, se anota con label público, asegurando que la información sólo se
+mostrará si el AL de la invocación del método está asociado con un AL público,
+es decir si se envía información considerada como pública.
+
+
+
+
+
 \subsection{Anotaciones a la API de Android}
 \label{subsec:apiAnnotations}
 
@@ -372,8 +471,11 @@ todo programa Android, siguiendo con este principio, y buscando que jif no
 limite el flujo de información, estos métodos deben ser anotados con BL
 público(\{\}).\newline 
 \textit{Definición C:} anotación de métodos con sources\newline
-Los labels para la definición del método(BL, EL, AL )se anotan de la
-siguiente manera:\newline modifier type
+\textcolor{red}{La definición de los terminos etá en: Sintaxis de anotación en
+Jif \ref{subsec:JifSintax}, debo recordar lo que significan, o remito el lector
+a dicha sección?}\newline
+Los labels para la definición del método\textcolor{red}{(BL, EL,
+AL )}se anotan de la siguiente manera:\newline modifier type
 nameMethod\textit{\{Alice:\}} type\textit{\{Alice:\}}
 ( arg1,.....type\textit{\{Alice:\}}argn ) \{\}\newline Si dentro del método se
 definen arrays, sus respectivos BL y SL, deben ser anotados así: modifier type\{Alice:\}[ ]\{Alice:\}\newline
@@ -397,5 +499,9 @@ D.\newline
 \subsection{Descripción implementación prototipo}
 -Diagrama de clases o descripción\newline
 En la sección \ref{sec:diagramaClass} de los anexos, se incluye el diagrama de
-clases para la implementación del anotador.
+clases para la implementación del anotador.\newline
+
+El anotador consta de cinco clases 
+
+
 
