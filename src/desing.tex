@@ -463,11 +463,39 @@ sistema, a la versión simplificada puede específicar u omitir labels de
 seguridad(mecanismo de signaturas nativas más labels de seguridad).\newline 
 Para el presente caso y de acuerdo a los criterios de anotación previamente
 establecidos las clases a implementar mediante uno u otro mecanismo, son
-ilustrados en la siguiente figura \ref{fig:annotationsMechanims}.
+ilustrados en la siguiente figura \ref{fig:annotationsMechanims}.\newline
+Nota: Falta decir qué las anotaciones a la API se implementan manualmente.
 
 \textbf{(c)Criterios de anotación de los aplicativos a analizar}\newline
+- Aquí se definen los criterios de anotación del aplicativo a analizar, y
+partiendo de estos se define un algoritmo de anotación.\newline
+- Al final describir exactamente las entradas y salidas del anotador, que es
+donde se condensa el algoritmo de anotación.\newline
 
 
+Para evaluar los flujos de información de una aplicación Android, de modo que
+se verifique si cumplen con la política de seguridad definida
+\ref{subsection:politica}; es necesario implementar su respectiva versión Jif,
+esto implica que variables y métodos de la clase sean anotados haciendo uso del
+sistema de anotaciones de Jif.\newline 
+Ante esto, se propone un esquema de anotación enfocado a detectar flujos de
+información desde: información considerada con nivel de seguridad alto,
+hacia: canales considerados con nivel de seguridad bajo.\newline 
+Retomando definiciones previas:\newline
+- \textit{(a)Elementos básicos de anotación}\newline
+Top principal (Alice), label de seguridad con nivel de seguridad alto
+(\{Alice:\}) y label de seguridad con nivel de seguridad bajo (\{\}).\newline
+- \textit{Canales que muestran información con nivel de seguridad
+bajo}; como la anotación para los métodos que representan tales canales se realiza desde la
+definición misma de los métodos en la API, los labels de seguridad para la
+información a mostrar(logs) o enviar(msn), debe ser pública si realmente se pude
+mostrar xxx.\newline
+- \textit{Información considerada con nivel de seguridad alto}\newline
+Los métodos que integran el conjunto de sources son: getDeviceId,
+getSimSerialNumber, findViewById, getLatitude, getLongitude y getSubscriberId.
+Adicional a estos métodos, se incluye el tipo de dato EditText, si y sólo si, el
+campo UI al que referencia corresponde a un campo tipo textPassword, es decir,
+un campo que almacena contraseñas. 
 
 
 
