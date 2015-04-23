@@ -361,7 +361,7 @@ establecida\ref{subsection:politica} mediante el sistema de anotaciones de Jif,
 se requiere: (a) definir los elementos básicos de anotación, (b) definir
 las anotaciones necesarias para la API de Android y (c) definir los
 criterios de anotación para los aplicativos a analizar, tales
-criterios se sintetizan en un anotador.\newline
+criterios se sintetizan en un anotador.
 
 \textbf{(a)Elementos básicos de anotación}\newline
 En \ref{subsec:consVerPol} se definió qué \textit{Canales muestran
@@ -388,6 +388,14 @@ es de nivel de seguridad bajo y que por tanto puede ser de conocimiento público
 
 
 \textbf{(b)Anotaciones a la API de Android}\newline
+
+\begin{figure}[h!]
+	\begin{center}
+	\includegraphics[width=12cm]{annotationsMechanims.jpeg}
+	\end{center}
+	\caption{Mecánismos de anotación para clases de la API.}
+	\label{fig:annotationsMechanims}
+\end{figure}
 
 - Anotaciones para \textit{Canales que muestran información con nivel de
 seguridad bajo}: para controlar el flujo de información que se envía hacia
@@ -423,14 +431,13 @@ restrictivo y que es más restrictivo? Definiciones previas).
 extienda de las clases Activity, Service y BroadcastReceiver.\newline
 Para cumplir con (1) y (2), los métodos que requieren ser sobreescritos se
 definen con BL público(\{\}). De este modo los aplicativos desde dónde se
-invocan los métodos a sobreescribir deben tener igual BL.\newline
+invocan los métodos a sobreescribir deben tener igual BL.
 
 - Adicional a las clases de la API (Log, SmsManager, Activity, Service y
 BroadcastReceiver), es necesario brindar soporte a un conjunto de clases que
 representan librerias importadas por los aplicativos a analizar.(Estas
-son)Brindar soporte significa que deben ser reconocidas por el compilador Jif.\newline
+son)Brindar soporte significa que deben ser reconocidas por el compilador Jif.
 
-% 
 % Y para poder integrarlas al conjunto de clases reconocidas por el compilador
 % de Jif, basta con recurrir a signaturas nativas. Mediante el uso de signaturas
 % nativas es posible incluir clases Java ya existentes. Tal mecanismo consiste en
@@ -455,53 +462,53 @@ Dependiendo de las implicaciones que pueda tener para el análisis de flujo de i
 sistema, a la versión simplificada puede específicar u omitir labels de
 seguridad(mecanismo de signaturas nativas más labels de seguridad).\newline 
 Para el presente caso y de acuerdo a los criterios de anotación previamente
-establecisos las clases a implementar mediante uno u otro mecanismo, se exponen
-en la siguiente figura.
+establecidos las clases a implementar mediante uno u otro mecanismo, son
+ilustrados en la siguiente figura \ref{fig:annotationsMechanims}.
+
+\textbf{(c)Criterios de anotación de los aplicativos a analizar}\newline
 
 
 
 
 
-
-
-\subsection{Anotaciones a la API de Android}
-\label{subsec:apiAnnotations}
-
-\begin{figure}[h!]
-	\begin{center}
-	\includegraphics[width=5cm]{desingSol-steps1.jpg}
-	\end{center}
-	\caption{Tipos de anotación necesarias para implementar la solución.}
-	\label{fig:desingSol-steps1}
-\end{figure}
-
-\begin{figure}[t!]
-	\begin{center}
-	\includegraphics[width=12cm]{desingSol-step1-details.jpg}
-	\end{center}
-	\caption{Clases de la API a anotar.}
-	\label{fig:desingSol-details}
-\end{figure}
-
-El compilador de Jif tiene implementadas mediante el sistema de anotaciones Jif,
-las clases estándar del lenguaje Java para las que brinda soporte.\newline
-Ahora, para incluir clases Java ya existentes es posible recurrir a signaturas
-nativas, con las cuales se implementa la versión Jif de las clases fuentes, esto
-es, declarando constructores y cuerpo de los métodos a utilizar.
-
-Para dar soporte a clases específicas de la API de Android se recurre a ambas
-opciones de anotación. Tal como se ilustra en la figura
-\ref{fig:desingSol-steps1}.\newline 
-El criterio para decidir que se anota de una u otra forma, depende de lo que
-represente la clase Android para verificar la política de seguridad
-establecida.\newline
-Las clases Log y SmsManager, que representan canales para conocer información,
-son anotadas de forma no nativa.\newline
-La opción de anotación nativa se utiliza
-para librerías Android, por ejemplo la clase TelephonyManager necesaria para utilizar
-el método getDeviceId.\newline
-En la figura \ref{fig:desingSol-details} se
-especifican clases de la API Android a anotar.\newline
+% \subsection{Anotaciones a la API de Android}
+% \label{subsec:apiAnnotations}
+% 
+% \begin{figure}[h!]
+% 	\begin{center}
+% 	\includegraphics[width=5cm]{desingSol-steps1.jpg}
+% 	\end{center}
+% 	\caption{Tipos de anotación necesarias para implementar la solución.}
+% 	\label{fig:desingSol-steps1}
+% \end{figure}
+% 
+% \begin{figure}[t!]
+% 	\begin{center}
+% 	\includegraphics[width=12cm]{desingSol-step1-details.jpg}
+% 	\end{center}
+% 	\caption{Clases de la API a anotar.}
+% 	\label{fig:desingSol-details}
+% \end{figure}
+% 
+% El compilador de Jif tiene implementadas mediante el sistema de anotaciones Jif,
+% las clases estándar del lenguaje Java para las que brinda soporte.\newline
+% Ahora, para incluir clases Java ya existentes es posible recurrir a signaturas
+% nativas, con las cuales se implementa la versión Jif de las clases fuentes, esto
+% es, declarando constructores y cuerpo de los métodos a utilizar.
+% 
+% Para dar soporte a clases específicas de la API de Android se recurre a ambas
+% opciones de anotación. Tal como se ilustra en la figura
+% \ref{fig:desingSol-steps1}.\newline 
+% El criterio para decidir que se anota de una u otra forma, depende de lo que
+% represente la clase Android para verificar la política de seguridad
+% establecida.\newline
+% Las clases Log y SmsManager, que representan canales para conocer información,
+% son anotadas de forma no nativa.\newline
+% La opción de anotación nativa se utiliza
+% para librerías Android, por ejemplo la clase TelephonyManager necesaria para utilizar
+% el método getDeviceId.\newline
+% En la figura \ref{fig:desingSol-details} se
+% especifican clases de la API Android a anotar.\newline
 
 \subsection{Diseño del anotador}
 \label{subsec:anotador}
