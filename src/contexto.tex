@@ -63,9 +63,15 @@ es un tipo especial de análisis de flujo de datos, que hace seguimiento al fluj
 de datos entre un conjunto de fuentes considerados privados y/o sensibles; y un
 conjunto de destinos considerados no confiables, sources y sinks,
 respectivamente.\newline 
-Tales propuestas se enfocan en analizar aplicativos de terceros para detectar
-flujos de datos indebidos, y no: para garantizar el cumplimiento de determinadas
-políticas de seguridad. En consecuencia, es complejo que el desarrollador
+\textcolor{blue}
+{ Tales propuestas se enfocan en analizar aplicativos de terceros para detectar
+flujos de datos indebidos en aplicaciones ya implementadas, y no: para
+garantizar el cumplimiento de determinadas políticas de seguridad desde la
+construcción de los mismos.}
+% Tales propuestas se enfocan en analizar aplicativos de terceros para detectar
+% flujos de datos indebidos, y no: para garantizar el cumplimiento de determinadas
+% políticas de seguridad. 
+En consecuencia, es complejo que el desarrollador
 garantice la ausencia de fugas de información en la aplicación que implementa,
 partiendo de tales herramientas. Puesto que, al seguir únicamente a los datos
 marcados, los datos no marcados para el análisis, pueden acarrear fugas de
@@ -76,13 +82,18 @@ No obstante, las limitaciones propias de un análisis basado en flujo de datos,
 pueden superarse enfocando el análisis de la aplicación hacia técnicas de
 análisis basadas en control de flujo de información, ya que estas analizan el
 aplicativo de forma estática para identificar todos los posibles caminos que
-podría tomar la aplicación en tiempo de ejecución. Así, con análisis basado en
-control de flujo de información, no sólo es posible prevenir fugas por
-under-tainting y flujos implícitos; sino que también, es posible ofrecer
-garantías del cumplimiento de determinadas políticas de seguridad.\newline 
-Ahora, las reglas para evaluar control de flujo de información pueden definirse
-mediante técnicas Security-Typed, por ejemplo como se definen con
-JIF \ref{JIF-Tool}, una herramienta basada en lenguajes tipados de seguridad
+podría tomar la aplicación en tiempo de ejecución. 
+% Así, con análisis basado en
+% control de flujo de información, no sólo es posible prevenir fugas por
+% under-tainting y flujos implícitos; sino que también, es posible ofrecer
+% garantías del cumplimiento de determinadas políticas de seguridad.\newline 
+\textcolor{blue}
+{Así, con análisis basado en
+control de flujo de información es posible garantizar el cumplimiento
+de determinadas políticas de seguridad, desde la construcción del
+aplicativo.}\newline 
+Ahora, las reglas para evaluar control de flujo de
+información pueden definirse mediante técnicas Security-Typed, por ejemplo como se definen con JIF \ref{JIF-Tool}, una herramienta basada en lenguajes tipados de seguridad
 para realizar control de flujo de información, el inconveniente es que está
 implementada para aplicaciones en Java, y no para aplicativos Android.\newline 
 En general, herramientas como estas, basadas en técnicas de análisis
