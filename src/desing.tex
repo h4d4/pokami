@@ -513,8 +513,10 @@ Conceptos:\newline
 Variable source: una variable source es una variable que almacena información
 proveída por algún elemento del conjunto de sources. Una variable source, tiene
 nivel de seguridad alto.\newline
-Método source: un método source es un método(definido dentro de la clase) que
-cuando es invocado, contiene dentro de los parámetros de invocación, al menos
+Array source: un array source es un array que alamcena información de variables
+source.\newline
+Método source: un método source es un método(definido dentro de la clase)
+que cuando es invocado, contiene dentro de los parámetros de invocación, al menos
 una varible source. Como el método influencia la información de la variable
 source, cuyo nivel de seguridad es alto, la información a conocer tras el
 llamado del método debe tener un nivel de seguridad alto.\newline 
@@ -524,24 +526,50 @@ invocación, varibles source. Como el método no influencia la información
 de la variable source, el nivel de seguridad de la información que se obtenga
 con el método depende del nivel de seguridad de información de sus argumentos.\newline 
 El esquema de anotación se centra en identificar si una clase contiene variables
-source, y verificar si los métodos de la clase influencían la información de
+source, y verificar si los métodos de la clase influencian la información de
 esas variables, de modo que, cuando la información sea envíada por canales con
-nivel de seguridad bajo, tenga el nivel de seguridad adecuado.
+nivel de seguridad bajo, tenga el nivel de seguridad adecuado.\newline
+Las variables y métodos que no son anotadas mediante este esquema, quedan con
+los labels de seguridad que Jif define por defecto para cada caso.(estos son).
+
 
 Partiendo del enfoque del esquema de anotación se precisan las definiciones de
 anotación y se definen los pasos de anotación:\newline
 \textit{Definición A:}\newline
-Anotación de variables source: como las variables source tienen nivel de
+Anotación de variable source: como las variables source tienen nivel de
 seguridad alto, se anotan con el label se guridad \{Alice:\}, ya que este
 indica que la información sólo puede ser conocida por la autoridad máxima del
 sistema(se trata de información privada).\newline
 \textit{Definición B:}\newline
-Anotación de métodos a sobreescribir: el BL de los métodos a sobreescribir(de la
-API) deben ser anotados con label de seguridad bajo \{\}, puesto que en su respectiva
-definición en las clases de la API, han sido definidas con ese BL.\newline
+Anotación de array source\newline
+Los labels de seguridad para definir un array source son:\newline
+modifier type\{Alice:\}[ ]\{Alice:\}\newline
 \textit{Definición C:}\newline
-Anotación de métodos source: 
+Anotación de método que se sobreescribe: el BL de los métodos a sobreescribir(de
+la API) deben ser anotados con label de seguridad bajo \{\}, puesto que en su respectiva
+definición en las clases de la API, han sido definidas con ese BL.\newline
+\textit{Definición D:}\newline
+Anotación de método source: un método source se define con los siguientes
+labels de seguridad:\newline
+modifier type nameMethod\textit{\{Alice:\}} type\textit{\{Alice:\}}\newline
+\textit{Definición E:}\newline
+Anotación de método no source: \newline
+nameMethod\textit{\{\}}(type\textit{\{Alice:\}}arg1,.....type\textit{\{Alice:\}}argn ) \{\}\newline
 
+Pasos para la anotación\newline
+(1) Identificar variables source de la clase. Si se encuentran variables sources
+continuar con los pasos (2) a (11), sino, continuar con pasos: (3), (6) y (9).
+definiciones B y D.\newline
+(2) Identificar arrays sources de la clase.
+(3) Identificar el total de métodos de la clase.\newline
+(4) Del total de métodos listar los métodos source.\newline
+(5) Del total de métodos listar los métodos no source.\newline
+(6) Del total de métodos listar los métodos a sobreescribir\newline
+(7) Aplicar definición D a listado del paso(4).\newline
+(8) Aplicar definición E a listado del paso (5).\newline
+(9) Aplicar definición C a listado del paso (6).\newline
+(10) Aplicar definición B a listado del paso (2).\newline
+(11) Aplicar definición A a listado del paso (1).\newline
 
 % \subsection{Anotaciones a la API de Android}
 % \label{subsec:apiAnnotations}
@@ -638,27 +666,28 @@ público(\{\}).\newline
 Jif \ref{subsec:JifSintax}, debo recordar lo que significan, o remito el lector
 a dicha sección?}\newline
 Los labels para la definición del método\textcolor{red}{(BL, EL,
-AL )}se anotan de la siguiente manera:\newline modifier type
-nameMethod\textit{\{Alice:\}} type\textit{\{Alice:\}}
+AL )}se anotan de la siguiente manera:\newline 
+modifier type nameMethod\textit{\{Alice:\}} type\textit{\{Alice:\}}
 ( arg1,.....type\textit{\{Alice:\}}argn ) \{\}\newline Si dentro del método se
 definen arrays, sus respectivos BL y SL, deben ser anotados así: modifier type\{Alice:\}[ ]\{Alice:\}\newline
 \textit{Definición D:} anotación de métodos que no reciben información del
 source. 
 nameMethod\textit{\{\}}(
-type\textit{\{Alice:\}}arg1,.....type\textit{\{Alice:\}}argn ) \{\}\newline
-Teniendo claras las anteriores definiciones, los pasos para el algoritmo son los
+type\textit{\{Alice:\}}arg1,.....type\textit{\{Alice:\}}argn ) \{\}\newline Teniendo claras las anteriores definiciones, los pasos para el algoritmo son los
 siguiente:\newline
 (1) Identificar sources de la clase. Si se encuentran sources continuar con
 los pasos (2) a (4), sino, continuar con paso (2) y aplicar definiciones B y
 D.\newline
+(*) Identificar arrays sources de la clase 
 (2) Identificar el total de métodos de la clase.\newline
 (3) Del total de métodos listar los que son invocados con el source.\newline
 (4) Del total de métodos listar los que no son invocados con el source.\newline
 (5) Aplicar definición C a listado del paso(3).\newline
 (6) Aplicar definición D a listado del paso (4).\newline
-(7) Aplicar definición B. \newline
+%(7) Aplicar definición B. \newline
+(**) Aplicar definición 
 (8) Aplicar definición A a listado del paso (1).
-
+(7) Aplicar definición B. \newline
 \subsection{Descripción implementación prototipo}
 -Diagrama de clases o descripción\newline
 En la sección \ref{sec:diagramaClass} de los anexos, se incluye el diagrama de
