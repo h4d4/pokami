@@ -185,12 +185,11 @@ evaluar flujos de información; tarea para la cual, se requiere un conocimiento
 previo del sistema de anotaciones de Jif y la implementación de aplicaciones
 haciendo uso de las mismas.
 
-En consecuencia, se opta por un diseño en que el análisis del aplicativo no
-implique carga de programación adicional para el desarrollador, sino que por el
-contrario, facilite la labor del análisis.\newline 
+En consecuencia, se opta por un diseño que reduzca la carga de programación
+del desarrollador, durante el análisis del aplicativo.\newline 
 El diseño de solución consta de dos elementos fundamentales: anotaciones a la
 API de Android, más el anotador que genere la versión Jif del aplicativo a
-analizar, acorde a una política de seguridad previamente definida.\newline
+analizar, acorde a una política de seguridad previamente definida.\newline 
 Ambos elementos son complementarios, puesto que, por más que se genere la
 versión Jif del aplicativo a analizar, si el compilador no reconoce clases
 específicas de la API que allí se usan, .jif no puede ser compilado.
@@ -308,21 +307,23 @@ considerada con nivel de seguridad alto}. Ahora, para anotar la información
 catalogada con uno u otro nivel de seguridad, de modo que, partiendo de tales
 anotaciones se evalué la existencia de flujos de información entre información
 con nivel de seguridad alto e información con nivel de seguridad bajo, lo primero
-que se debe definir es quíen representa la autoridad principal del sistema(Top
-Principal) y cuáles son los labels de seguridad.\newline 
-Top principal (Alice): aprovechando que Jif ya trae una serie de principals
-establecidos, se define que la autoridad máxima es el principal Alice. Este
-principal tendrá todo el poder para actuar sobre los aspectos del
-sistema.\newline 
-Label de seguridad con nivel de seguridad alto (\{Alice:\}): en base al top
-principal, se define el label de seguridad que expresa el mayor nivel de
-seguridad. Las variables con nivel de seguridad alto deben ser anotadas
-con tal label de seguridad, ya que esté epecífica que la información
-contenida en la variable solámente podrá ser Accedida por el Top
-principal.\newline 
-Label de seguridad con nivel de seguridad bajo (\{\}): se define un label de
-seguridad que expresa el menor nivel de seguridad, para anotar información que
-es de nivel de seguridad bajo y que por tanto puede ser de conocimiento público.
+que se debe definir es quién es la autoridad de los programas y cuáles son los
+labels de seguridad.
+
+Principal \emph{Alice}\newline
+aprovechando que Jif ya trae una serie de principals establecidos, se define que
+la autoridad máxima es el principal Alice. Este principal tendrá todo el poder
+para actuar sobre aspectos de lo programas.
+
+Label de seguridad \emph{\{Alice:\}}\newline
+este label indica que la información tiene nivel seguridad alto.\\
+Variables con nivel de seguridad alto deben ser anotadas con tal label de
+seguridad, porque esté epecífica que sólo el dueño de la información(Alice)
+puede acceder a la misma. 
+
+Label de seguridad \emph{\{\}}\newline
+este label indica que la información tiene nivel de seguridad bajo,
+la información es de conocimiento público.
 
 \subsubsection{Anotaciones a la API de Android}
 %\textbf{(b)Anotaciones a la API de Android}\newline
@@ -439,22 +440,23 @@ corresponde a un campo tipo textPassword, es decir, un campo que almacena
 contraseñas.} y los métodos: getDeviceId, getSimSerialNumber, findViewById,
 getLatitude, getLongitude y getSubscriberId.
 
-Cuarto, se parte de los \textit{(a)Elementos básicos de anotación} prevíamente
-definidos. Así, una clase Android tendrá como autoridad máxima(top principal) al
-principal Alice, y los labels de seguridad para anotar información con nivel de
-seguridad alto y nivel de seguridad bajo son: (\{Alice:\}) y (\{\}),
-respectivamente.
+Cuarto, se parte de los \textit{Elementos básicos de anotación} prevíamente
+definidos. Así, una clase Android tendrá como autoridad máxima(principal) al
+principal \emph{Alice}, y los labels de seguridad para anotar información con
+nivel de seguridad alto y nivel de seguridad bajo son: \emph{\{Alice:\}} y
+\emph{\{\}}, respectivamente.
 
 \textit{Enfoque de la anotación.}\newline 
 El esquema de anotación se centra en identificar si una clase contiene sources,
 y verificar si los métodos de la clase influencian esa información, de modo que,
 cuando la información sea envíada por canales con nivel de seguridad bajo, tenga
-el nivel de seguridad adecuado.\newline 
-Las variables y métodos que no son anotadas mediante este esquema, quedan con
-los labels de seguridad que Jif define por defecto para cada caso.(estos son).
+el nivel de seguridad adecuado.\newline
+Los labels de seguridad que no son anotadas mediante este esquema, son generados
+automáticamente por Jif, acorde a los labels que estable por defecto para la
+definición de variables, métodos y arrays(Tal como se ilustra en).
 
 Partiendo del enfoque del esquema de anotación se precisan definiciones y pasos
-para la anotación anotación:\newline
+para la anotación:\newline
 \textit{Definición A:} anotación de variable source.\newline
 una variable source es una variable que almacena información
 proveída por algún elemento del conjunto de sources. Estos sources han sido

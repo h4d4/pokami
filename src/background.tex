@@ -20,7 +20,13 @@ Jif está compuesto por un compilador y un sistema de anotaciones.\newline
 Para hacer seguimiento al control de flujo de información de un programa
 implementado en Java, se debe implementar la respectiva versión Jif, es decir,
 la versión del programa donde mediante el sistema de anotaciones se especifican
-las políticas de seguridad a evaluar.\newline 
+las políticas de seguridad a evaluar.\newline
+Básicamente, la implementación de programas en Jif, consiste en adicionan labels
+de seguridad a la definición de métodos, variables, arrays, etc. Los labels de
+seguridad que no se especifiquen son generados automáticamente con labels por
+defecto, acorde a una serie de reglas definidos en el sistema de anotaciones
+%http://www.cs.cornell.edu/jif/doc/jif-3.3.0/language.html#inference.
+
 Luego, la versión Jif del programa se compila con el compilador de Jif.
 Este aplica chequeo de labels(label checking)\cite{jifRef} para verificar que
 los flujos de información que se generan al interior del programa, cumplen con
@@ -31,7 +37,8 @@ Jif basa su sistema de anotaciones en el modelo de etiquetas DLM(Decentralized
 Label Model), donde se manejan tres elementos fundamentales: Principals,
 Políticas y Labels.\newline
 Principals: un principal es una entidad con autoridad para observar y cambiar
-aspectos del sistema. Jif cuenta con una serie de principals ya
+aspectos del sistema. Un programa pertenece a un principal, quien determina el
+comportamiento que este debería tener. Jif cuenta con una serie de principals ya
 definidos, por ejemplo, Alice, Bob, Chunck, etc, que pueden ser
 utilizados al momento de anotar.\newline 
 Políticas: mediante políticas de seguridad el dueño de la política, que es el
@@ -89,26 +96,43 @@ array, controlando quien puede conocer la información del mismo. SL especifica
 quienes pueden conocer la número de elementos almacenados.
 
 -Definición de métodos.\newline
-\emph{ java-type \{RTL\} methodName \{BL\} (arg1\{AL\},,, argn\{AL\}) :\{EL\}
-}\newline    
-java-type, tipo de dato Java retornado por el método.\newline  
-RTL, Return Type Label, indica el label de seguridad con que
+En Java la definición de un método tiene la siguiente sintaxis:\newline
+\emph{modifiers return-type methodName(java-type arg1,,, java-type
+argn)\{body method\}}
+
+Como Jif extiende la sintaxis del lenguaje Java, lo que se hace para
+declarar un método en Jif, es asociar un label de seguridad al tipo de dato
+retornando (return-type), los argumentos que recibe y las excepciones
+declaradas. Adicionalmente, se declara un begin-label(BL) y un end-label(EL). La
+sintaxis es la siguiente:\newline
+\emph{ java-type \{RTL\} methodName \{BL\} (java-type arg1\{AL\},,,
+java-type argn\{AL\}) :\{EL\} }
+
+Donde: \emph{java-type}, es el tipo de dato Java retornado por el
+método.\newline 
+\emph{RTL}, Return Type Label, indica el label de seguridad con que
 queda el tipo de dato devuelto por el método.\newline 
-BL begin label, representa el máximo nivel se seguridad del \underline{pc} label
-desde donde se invoca el método, de este modo, el program counter label desde donde
-se invoca el método debe ser menor o igual de restrictivo que el BL con
-que se define el método.\newline 
-AL argument label, indica el máximo nivel de
-seguridad para los argumentos con que se llama el método, así, los labels de los argumentos con que se invoca el
-método deben ser menor o igual de restrictivos que el AL con que ha
-definido el método.\newline
-EL end label, indica el pc label en el punto de terminación del método, y
-representa la información que puede ser conocida.
+\emph{BL}, Begin Label, representa el máximo nivel se seguridad del
+\underline{pc} desde donde se invoca el método, de este modo, el program
+counter label desde donde se invoca el método debe ser menor o igual de restrictivo que el BL con
+que se define el método. El BL también asegura que el método sólo podrá
+actualizar partes del programa que tengan igual BL. Con tales restricciones
+se evita la generación de flujos implícitos, vía invocación del método.
+\newline
+\emph{AL}, Argument Label, indica el máximo nivel de seguridad para los
+argumentos con que se llama el método, así, los labels de los argumentos con que se
+invoca el método deben ser menor o igual de restrictivos que el AL con que ha
+definido el método.\newline 
+\emph{EL}, End Label, indica el \underline{pc} en el punto de terminación del
+método, y representa la información que puede ser conocida.
 
 \subsubsection{Labels de anotación que Jif asume por defecto}
 Cuando un label no es especificado, Jif define unos por defecto. 
+- Labels por defecto para la declaración de métodos\newline
 En el caso de
 RTL, jif hace un join entre los diferentes AL con que ha sido definido el
 método.
+
+- Labels por defecto para \newline
 
 \subsubsection{Llamada a métodos}
