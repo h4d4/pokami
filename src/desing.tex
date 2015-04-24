@@ -198,9 +198,10 @@ específicas de la API que allí se usan, .jif no puede ser compilado.
 Así, (1) se parte definiendo la política de seguridad a evaluar
 \ref{subsection:politica}, (2) se toman a consideración elementos influyentes
 para verificar el cumplimiento de la política mediante Jif
-\ref{subsec:consVerPol}, y finalmente, teniendo en cuenta (1) y (2), se
-especifican anotaciones a la API de Android \ref{subsec:apiAnnotations} y se
-definen los lineamientos del anotador \ref{subsec:anotador}.
+\ref{subsec:consVerPol}, y finalmente, teniendo en cuenta (1) y (2), se definen
+los lineamientos de anotación \ref{subsec:linemientos}, donde se define el
+esquema de anotación tanto para las anotaciones requeridas en la API como para las anotaciones de los
+aplicativos a analizar(linemientos del anotador).
 
 \subsection{Definición de la política de seguridad}
 \label{subsection:politica}
@@ -290,80 +291,17 @@ Los métodos de las clases Activity, Service y BroadcastReceiver, son métodos
 que se pueden sobreescribir, todo programa Android que extienda de tales clases
 debe poder utilizarlos.
 
-\subsection{Cómo funciona el sistema de anotaciones en Jif(Para
-Justificar, las anotaciones propuestas)(Ubicación temporal)}
-Jif es un lenguaje tipado de seguridad que extiende al lenguaje Java con labels
-de seguridad, a través de los cuales se especifican restricciones de cómo
-debería ser utilizada la información.\newline 
-Jif está compuesto por un compilador y un sistema de anotaciones.\newline
-% El sistema de anotaciones está basado en un modelo de etiquetas
-% DLM(Decentralized Label Model), donde existen principals, políticas y
-% labels.\newline
-Para hacer seguimiento al control de flujo de información de un programa
-implementado en Java, se debe implementar la respectiva versión Jif, es decir,
-la versión del programa donde mediante el sistema de anotaciones se especifican
-las políticas de seguridad a evaluar.\newline 
-Luego, la versión Jif del programa se compila con el compilador de Jif.
-Este aplica chequeo de labels(label checking)\cite{jifRef} para verificar que
-los flujos de información que se generan al interior del programa, cumplen con
-las políticas definidas.\newline
-
--DML(Decentralized Label Model)\newline
-Jif basa su sistema de anotaciones en el modelo de etiquetas DLM(Decentralized
-Label Model), donde se manejan tres elementos fundamentales: Principals,
-Políticas y Labels.\newline
-Principals: un principal es una entidad con autoridad para observar y cambiar
-aspectos del sistema. Jif cuenta con una serie de principals ya
-definidos, por ejemplo, Alice, Bob, Chunck, etc, que pueden ser
-utilizados al momento de anotar.\newline 
-Políticas: mediante políticas de seguridad el dueño de la política, que es el
-principal que la define, determina qué otros principals pueden leer o
-influenciar la información. Así, una política puede ser de confidencialidad o de
-integridad, y se especifican de la forma: \{owner: reader list\} u
-\{owner: writer list\}.\newline 
-Labels: un label consiste en un conjunto de políticas de confidencialidad e
-integridad. Los labels se escriben en las expresiones del progrma que se
-anota(labels de seguridad), esto es métodos, variables, arrays, etc..\newline 
-En sisntesís, las políticas de seguridad definen que principals pueden leer o
-modificar la información, y esas políticas se expresan mediante labels.\newline
-
-- Label Checking\newline
-Para hacer seguimiento al flujo de información de un programa, el compilador de
-Jif asocia un label al program counter de cada punto del programa,
-progam-counter label(\underline{pc}). En cada punto del programa, el
-(\underline{pc}) representa la información que podría conocerse tras la
-ejecución de ese punto del programa.
-El (\underline{pc}) es afectado por los labels con que se define cada sentencia
-y expresión del programa, por tanto este es considerado como el límite
-superior(máxima información que podría conocerse) de los labels que han afectado
-el flujo de información para llegar a un determinado punto de ejecución.\newline
-Adicionalmente, jif define labels que representan la información que podría
-conocerse tras la terminación normal, o terminación por excepción de las
-sentencias del programa. Y labels enviroments, que para cada punto del programa
-determinan la forma en que se relacionan labels y principals.\newline
-El valor dichos labels es verificado durante la compilación del programa, si se
-detecta que no cumplen con las restricciones establecidas en la anotación del
-mismo, el compilador genera error, indicando los puntos del programa que las
-incumple.\newline
-
-- Sintaxis de labels y sintaxis para anotación de sentencias en Jif\newline
-
-En Jif, cada expresión del programa está conformada por dos partes: java type +
-security labels un label.\newline
-
--Llamada a métodos\newline
--Implicit flows and program-counter labels\newline
-- sobreescritura de métodos
-
 \subsection{Lineamientos de anotación}
+\label{subsec:linemientos}
 Para verificar el cumplimiento de la política de seguridad
 establecida\ref{subsection:politica} mediante el sistema de anotaciones de Jif,
 se requiere: (a) definir los elementos básicos de anotación, (b) definir
 las anotaciones necesarias para la API de Android y (c) definir los
-criterios de anotación para los aplicativos a analizar, tales
+criterios de anotación para los aplicativos a analizar, tales 
 criterios se sintetizan en un anotador.
 
-\textbf{(a)Elementos básicos de anotación}\newline
+%\textbf{(a)Elementos básicos de anotación}\newline
+\subsubsection{Elementos básicos de anotación}
 En \ref{subsec:consVerPol} se definió qué \textit{Canales muestran
 información con nivel de seguridad bajo} y cuál es la \textit{Información
 considerada con nivel de seguridad alto}. Ahora, para anotar la información
@@ -386,8 +324,8 @@ Label de seguridad con nivel de seguridad bajo (\{\}): se define un label de
 seguridad que expresa el menor nivel de seguridad, para anotar información que
 es de nivel de seguridad bajo y que por tanto puede ser de conocimiento público.
 
-
-\textbf{(b)Anotaciones a la API de Android}\newline
+\subsubsection{Anotaciones a la API de Android}
+%\textbf{(b)Anotaciones a la API de Android}\newline
 
 \begin{figure}[h!]
 	\begin{center}
@@ -466,21 +404,16 @@ establecidos las clases a implementar mediante uno u otro mecanismo, son
 ilustrados en la siguiente figura \ref{fig:annotationsMechanims}.\newline
 Nota: Falta decir qué las anotaciones a la API se implementan manualmente.
 
-\textbf{(c)Criterios de anotación de los aplicativos a analizar}\newline
-- Aquí se definen los criterios de anotación del aplicativo a analizar, y
-partiendo de estos se define un algoritmo de anotación.\newline
-- Al final describir exactamente las entradas y salidas del anotador, que es
-donde se condensa el algoritmo de anotación.\newline
-
-XXXPara evaluar los flujos de información de una aplicación Android, de modo que
-se verifique si cumplen con la política de seguridad definida
-\ref{subsection:politica}; es necesario implementar su respectiva versión Jif,
-esto implica que variables y métodos de la clase sean anotados haciendo uso del
-sistema de anotaciones de Jif.\newline 
-Ante esto, se propone un esquema de anotación enfocado a detectar flujos de
-información desde: información considerada con nivel de seguridad alto,
-hacia: canales considerados con nivel de seguridad bajoXXX.\newline 
-
+\subsubsection{Criterios de anotación para los aplicativos a analizar}
+%\textbf{(c)Criterios de anotación para los aplicativos a analizar}\newline
+% XXXPara evaluar los flujos de información de una aplicación Android, de modo que
+% se verifique si cumplen con la política de seguridad definida
+% \ref{subsection:politica}; es necesario implementar su respectiva versión Jif,
+% esto implica que variables y métodos de la clase sean anotados haciendo uso del
+% sistema de anotaciones de Jif.\newline 
+% Ante esto, se propone un esquema de anotación enfocado a detectar flujos de
+% información desde: información considerada con nivel de seguridad alto,
+% hacia: canales considerados con nivel de seguridad bajoXXX.
 Los elementos en que se fundamenta el esquema de anotación para el aplicativo a
 analizar, son los siguientes:\newline 
 Primero, como los \textit{Canales que muestran
@@ -490,73 +423,84 @@ enviar(msn) debe tener nivel de seguridad bajo(debe ser pública), en el esquema
 de anotación del aplicativo no es necesario identificar tales canales, pues
 estos ya están definidos desde la API. Lo que si se debe hacer desde el esquema
 de anotación del aplicativo, es proveer los labels de seguridad adecuados a la
-información con que se invocan tales canales.\newline
+información con que se invocan tales canales.
+
 Segundo, la anotación para la sobreescritura de métodos de la API, está definida
 en las respectivas clases de la API, el esquema de anotación para la invocación
 de los métodos a sobreescribir debe ser consecuentes con tales definiciones de
-anotación.\newline
-Segundo, el esquema de anotación para el aplicativo a analizar parte de
+anotación.
+
+Tercero, el esquema de anotación para el aplicativo a analizar parte de
 los sources que se identifiquen en el mismo. Tales sources pertenecen al conjunto
 definido en (\textit{Información considerada con nivel de seguridad alto}),
 conjunto que está integrado por el tipo de dato EditText\footnote{Este tipo de
 dato es considerado como source si y sólo si, el campo UI al que referencia
 corresponde a un campo tipo textPassword, es decir, un campo que almacena
 contraseñas.} y los métodos: getDeviceId, getSimSerialNumber, findViewById,
-getLatitude, getLongitude y getSubscriberId.\newline 
+getLatitude, getLongitude y getSubscriberId.
+
 Cuarto, se parte de los \textit{(a)Elementos básicos de anotación} prevíamente
 definidos. Así, una clase Android tendrá como autoridad máxima(top principal) al
 principal Alice, y los labels de seguridad para anotar información con nivel de
 seguridad alto y nivel de seguridad bajo son: (\{Alice:\}) y (\{\}),
-respectivamente.\newline
-Quinto, enfoque de la anotación.\newline
-Conceptos:\newline
-Variable source: una variable source es una variable que almacena información
-proveída por algún elemento del conjunto de sources. Una variable source, tiene
-nivel de seguridad alto.\newline
-Array source: un array source es un array que alamcena información de variables
-source.\newline
-Método source: un método source es un método(definido dentro de la clase)
+respectivamente.
+
+\textit{Enfoque de la anotación.}\newline 
+El esquema de anotación se centra en identificar si una clase contiene sources,
+y verificar si los métodos de la clase influencian esa información, de modo que,
+cuando la información sea envíada por canales con nivel de seguridad bajo, tenga
+el nivel de seguridad adecuado.\newline 
+Las variables y métodos que no son anotadas mediante este esquema, quedan con
+los labels de seguridad que Jif define por defecto para cada caso.(estos son).
+
+Partiendo del enfoque del esquema de anotación se precisan definiciones y pasos
+para la anotación anotación:\newline
+\textit{Definición A:} anotación de variable source.\newline
+una variable source es una variable que almacena información
+proveída por algún elemento del conjunto de sources. Estos sources han sido
+catalogados como información con nivel de seguridad alto, por tanto, una
+variable source debe tener nivel de seguridad alto. Para asegurar que sólo el
+top principal puede acceder a la información de estas variables, su label de
+seguridad debe ser: modifier-type \{Alice:\} nameVar.
+
+\textit{Definición B:} anotación de array source.\newline
+un array source es un array que almacena información de variables
+source, en consecuencia, la información contenida en los indices del array, y el
+tamaño del mismo, deben tener nivel de seguridad alto. Con ello, sólo el top
+principal podrá conocer la información y el tamaño del array.
+Los labels de seguridad para definir un array source son:\newline 
+modifier-type\{Alice:\}[ ]\{Alice:\}
+
+\textit{Definición C:} anotación de métodos a sobreescribir.\newline
+Con métodos a sobreescribir se hace referencia a métodos de la API android que
+deben se sobreescriben para la implementación del aplicativo, por ejemplo, el
+método Oncreate que se sobreescribe al implementar componentes tipo
+Activity.\newline 
+El BL de un método a sobreescribir debe ser anotado con label de seguridad bajo
+\{\}, puesto que en su respectiva definición en las clases de la API, han sido
+definidas con ese BL.
+
+\textit{Definición D:} anotación de método source.\newline 
+un método source es un método(definido dentro de la clase)
 que cuando es invocado, contiene dentro de los parámetros de invocación, al menos
 una varible source. Como el método influencia la información de la variable
 source, cuyo nivel de seguridad es alto, la información a conocer tras el
-llamado del método debe tener un nivel de seguridad alto.\newline 
-Método no source: un método no source es un método(definido dentro de la
+llamado del método debe tener un nivel de seguridad alto.\newline
+modifier-type nameMethod\textit{\{Alice:\}} type\textit{\{Alice:\}}
+( arg1,.....type\textit{\{Alice:\}}argn ) \{\}\newline
+Falta explicación.
+
+\textit{Definición E:} anotación de método no source.\newline
+un método no source es un método(definido dentro de la
 clase) que cuando es invocado, no contiene dentro de los parámetros de
 invocación, varibles source. Como el método no influencia la información
 de la variable source, el nivel de seguridad de la información que se obtenga
 con el método depende del nivel de seguridad de información de sus argumentos.\newline 
-El esquema de anotación se centra en identificar si una clase contiene variables
-source, y verificar si los métodos de la clase influencian la información de
-esas variables, de modo que, cuando la información sea envíada por canales con
-nivel de seguridad bajo, tenga el nivel de seguridad adecuado.\newline
-Las variables y métodos que no son anotadas mediante este esquema, quedan con
-los labels de seguridad que Jif define por defecto para cada caso.(estos son).
-
-
-Partiendo del enfoque del esquema de anotación se precisan las definiciones de
-anotación y se definen los pasos de anotación:\newline
-\textit{Definición A:}\newline
-Anotación de variable source: como las variables source tienen nivel de
-seguridad alto, se anotan con el label se guridad \{Alice:\}, ya que este
-indica que la información sólo puede ser conocida por la autoridad máxima del
-sistema(se trata de información privada).\newline
-\textit{Definición B:}\newline
-Anotación de array source\newline
-Los labels de seguridad para definir un array source son:\newline
-modifier type\{Alice:\}[ ]\{Alice:\}\newline
-\textit{Definición C:}\newline
-Anotación de método que se sobreescribe: el BL de los métodos a sobreescribir(de
-la API) deben ser anotados con label de seguridad bajo \{\}, puesto que en su respectiva
-definición en las clases de la API, han sido definidas con ese BL.\newline
-\textit{Definición D:}\newline
-Anotación de método source: un método source se define con los siguientes
-labels de seguridad:\newline
-modifier type nameMethod\textit{\{Alice:\}} type\textit{\{Alice:\}}\newline
-\textit{Definición E:}\newline
-Anotación de método no source: \newline
 nameMethod\textit{\{\}}(type\textit{\{Alice:\}}arg1,.....type\textit{\{Alice:\}}argn ) \{\}\newline
+Falta explicación.
 
-Pasos para la anotación\newline
+Partiendo de las anteriores definiciones, los pasos para la anotación son los
+siguientes:\newline
 (1) Identificar variables source de la clase. Si se encuentran variables sources
 continuar con los pasos (2) a (11), sino, continuar con pasos: (3), (6) y (9).
 definiciones B y D.\newline
@@ -570,6 +514,25 @@ definiciones B y D.\newline
 (9) Aplicar definición C a listado del paso (6).\newline
 (10) Aplicar definición B a listado del paso (2).\newline
 (11) Aplicar definición A a listado del paso (1).\newline
+
+\textit{Entradas y salidas del anotador}.
+
+Las definiciones y pasos para la anotación del aplicativo a analizar, descritas
+anteriormente, se condensan en un anotador. El cual debe recibir como entrada el
+código fuente de la aplicación Android(perteneciente al conjunto evaluable),
+para retornar su respectiva implementación en Jif, versión que contiene las
+anotaciones para evaluar la política de seguridad definida. Tal como se ilustra
+en la figura \ref{fig:desingSolution}\newline 
+Luego la versión obtenida se evalúa con el compilador de Jif.
+\label{subsec:anotador}
+\label{subsec:pasosSol}
+\begin{figure}[H]
+	\begin{center}
+	\includegraphics[width=7cm]{desingSolution.jpg}
+	\end{center}
+	\caption{Entradas y salidas para el generador de anotaciones.}
+	\label{fig:desingSolution} 
+\end{figure}
 
 % \subsection{Anotaciones a la API de Android}
 % \label{subsec:apiAnnotations}
@@ -610,84 +573,6 @@ definiciones B y D.\newline
 % En la figura \ref{fig:desingSol-details} se
 % especifican clases de la API Android a anotar.\newline
 
-\subsection{Diseño del anotador}
-\label{subsec:anotador}
-\label{subsec:pasosSol}
-\begin{figure}[H]
-	\begin{center}
-	\includegraphics[width=7cm]{desingSolution.jpg}
-	\end{center}
-	\caption{Entradas y salidas para el generador de anotaciones.}
-	\label{fig:desingSolution} 
-\end{figure}
-
-El anotador debe recibir como entrada el código fuente de la aplicación
-Android(perteneciente al conjunto evaluable), para retornar su respectiva
-implementación en Jif, versión que contiene las anotaciones para evaluar la
-política de seguridad definida. Tal como se ilustra en la figura
-\ref{fig:desingSolution}\newline 
-Luego la versión obtenida se evalúa con el compilador de Jif.
-
-A continuación, se definen los lineamientos de anotación:\newline
-% \textit{Paso dos: Definir Autoridades y forma de anotación del aplicativo
-% Android a analizar.}\newline
-Una clase Android tendrá una Autoridad máxima(un principal), en este caso Alice,
-así que, información con nivel de seguridad alto deberá pertenecer a dicha
-autoridad.\newline
-Jif hace seguimiento al flujo de información del programa, asociando un label
-de seguridad al program counter de cada sentencia y expresión del programa,
-program counter(pc) label. Este pc es afectado por el label de seguridad que se
-especifique en la declaración de variables y métodos\ref{subsec:JifSintax}. 
-Partiendo de que Jif se fundamenta en labels de seguridad para hacer seguimiento
-al flujo de información del programa, es necesario definir los labels a
-anotar para métodos y variables del programa.\newline
-En el caso de variables con nivel de seguridad  alto, la anotación debe
-ser:\newline
-\emph{ type\{Alice:\} varName; }\newline
-Para el resto de variables, entran a jugar las anotaciones definidas por Jif
-acorde al contexto donde están definidas.\newline
-Ahora en el caso de los métodos, la anotación varía según si el método debe
-influenciar(acceder, modificar) o no, información anotada con nivel de seguridad
-alto.
-
-En base a lo anterior, se define un algoritmo de anotación que se condensa en un
-generador de anotaciones; y está fundamentado en las siguientes
-definiciones:\newline \textit{Definición A:} anotación de variables con nivel de
-seguridad alto:\newline modifier type\{Alice:\} varName;\newline 
-\textit{Definición B:} métodos que se sobreescriben. El sistema de anotaciones
-de Jif exige que el nivel de seguridad del método desde donde se invoca la
-sobreescritura de un método, no debe ser menos restrictivo que el método a
-sobreescribir, y los métodos a sobreescribir deben poder ser invocados desde
-todo programa Android, siguiendo con este principio, y buscando que jif no
-limite el flujo de información, estos métodos deben ser anotados con BL
-público(\{\}).\newline 
-\textit{Definición C:} anotación de métodos con sources\newline
-\textcolor{red}{La definición de los terminos etá en: Sintaxis de anotación en
-Jif \ref{subsec:JifSintax}, debo recordar lo que significan, o remito el lector
-a dicha sección?}\newline
-Los labels para la definición del método\textcolor{red}{(BL, EL,
-AL )}se anotan de la siguiente manera:\newline 
-modifier type nameMethod\textit{\{Alice:\}} type\textit{\{Alice:\}}
-( arg1,.....type\textit{\{Alice:\}}argn ) \{\}\newline Si dentro del método se
-definen arrays, sus respectivos BL y SL, deben ser anotados así: modifier type\{Alice:\}[ ]\{Alice:\}\newline
-\textit{Definición D:} anotación de métodos que no reciben información del
-source. 
-nameMethod\textit{\{\}}(
-type\textit{\{Alice:\}}arg1,.....type\textit{\{Alice:\}}argn ) \{\}\newline Teniendo claras las anteriores definiciones, los pasos para el algoritmo son los
-siguiente:\newline
-(1) Identificar sources de la clase. Si se encuentran sources continuar con
-los pasos (2) a (4), sino, continuar con paso (2) y aplicar definiciones B y
-D.\newline
-(*) Identificar arrays sources de la clase 
-(2) Identificar el total de métodos de la clase.\newline
-(3) Del total de métodos listar los que son invocados con el source.\newline
-(4) Del total de métodos listar los que no son invocados con el source.\newline
-(5) Aplicar definición C a listado del paso(3).\newline
-(6) Aplicar definición D a listado del paso (4).\newline
-%(7) Aplicar definición B. \newline
-(**) Aplicar definición 
-(8) Aplicar definición A a listado del paso (1).
-(7) Aplicar definición B. \newline
 \subsection{Descripción implementación prototipo}
 -Diagrama de clases o descripción\newline
 En la sección \ref{sec:diagramaClass} de los anexos, se incluye el diagrama de

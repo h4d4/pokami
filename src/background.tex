@@ -9,7 +9,71 @@ Explicar composición de aplicaciones Android, actividades, servicios, etc.
 Jif(para entender cómo funciona y cómo afecta el diseño de la
 solución).
 
-\subsection{Sintaxis de Anotación en Jif}
+\subsection{Sistema de anotaciones en Jif}
+Jif es un lenguaje tipado de seguridad que extiende al lenguaje Java con labels
+de seguridad, a través de los cuales se especifican restricciones de cómo
+debería ser utilizada la información.\newline 
+Jif está compuesto por un compilador y un sistema de anotaciones.\newline
+% El sistema de anotaciones está basado en un modelo de etiquetas
+% DLM(Decentralized Label Model), donde existen principals, políticas y
+% labels.\newline
+Para hacer seguimiento al control de flujo de información de un programa
+implementado en Java, se debe implementar la respectiva versión Jif, es decir,
+la versión del programa donde mediante el sistema de anotaciones se especifican
+las políticas de seguridad a evaluar.\newline 
+Luego, la versión Jif del programa se compila con el compilador de Jif.
+Este aplica chequeo de labels(label checking)\cite{jifRef} para verificar que
+los flujos de información que se generan al interior del programa, cumplen con
+las políticas definidas.\newline
+
+-DML(Decentralized Label Model)\newline
+Jif basa su sistema de anotaciones en el modelo de etiquetas DLM(Decentralized
+Label Model), donde se manejan tres elementos fundamentales: Principals,
+Políticas y Labels.\newline
+Principals: un principal es una entidad con autoridad para observar y cambiar
+aspectos del sistema. Jif cuenta con una serie de principals ya
+definidos, por ejemplo, Alice, Bob, Chunck, etc, que pueden ser
+utilizados al momento de anotar.\newline 
+Políticas: mediante políticas de seguridad el dueño de la política, que es el
+principal que la define, determina qué otros principals pueden leer o
+influenciar la información. Así, una política puede ser de confidencialidad o de
+integridad, y se especifican de la forma: \{owner: reader list\} u
+\{owner: writer list\}.\newline 
+Labels: un label consiste en un conjunto de políticas de confidencialidad e
+integridad. Los labels se escriben en las expresiones del progrma que se
+anota(labels de seguridad), esto es métodos, variables, arrays, etc..\newline 
+En sisntesís, las políticas de seguridad definen que principals pueden leer o
+modificar la información, y esas políticas se expresan mediante labels.\newline
+
+- Label Checking\newline
+Para hacer seguimiento al flujo de información de un programa, el compilador de
+Jif asocia un label al program counter de cada punto del programa,
+progam-counter label(\underline{pc}). En cada punto del programa, el
+(\underline{pc}) representa la información que podría conocerse tras la
+ejecución de ese punto del programa.
+El (\underline{pc}) es afectado por los labels con que se define cada sentencia
+y expresión del programa, por tanto este es considerado como el límite
+superior(máxima información que podría conocerse) de los labels que han afectado
+el flujo de información para llegar a un determinado punto de ejecución.\newline
+Adicionalmente, jif define labels que representan la información que podría
+conocerse tras la terminación normal, o terminación por excepción de las
+sentencias del programa. Y labels enviroments, que para cada punto del programa
+determinan la forma en que se relacionan labels y principals.\newline
+El valor dichos labels es verificado durante la compilación del programa, si se
+detecta que no cumplen con las restricciones establecidas en la anotación del
+mismo, el compilador genera error, indicando los puntos del programa que las
+incumple.\newline
+
+- Sintaxis de labels y sintaxis para anotación de sentencias en Jif\newline
+
+En Jif, cada expresión del programa está conformada por dos partes: java type +
+security labels un label.\newline
+
+-Llamada a métodos\newline
+-Implicit flows and program-counter labels\newline
+- sobreescritura de métodos
+
+\subsubsection{Sintaxis de Anotación en Jif}
 \label{subsec:JifSintax}
 -Definición de variables: \newline 
 \emph{ type\{L\} varName; }\newline 
