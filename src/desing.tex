@@ -472,31 +472,75 @@ partiendo de estos se define un algoritmo de anotación.\newline
 - Al final describir exactamente las entradas y salidas del anotador, que es
 donde se condensa el algoritmo de anotación.\newline
 
-
-Para evaluar los flujos de información de una aplicación Android, de modo que
+XXXPara evaluar los flujos de información de una aplicación Android, de modo que
 se verifique si cumplen con la política de seguridad definida
 \ref{subsection:politica}; es necesario implementar su respectiva versión Jif,
 esto implica que variables y métodos de la clase sean anotados haciendo uso del
 sistema de anotaciones de Jif.\newline 
 Ante esto, se propone un esquema de anotación enfocado a detectar flujos de
 información desde: información considerada con nivel de seguridad alto,
-hacia: canales considerados con nivel de seguridad bajo.\newline 
-Retomando definiciones previas:\newline
-- \textit{(a)Elementos básicos de anotación}\newline
-Top principal (Alice), label de seguridad con nivel de seguridad alto
-(\{Alice:\}) y label de seguridad con nivel de seguridad bajo (\{\}).\newline
-- \textit{Canales que muestran información con nivel de seguridad
-bajo}; como la anotación para los métodos que representan tales canales se realiza desde la
-definición misma de los métodos en la API, los labels de seguridad para la
-información a mostrar(logs) o enviar(msn), debe ser pública si realmente se pude
-mostrar xxx.\newline
-- \textit{Información considerada con nivel de seguridad alto}\newline
-Los métodos que integran el conjunto de sources son: getDeviceId,
-getSimSerialNumber, findViewById, getLatitude, getLongitude y getSubscriberId.
-Adicional a estos métodos, se incluye el tipo de dato EditText, si y sólo si, el
-campo UI al que referencia corresponde a un campo tipo textPassword, es decir,
-un campo que almacena contraseñas. 
+hacia: canales considerados con nivel de seguridad bajoXXX.\newline 
 
+Los elementos en que se fundamenta el esquema de anotación para el aplicativo a
+analizar, son los siguientes:\newline 
+Primero, como los \textit{Canales que muestran
+información con nivel de seguridad bajo} están anotados desde la definición en
+sus respectivas clases de la API, de modo que la información a mostrar(logs) o
+enviar(msn) debe tener nivel de seguridad bajo(debe ser pública), en el esquema
+de anotación del aplicativo no es necesario identificar tales canales, pues
+estos ya están definidos desde la API. Lo que si se debe hacer desde el esquema
+de anotación del aplicativo, es proveer los labels de seguridad adecuados a la
+información con que se invocan tales canales.\newline
+Segundo, la anotación para la sobreescritura de métodos de la API, está definida
+en las respectivas clases de la API, el esquema de anotación para la invocación
+de los métodos a sobreescribir debe ser consecuentes con tales definiciones de
+anotación.\newline
+Segundo, el esquema de anotación para el aplicativo a analizar parte de
+los sources que se identifiquen en el mismo. Tales sources pertenecen al conjunto
+definido en (\textit{Información considerada con nivel de seguridad alto}),
+conjunto que está integrado por el tipo de dato EditText\footnote{Este tipo de
+dato es considerado como source si y sólo si, el campo UI al que referencia
+corresponde a un campo tipo textPassword, es decir, un campo que almacena
+contraseñas.} y los métodos: getDeviceId, getSimSerialNumber, findViewById,
+getLatitude, getLongitude y getSubscriberId.\newline 
+Cuarto, se parte de los \textit{(a)Elementos básicos de anotación} prevíamente
+definidos. Así, una clase Android tendrá como autoridad máxima(top principal) al
+principal Alice, y los labels de seguridad para anotar información con nivel de
+seguridad alto y nivel de seguridad bajo son: (\{Alice:\}) y (\{\}),
+respectivamente.\newline
+Quinto, enfoque de la anotación.\newline
+Conceptos:\newline
+Variable source: una variable source es una variable que almacena información
+proveída por algún elemento del conjunto de sources. Una variable source, tiene
+nivel de seguridad alto.\newline
+Método source: un método source es un método(definido dentro de la clase) que
+cuando es invocado, contiene dentro de los parámetros de invocación, al menos
+una varible source. Como el método influencia la información de la variable
+source, cuyo nivel de seguridad es alto, la información a conocer tras el
+llamado del método debe tener un nivel de seguridad alto.\newline 
+Método no source: un método no source es un método(definido dentro de la
+clase) que cuando es invocado, no contiene dentro de los parámetros de
+invocación, varibles source. Como el método no influencia la información
+de la variable source, el nivel de seguridad de la información que se obtenga
+con el método depende del nivel de seguridad de información de sus argumentos.\newline 
+El esquema de anotación se centra en identificar si una clase contiene variables
+source, y verificar si los métodos de la clase influencían la información de
+esas variables, de modo que, cuando la información sea envíada por canales con
+nivel de seguridad bajo, tenga el nivel de seguridad adecuado.
+
+Partiendo del enfoque del esquema de anotación se precisan las definiciones de
+anotación y se definen los pasos de anotación:\newline
+\textit{Definición A:}\newline
+Anotación de variables source: como las variables source tienen nivel de
+seguridad alto, se anotan con el label se guridad \{Alice:\}, ya que este
+indica que la información sólo puede ser conocida por la autoridad máxima del
+sistema(se trata de información privada).\newline
+\textit{Definición B:}\newline
+Anotación de métodos a sobreescribir: el BL de los métodos a sobreescribir(de la
+API) deben ser anotados con label de seguridad bajo \{\}, puesto que en su respectiva
+definición en las clases de la API, han sido definidas con ese BL.\newline
+\textit{Definición C:}\newline
+Anotación de métodos source: 
 
 
 % \subsection{Anotaciones a la API de Android}
