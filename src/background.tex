@@ -24,9 +24,9 @@ las políticas de seguridad a evaluar.\newline
 Luego, la versión Jif del programa se compila con el compilador de Jif.
 Este aplica chequeo de labels(label checking)\cite{jifRef} para verificar que
 los flujos de información que se generan al interior del programa, cumplen con
-las políticas definidas.\newline
+las políticas definidas.
 
--DML(Decentralized Label Model)\newline
+\subsubsection{DML(Decentralized Label Model)}
 Jif basa su sistema de anotaciones en el modelo de etiquetas DLM(Decentralized
 Label Model), donde se manejan tres elementos fundamentales: Principals,
 Políticas y Labels.\newline
@@ -43,9 +43,9 @@ Labels: un label consiste en un conjunto de políticas de confidencialidad e
 integridad. Los labels se escriben en las expresiones del progrma que se
 anota(labels de seguridad), esto es métodos, variables, arrays, etc..\newline 
 En sisntesís, las políticas de seguridad definen que principals pueden leer o
-modificar la información, y esas políticas se expresan mediante labels.\newline
+modificar la información, y esas políticas se expresan mediante labels.
 
-- Label Checking\newline
+\subsubsection{Label Checking}
 Para hacer seguimiento al flujo de información de un programa, el compilador de
 Jif asocia un label al program counter de cada punto del programa,
 progam-counter label(\underline{pc}). En cada punto del programa, el
@@ -64,44 +64,51 @@ detecta que no cumplen con las restricciones establecidas en la anotación del
 mismo, el compilador genera error, indicando los puntos del programa que las
 incumple.\newline
 
-- Sintaxis de labels y sintaxis para anotación de sentencias en Jif\newline
-
-En Jif, cada expresión del programa está conformada por dos partes: java type +
-security labels un label.\newline
-
--Llamada a métodos\newline
 -Implicit flows and program-counter labels\newline
 - sobreescritura de métodos
 
+\subsubsection{Sintaxis de labels}
+Como se representa leer y escribir
+
 \subsubsection{Sintaxis de Anotación en Jif}
 \label{subsec:JifSintax}
+
 -Definición de variables: \newline 
-\emph{ type\{L\} varName; }\newline 
-donde type especifica el tipo de dato que
+En Jif las variables se definición de la forma: 
+\emph{ java-type\{L\} varName; }\newline 
+donde java-type especifica el tipo de dato Java que
 almacena la variable, \{L\} el label de seguridad  para especificar quien es el
 dueño de la variable, y name, el respectivo nombre de la variable.
 
 -Definición de arrays:\newline
-en jif un array cuenta con dos labels de seguridad, Base Label(BL) y Size
-Label(SL). BL indica el nivel de seguridad de los elementos que almacena el
+java-type\{BL\}[ ]\{SL\} nameArray\newline
+Además del tipo de dato Java(java-type) de los elementos almacenados en el
+array,  en jif un array cuenta con dos labels de seguridad, Base Label(BL) y
+Size Label(SL). BL indica el nivel de seguridad de los elementos que almacena el
 array, controlando quien puede conocer la información del mismo. SL especifica
 quienes pueden conocer la número de elementos almacenados.
 
 -Definición de métodos.\newline
-\emph{ type \{RTL\} methodName \{BL\} (arg1\{AL\},,, argn\{AL\}) :\{EL\}
-}\newline 
+\emph{ java-type \{RTL\} methodName \{BL\} (arg1\{AL\},,, argn\{AL\}) :\{EL\}
+}\newline    
+java-type, tipo de dato Java retornado por el método.\newline  
 RTL, Return Type Label, indica el label de seguridad con que
 queda el tipo de dato devuelto por el método.\newline 
-BL begin label, representa el máximo nivel se seguridad del pc label desde donde
-se invoca el método, de este modo, el program counter label desde donde
-se invoca el método debe ser menor o igual de restrictivo que el BL del
-método.\newline 
-AL argument label, indica el máximo nivel de seguridad  para los argumentos con
-que se llama el método, así, los labels de los argumentos con que se invoca el
-método deben ser menor o igual de restrictivos que los AL con que han
+BL begin label, representa el máximo nivel se seguridad del \underline{pc} label
+desde donde se invoca el método, de este modo, el program counter label desde donde
+se invoca el método debe ser menor o igual de restrictivo que el BL con
+que se define el método.\newline 
+AL argument label, indica el máximo nivel de
+seguridad para los argumentos con que se llama el método, así, los labels de los argumentos con que se invoca el
+método deben ser menor o igual de restrictivos que el AL con que ha
 definido el método.\newline
 EL end label, indica el pc label en el punto de terminación del método, y
-representa la información que puede ser conocida.\newline
-Cuando un label no es especificado, Jif define unos por defecto. En el caso de
+representa la información que puede ser conocida.
+
+\subsubsection{Labels de anotación que Jif asume por defecto}
+Cuando un label no es especificado, Jif define unos por defecto. 
+En el caso de
 RTL, jif hace un join entre los diferentes AL con que ha sido definido el
-método.\newline
+método.
+
+\subsubsection{Llamada a métodos}
