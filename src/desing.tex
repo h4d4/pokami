@@ -313,7 +313,7 @@ labels de seguridad.
 Principal \emph{Alice}\newline
 aprovechando que Jif ya trae una serie de principals establecidos, se define que
 la autoridad máxima es el principal Alice. Este principal tendrá todo el poder
-para actuar sobre aspectos de lo programas.
+para actuar sobre aspectos de los programas.
 
 Label de seguridad \emph{\{Alice:\}}\newline
 este label indica que la información tiene nivel seguridad alto.\\
@@ -441,7 +441,7 @@ contraseñas.} y los métodos: getDeviceId, getSimSerialNumber, findViewById,
 getLatitude, getLongitude y getSubscriberId.
 
 Cuarto, se parte de los \textit{Elementos básicos de anotación} prevíamente
-definidos. Así, una clase Android tendrá como autoridad máxima(principal) al
+definidos. Así, una clase Android tendrá como principal( autoridad máxima) al
 principal \emph{Alice}, y los labels de seguridad para anotar información con
 nivel de seguridad alto y nivel de seguridad bajo son: \emph{\{Alice:\}} y
 \emph{\{\}}, respectivamente.
@@ -454,24 +454,28 @@ el nivel de seguridad adecuado.\newline
 Los labels de seguridad que no son anotadas mediante este esquema, son generados
 automáticamente por Jif, acorde a los labels que estable por defecto para la
 definición de variables, métodos y arrays(Tal como se ilustra en).
-
-Partiendo del enfoque del esquema de anotación se precisan definiciones y pasos
-para la anotación:\newline
-\textit{Definición A:} anotación de variable source.\newline
-una variable source es una variable que almacena información
-proveída por algún elemento del conjunto de sources. Estos sources han sido
-catalogados como información con nivel de seguridad alto, por tanto, una
-variable source debe tener nivel de seguridad alto. Para asegurar que sólo el
-top principal puede acceder a la información de estas variables, su label de
-seguridad debe ser: modifier-type \{Alice:\} nameVar.
+Para concretar el esquema de anotación, se precisan definiciones y pasos
+para la anotación.\newline
+Conceptos y términos implicados en la sintaxis de anotación Jif, se
+encuentran en la sección de background \ref{sssec:JifSintax}.
+ 
+\textit{Definición A:} anotación de variable source.\newline 
+una variable source es una variable que almacena información proveída por algún
+elemento del conjunto de sources. Estos sources han sido catalogados como
+información con nivel de seguridad alto, por tanto, una variable source debe
+tener nivel de seguridad alto, asegurando que sólo la autoridad dueña de la
+información puede accederla; su label de seguridad debe ser:\newline
+\emph{java-type \{Alice:\} nameVar}.
 
 \textit{Definición B:} anotación de array source.\newline
 un array source es un array que almacena información de variables
-source, en consecuencia, la información contenida en los indices del array, y el
-tamaño del mismo, deben tener nivel de seguridad alto. Con ello, sólo el top
-principal podrá conocer la información y el tamaño del array.
-Los labels de seguridad para definir un array source son:\newline 
-java-type\{Alice:\}[ ]\{Alice:\} arrayName
+source, así la información contenida en los indices del array, y el
+tamaño del mismo, deben tener nivel de seguridad alto. En consecuencia, los
+labels de seguridad para los elementos y tamaño del array: \emph{BL} y
+\emph{SL}, respectivamente, deben ser anotados con label \emph{\{Alice:\}}: 
+java-type\{Alice:\}[ ]\{Alice:\} arrayName\newline
+De este modo, sólo el principal dueño de la información podrá conocer tanto
+items como tamaño del array.
 
 \textit{Definición C:} anotación de métodos a sobreescribir.\newline
 Con métodos a sobreescribir se hace referencia a métodos de la API android que
@@ -486,18 +490,43 @@ definidas con ese BL.
 un método source es un método(definido dentro de la clase)
 que cuando es invocado, contiene dentro de los parámetros de invocación, al menos
 una varible source. Como el método influencia la información de la variable
-source, cuyo nivel de seguridad es alto, la información a conocer tras el
-llamado del método debe tener un nivel de seguridad alto.\newline
-modifier-type nameMethod\textit{\{Alice:\}} type\textit{\{Alice:\}}
-( arg1,.....type\textit{\{Alice:\}}argn ) \{\}\newline
-Falta explicación.
+source, cuyo nivel de seguridad es alto, la información a conocer mediante el
+método, debe tener nivel de seguridad alto.\newline
+Al tratarse de información con nivel de seguridad alto, sólo sentencias del
+programa que también tengan un nivel de seguridad alto, deben conocer la
+información proporcionada por el método.\newline 
+Buscando hacer cumplir lo anterior, se anota con label de seguridad alto
+\{Alice:\} el RTL y el BL del método.
+Retomando la sintaxis jif para anotación de métodos:\newline \emph{
+java-type \{RTL\} methodName \{BL\} (java-type arg1\{AL\},,, java-type argn\{AL\}) :\{EL\} }\newline
+Al anotar \{RTL\} con \{Alice:\} se asegura que, si el método retorna un valor,
+tendrá nivel de seguridad alto.\newline
+Al anotar \{BL\} con \{Alice:\} se asegura que, los puntos del programa que
+traten de ser actualizados tras el llamado del método(por ejemplo variables, o
+resultados de condicionales) deben tener un \underline{pc} con nivel de
+seguridad alto.\newline
+Para el caso de los AL, labels de seguridad de los argumentos, el sistema de
+anotaciones de Jif exige que los AL con que se invoca el método, deben ser igual
+o menor de restrictivos que los AL con que se define el método. 
+Por otro lado, se tiene certeza de que uno de los argumentos con que se llama el
+método tiene AL con nivel de seguridad alto(pues ese fue el criterio con que
+se clasificó al método como source), pero el resto de párametros puede tener AL
+alto o bajo, entonces para garantizar que el método pueda ser invocado bajo
+tales condiciones, los AL para los argumentos del método son anotados con label
+\{Alice:\}.\newline
 
 \textit{Definición E:} anotación de método no source.\newline
-un método no source es un método(definido dentro de la
-clase) que cuando es invocado, no contiene dentro de los parámetros de
-invocación, varibles source. Como el método no influencia la información
-de la variable source, el nivel de seguridad de la información que se obtenga
-con el método depende del nivel de seguridad de información de sus argumentos.\newline 
+un método no source es un método(definido dentro de la clase) que cuando es
+invocado, no contiene dentro de los parámetros de invocación, varibles source.
+Como el método no recibe la variable source, el nivel de seguridad de la
+información que se obtenga con el método puede ser de nivel de seguridad bajo.
+Anotando el BL con label {\{\}}, se garantiza que el nivel de seguridad devuelto
+por el método es bajo, si este no recibe la variable source.
+Ahora,  si resulta que dentro del método está definida la variable source, el
+método debe retornar un nivel de seguridad alto. Anotando el BL con
+label {\{\}}, se respeta tal condición puesto que el BL se ve afectado cuando
+el cuerpo del método tiene información con nivel un nivel de seguridad
+mayor.\newline 
 nameMethod\textit{\{\}}(type\textit{\{Alice:\}}arg1,.....type\textit{\{Alice:\}}argn ) \{\}\newline
 Falta explicación.
 

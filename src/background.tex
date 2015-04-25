@@ -24,7 +24,7 @@ las políticas de seguridad a evaluar.\newline
 Básicamente, la implementación de programas en Jif, consiste en adicionan labels
 de seguridad a la definición de métodos, variables, arrays, etc. Los labels de
 seguridad que no se especifiquen son generados automáticamente con labels por
-defecto, acorde a una serie de reglas definidos en el sistema de anotaciones
+defecto.
 %http://www.cs.cornell.edu/jif/doc/jif-3.3.0/language.html#inference.
 
 Luego, la versión Jif del programa se compila con el compilador de Jif.
@@ -78,7 +78,7 @@ incumple.\newline
 Como se representa leer y escribir
 
 \subsubsection{Sintaxis de Anotación en Jif}
-\label{subsec:JifSintax}
+\label{sssec:JifSintax} 
 
 -Definición de variables: \newline 
 En Jif las variables se definición de la forma: 
@@ -88,7 +88,7 @@ almacena la variable, \{L\} el label de seguridad  para especificar quien es el
 dueño de la variable, y name, el respectivo nombre de la variable.
 
 -Definición de arrays:\newline
-java-type\{BL\}[ ]\{SL\} nameArray\newline
+\emph{java-type\{BL\}[ ]\{SL\} nameArray}\newline
 Además del tipo de dato Java(java-type) de los elementos almacenados en el
 array,  en jif un array cuenta con dos labels de seguridad, Base Label(BL) y
 Size Label(SL). BL indica el nivel de seguridad de los elementos que almacena el
@@ -97,7 +97,7 @@ quienes pueden conocer la número de elementos almacenados.
 
 -Definición de métodos.\newline
 En Java la definición de un método tiene la siguiente sintaxis:\newline
-\emph{modifiers return-type methodName(java-type arg1,,, java-type
+\emph{modifier return-type methodName(java-type arg1,,, java-type
 argn)\{body method\}}
 
 Como Jif extiende la sintaxis del lenguaje Java, lo que se hace para
@@ -105,28 +105,30 @@ declarar un método en Jif, es asociar un label de seguridad al tipo de dato
 retornando (return-type), los argumentos que recibe y las excepciones
 declaradas. Adicionalmente, se declara un begin-label(BL) y un end-label(EL). La
 sintaxis es la siguiente:\newline
-\emph{ java-type \{RTL\} methodName \{BL\} (java-type arg1\{AL\},,,
+\emph{ modifier java-type \{RTL\} methodName \{BL\} (java-type arg1\{AL\},,,
 java-type argn\{AL\}) :\{EL\} }
 
 Donde: \emph{java-type}, es el tipo de dato Java retornado por el
 método.\newline 
-\emph{RTL}, Return Type Label, indica el label de seguridad con que
-queda el tipo de dato devuelto por el método.\newline 
+\emph{RTL}, Return Type Label, indica el label de seguridad para el valor
+devuelto por el método.\newline 
 \emph{BL}, Begin Label, representa el máximo nivel se seguridad del
-\underline{pc} desde donde se invoca el método, de este modo, el program
-counter label desde donde se invoca el método debe ser menor o igual de restrictivo que el BL con
-que se define el método. El BL también asegura que el método sólo podrá
-actualizar partes del programa que tengan igual BL. Con tales restricciones
-se evita la generación de flujos implícitos, vía invocación del método.
-\newline
+\underline{pc} desde donde se invoca el método, de este modo,
+el program counter label desde donde se invoca el método debe ser menor o igual
+de restrictivo que el BL con que se define el método. El BL también asegura que
+el método sólo podrá actualizar partes del programa que tengan igual BL. Con
+tales restricciones se evita la generación de flujos implícitos, vía invocación
+del método.\newline
 \emph{AL}, Argument Label, indica el máximo nivel de seguridad para los
 argumentos con que se llama el método, así, los labels de los argumentos con que se
 invoca el método deben ser menor o igual de restrictivos que el AL con que ha
 definido el método.\newline 
 \emph{EL}, End Label, indica el \underline{pc} en el punto de terminación del
-método, y representa la información que puede ser conocida.
+método, y representa el máximo nivel de información que puede conocerse tras la
+finalización del método.
 
 \subsubsection{Labels de anotación que Jif asume por defecto}
+\label{sssec:default-labels}
 Cuando un label no es especificado, Jif define unos por defecto. 
 - Labels por defecto para la declaración de métodos\newline
 En el caso de
