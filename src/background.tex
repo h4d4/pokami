@@ -81,31 +81,33 @@ Como se representa leer y escribir
 \label{sssec:JifSintax} 
 
 -Definición de variables: \newline 
-En Jif las variables se definición de la forma: 
-\emph{ java-type\{L\} varName; }\newline 
-donde java-type especifica el tipo de dato Java que
-almacena la variable, \{L\} el label de seguridad  para especificar quien es el
-dueño de la variable, y name, el respectivo nombre de la variable.
+En Java la sintaxis para definir una variable es: \emph{ modifier java-type
+varName}\newline Extendiendo la sintaxis Java, en Jif las variables se definen de la forma:\\
+\emph{ modifier java-type\{L\} varName}\newline 
+donde java-type especifica el tipo de dato Java que almacena la variable, \{L\}
+el label de seguridad  para especificar quien es el dueño de la variable, y
+varName, el respectivo nombre de la variable.
 
 -Definición de arrays:\newline
-\emph{java-type\{BL\}[ ]\{SL\} nameArray}\newline
-Además del tipo de dato Java(java-type) de los elementos almacenados en el
-array,  en jif un array cuenta con dos labels de seguridad, Base Label(BL) y
-Size Label(SL). BL indica el nivel de seguridad de los elementos que almacena el
+En Java un array se define de la forma:\\
+\emph{modifier java-type [ ] nameArray}\\
+En Jif, además del tipo de dato Java(java-type) de los elementos almacenados en
+el array, se deben especificar dos labels de seguridad: Base Label(BL) y Size
+Label(SL). BL indica el nivel de seguridad de los elementos que almacena el
 array, controlando quien puede conocer la información del mismo. SL especifica
-quienes pueden conocer la número de elementos almacenados.
+quienes pueden conocer la número de elementos almacenados. Así, la sintaxis para
+anotar el array es:\\
+\emph{java-type\{BL\} [ ]\{SL\} nameArray}
 
 -Definición de métodos.\newline
 En Java la definición de un método tiene la siguiente sintaxis:\newline
-\emph{modifier return-type methodName(java-type arg1,,, java-type
+\emph{modifier java-type methodName(java-type arg1,,, java-type
 argn)\{body method\}}
-
-Como Jif extiende la sintaxis del lenguaje Java, lo que se hace para
-declarar un método en Jif, es asociar un label de seguridad al tipo de dato
-retornando (return-type), los argumentos que recibe y las excepciones
-declaradas. Adicionalmente, se declara un begin-label(BL) y un end-label(EL). La
-sintaxis es la siguiente:\newline
-\emph{ modifier java-type \{RTL\} methodName \{BL\} (java-type arg1\{AL\},,,
+En Jif se debe asociar un label de seguridad al tipo de dato retornando, los
+argumentos que recibe y las excepciones declaradas.
+Adicionalmente, se declara un begin-label(BL) y un end-label(EL). La sintaxis es
+la siguiente:\newline 
+\emph{ modifier java-type\{RTL\} methodName \{BL\}(java-type arg1\{AL\},,,
 java-type argn\{AL\}) :\{EL\} }
 
 Donde: \emph{java-type}, es el tipo de dato Java retornado por el
