@@ -448,41 +448,46 @@ principal \emph{Alice}, y los labels de seguridad para anotar información con
 nivel de seguridad alto y nivel de seguridad bajo son: \emph{\{Alice:\}} y
 \emph{\{\}}, respectivamente.
 
-\textbf{\textit{Estructuración del esquema de anotación para aplicativos a
-analizar}}\newline 
-\textit{Objetivo de la anotación: } 
-el esquema de anotación se centra en identificar si una clase contiene sources,
+\textbf{\textit{Estructuración del esquema de anotación}}\newline 
+Para concretar el esquema con que se anotan los aplicativos a analizar, se
+establece la finalidad(Objetivo de la anotación), qué se va a anotar(Elementos
+del esquema), cómo se van a anotar tales elementos(Anotación de los elementos) y
+finalmente se indica cómo aplicar el esquema de anotación(Pasos para aplicar el
+esquema de anotación). Así:
+
+\textit{Objetivo de la anotación}\newline
+El esquema de anotación se centra en identificar si una clase contiene sources,
 y verificar si los métodos de la clase influencian esa información, de modo que,
 cuando la información sea envíada por canales con nivel de seguridad bajo, tenga
-el nivel de seguridad adecuado.\newline
-Los labels de seguridad que no son anotadas mediante este esquema, son generados
-automáticamente por Jif, acorde a los labels que estable por defecto para la
-definición de variables, métodos y arrays(Tal como se ilustra en).\\
+el nivel de seguridad adecuado.
 
-\textit{Elementos del esquema: }
-Para hacer referencia a los elementos que se anotan mediante el esquema de
-anotación, se establecen una serie de términos, así:\\
-Variable source: una variable source es una variable que almacena información
-proveída por algún elemento del conjunto de sources.\newline
-Array source: un array source es un array que almacena información de variables
-source.\newline
-Método que se sobreescribe: hace referencia a métodos de la API android que
-deben ser sobreescrtos para la implementación del aplicativo, por ejemplo, el
+\textit{Elementos del esquema}\newline
+Para referenciar los elementos que se anotan mediante este esquema, se
+establecen una serie de términos, así:\newline
+- Variable source: una variable source es una variable que almacena
+información proveída por algún elemento del conjunto de sources.\\
+- Array source: un array source es un array que almacena información de
+variables source.\\
+- Método que se sobreescribe: hace referencia a métodos de la API android
+que deben ser sobreescrtos para la implementación del aplicativo, por ejemplo, el
 método Oncreate que se sobreescribe al implementar componentes tipo
-Activity.\newline 
-Método source: un método source es un método(definido dentro de la clase)
-que cuando es invocado, contiene dentro de los parámetros de invocación, al menos
-una varible source.\newline
-Método no source: un método no source es un método(definido dentro de la clase)
-que cuando es invocado, no contiene dentro de los parámetros de invocación,
+Activity.\\
+- Método source: un método source es un método(definido dentro de la
+clase) que cuando es invocado, contiene dentro de los parámetros de invocación, al menos
+una varible source.\\
+- Método no source: un método no source es un método(definido dentro de la
+clase) que cuando es invocado, no contiene dentro de los parámetros de invocación,
 varibles source.
 
-\textit{Anotación de los elementos: }
+\textit{Anotación de los elementos}\newline
 Fijados los elementos que se anotan, se define su respectiva forma de anotación.
 Conceptos y términos implicados en la sintaxis de anotación Jif, se
 encuentran en la sección de background \ref{sssec:JifSintax}.
+Los labels de seguridad que no son anotadas mediante este esquema, son generados
+automáticamente por Jif, acorde a los labels que estable por defecto para la
+definición de variables, métodos y arrays(Tal como se ilustra en).
 
-\textit{Definición A:} anotación de variable source.\newline 
+- Definición A: anotación de variable source.\newline 
 \emph{java-type \{Alice:\} nameVar}\newline
 como la información almacenada en una variable source es información con nivel
 de seguridad alto(conjunto de sources), la variable debe tener un label de
@@ -492,30 +497,27 @@ pertenece al principal \emph{Alice}, así, cuando se envíe hacia un canal
 de seguridad bajo, da lugar a un flujo de información indebido(de nivel alto a
 nivel bajo).
 
-\textit{Definición B:} anotación de array source.\newline
+- Definición B: anotación de array source.\newline
 \emph{java-type\{Alice:\}[ ]\{Alice:\} arrayName}\newline
 debido a que un array source almacena información con nivel de seguridad alto,
-se debe garantizar que sólo el principal dueño de la información podrá
+se debe garantizar que sólo el principal dueño de la información pueda
 conocer tanto items como tamaño del array. Esto se logra anotando con
 label de seguridad \emph{\{Alice:\}} el \emph{BL} y \emph{SL}, labels de
 seguridad para los elementos y tamaño del array, respectivamente.
 
-\textit{Definición C:} anotación de método que se sobreescribe.\newline
+- Definición C: anotación de método que se sobreescribe.\newline
 El BL de un método a sobreescribir debe ser anotado con label de seguridad bajo
 \{\}, puesto que en su respectiva definición en las clases de la API, han sido
 definidas con ese BL.
 
-\textit{Definición D:} anotación de método source.\newline 
+- Definición D: anotación de método source.\newline 
 \emph{java-type\{Alice:\}  methodName \{Alice:\}(java-type arg1\{Alice:\} ,,,
 java-type argn\{Alice:\})}
 Como un método source influencia información con nivel de seguridad alto(variable
-source), la información a conocer mediante el método también debe tener nivel de
-seguridad alto.\newline 
-Al tratarse de información con nivel de seguridad alto, sólo sentencias del
-programa que también tengan un nivel de seguridad alto podrán conocer la
-información proporcionada por el método.\newline 
-Buscando hacer cumplir lo anterior, se anota con label de seguridad \{Alice:\}
-el RTL y el BL del método.
+source), se debe garantizar que sólo sentencias del programa que tengan nivel de
+seguridad alto, puedan ser actualizadas con información proporcionada por el método.\\
+Buscando hacer cumplir lo anterior, se anota con label de
+seguridad \{Alice:\} el RTL y el BL del método.
 Retomando la sintaxis jif para anotación de métodos:\newline 
 \emph{java-type \{RTL\} methodName \{BL\} (java-type arg1\{AL\},,, java-type argn\{AL\}):\{EL\} }\newline
 Al anotar \{RTL\} con \{Alice:\} se asegura que, si el método retorna un valor,
@@ -532,55 +534,65 @@ método tiene AL con nivel de seguridad alto(pues ese fue el criterio con que
 se clasificó al método como source), pero el resto de párametros puede tener AL
 alto o bajo, entonces para garantizar que el método pueda ser invocado bajo
 tales condiciones, los AL para los argumentos del método son anotados con
-label \{Alice:\}.\newline
+label \{Alice:\}.
 
-\textit{Definición E:} anotación de método no source.\newline
-un método no source es un método(definido dentro de la clase) que cuando es
-invocado, no contiene dentro de los parámetros de invocación, varibles source.
-Como el método no recibe la variable source, el nivel de seguridad de la
-información que se obtenga con el método puede ser de nivel de seguridad bajo.
-Anotando el BL con label {\{\}}, se garantiza que el nivel de seguridad devuelto
-por el método es bajo, si este no recibe la variable source.
-Ahora,  si resulta que dentro del método está definida la variable source, el
-método debe retornar un nivel de seguridad alto. Anotando el BL con
-label {\{\}}, se respeta tal condición puesto que el BL se ve afectado cuando
-el cuerpo del método tiene información con nivel un nivel de seguridad
-mayor.\newline 
-nameMethod\textit{\{\}}(type\textit{\{Alice:\}}arg1,.....type\textit{\{Alice:\}}argn ) \{\}\newline
-Falta explicación.
+- Definición E: anotación de método no source.\newline
+\emph{methodName \{\} (java-type arg1\{Alice:\},,, java-type argn\{Alice:\})}\newline
+Como el método no recibe la variable source, el nivel de seguridad de las
+sentencias del programa que se actualicen con la información del método puede
+ser bajo. Ahora,  si en el cuerpo del método se define o actualiza información
+con nivel de seguridad alto(información global), tales sentencias deben tener
+nivel de seguridad alto.
+Anotando el BL con label {\{\}}, se respeta tal condición puesto que,
+el BL se ve afectado cuando el cuerpo del método tiene información con mayor
+nivel de seguridad, obligando a que las sentencias a actualizarse con la
+información del método tengan nivel de seguridad alto.\newline
+Para el caso de los AL, labels de seguridad de los argumentos, el sistema de
+anotaciones de Jif exige que los AL con que se invoca el método, deben ser igual
+o menor de restrictivos que los AL con que se define el método. Anotando los AL
+de la definición del método con label \{Alice:\}, se cumple tal restricción ya
+que el método es invocado con parámetros cuyo nivel de seguridad es bajo.
 
-\textit{Pasos para identoficar los elementos y aplicar su respectiva anotación:}
-
+\textit{Pasos para aplicar el esquema de anotación}\newline
 Partiendo de las anteriores definiciones, los pasos para la anotación son los
 siguientes:\newline
 (1) Identificar variables source de la clase. Si se encuentran variables sources
-continuar con los pasos (2) a (11), sino, continuar con pasos: (3), (6) y (9).
-definiciones B y D.\newline
+continuar con los pasos (2) a (11), sino, continuar con pasos: (3), (6), (9) y
+Aplicar Definición E a los métodos que no se sobreescriben\footnote{Como no se
+identifican sources, la anotación de método no source(Definición E) es
+aplicable para los métodos que no se sobreescriben.}.
 (2) Identificar arrays sources de la clase.
 (3) Identificar el total de métodos de la clase.\newline
 (4) Del total de métodos listar los métodos source.\newline
 (5) Del total de métodos listar los métodos no source.\newline
 (6) Del total de métodos listar los métodos a sobreescribir\newline
-(7) Aplicar definición D a listado del paso(4).\newline
-(8) Aplicar definición E a listado del paso (5).\newline
-(9) Aplicar definición C a listado del paso (6).\newline
-(10) Aplicar definición B a listado del paso (2).\newline
-(11) Aplicar definición A a listado del paso (1).\newline
+(7) Aplicar Definición D a listado del paso(4).\newline
+(8) Aplicar Definición E a listado del paso (5).\newline
+(9) Aplicar Definición C a listado del paso (6).\newline
+(10) Aplicar Definición B a listado del paso (2).\newline
+(11) Aplicar Definición A a listado del paso (1).
 
-\textit{Entradas y salidas del anotador}.
-
-Las definiciones y pasos para la anotación del aplicativo a analizar, descritas
-anteriormente, se condensan en un anotador. El cual debe recibir como entrada el
-código fuente de la aplicación Android(perteneciente al conjunto evaluable),
-para retornar su respectiva implementación en Jif, versión que contiene las
-anotaciones para evaluar la política de seguridad definida. Tal como se ilustra
-en la figura \ref{fig:desingSolution}\newline 
+Para automatizar estos pasos, se debe implementar un generador de
+anotaciones(prototipo de anotación). Que reciba como entrada el código fuente de
+la aplicación Android(perteneciente al conjunto evaluable), y retorne su
+respectiva implementación en Jif, versión que contiene las anotaciones para
+evaluar la política de seguridad definida.\newline
+La figura \ref{fig:desingSolution}, ilustra las entradas y salidas
+esperadas.\newline
 Luego la versión obtenida se evalúa con el compilador de Jif.
+% \textit{Entradas y salidas del anotador}.
+% Las definiciones y pasos para la anotación del aplicativo a analizar, descritas
+% anteriormente, se condensan en un anotador. El cual debe recibir como entrada el
+% código fuente de la aplicación Android(perteneciente al conjunto evaluable),
+% para retornar su respectiva implementación en Jif, versión que contiene las
+% anotaciones para evaluar la política de seguridad definida. Tal como se ilustra
+% en la figura \ref{fig:desingSolution}\newline 
+% Luego la versión obtenida se evalúa con el compilador de Jif.
 \label{subsec:anotador}
 \label{subsec:pasosSol}
-\begin{figure}[H]
+\begin{figure}[t!]
 	\begin{center}
-	\includegraphics[width=7cm]{desingSolution.jpg}
+	\includegraphics[width=7cm]{desingSolution2.jpg}
 	\end{center}
 	\caption{Entradas y salidas para el generador de anotaciones.}
 	\label{fig:desingSolution} 
