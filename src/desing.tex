@@ -308,7 +308,9 @@ catalogada con uno u otro nivel de seguridad, de modo que, partiendo de tales
 anotaciones se evalué la existencia de flujos de información entre información
 con nivel de seguridad alto e información con nivel de seguridad bajo, lo primero
 que se debe definir es quién es la autoridad de los programas y cuáles son los
-labels de seguridad.
+labels de seguridad.\newline
+Conceptos y términos implicados en la sintaxis de anotación Jif, se
+encuentran en la sección de background \ref{sssec:JifSintax}.
 
 Principal \emph{Alice}\newline
 aprovechando que Jif ya trae una serie de principals establecidos, se define que
@@ -342,17 +344,26 @@ seguridad bajo}: para controlar el flujo de información que se envía hacia
 \textit{Canales que muestran información con nivel de seguridad bajo}, es
 necesario anotar la definición de los métodos de las clases Log y SmsManager de
 la API Android, de manera tal, que se controle el nivel de seguridad de los
-argumentos con que se invocan. Por consiguiente, en la definición del método el
-AL del parametro que recibe la información a mostrar(logs) o la información a
-enviar(sms), se anota con el label de seguridad bajo(label público\{\}). Con
+argumentos con que se invocan.\newline
+Tomando como ejemplo el método sendTextMessage de la clase SmsManager, mediante
+el cual se envían mensajes de texto:\newline
+public final void sendTextMessage (String destinationAddress, String
+scAddress, String text, PendingIntent sentIntent, PendingIntent
+deliveryIntent)\newline
+El argumento \emph{text} es el que recibe la información a mostrar, por tanto
+esa información debe ser pública.\newline 
+Por consiguiente, en la definición del método el label de seguridad del
+argumento(AL) correspondiente a la información a mostrar(logs) o la información
+a enviar(sms), se anota con el label de seguridad bajo(label público\{\}). Con
 esto se garantiza que la información se muestra o envía, si y sólo si el nivel
 de seguridad del argumento con que se invoca el método es público. Por ejemplo,
 si el método se llama con información anotada con label de seguridad alto, se
 genera error en la compilación del programa que le llama.\newline 
-El resto de labels del método BL y AL se anotan con el top principal. Al anotar
-el BL con el top principal, se permite que el método sea invocado desde
-cualquier punto de un programa. 
-Para el resto de labels de los argumentos XXX\newline
+El resto de argumentos del método se anotan con label de seguridad \{Alice:\},
+puesto que esa información puede ser pública o privada.\newline
+En el caso del BL al anotarlo con el label \{Alice:\}, se permite que el método
+sea invocado desde cualquier punto de un programa. 
+Para el resto de labels se dejan los que Jif genera por defecto\newline
 % cualquier punto de un programa que sea igual o menor de restrictivo que el
 % principal Alice, esto se traduce en que podrá ser invocado desde cualquier punto
 % de un programa, lo cual es correcto porque lo que se busca el evitar que se
@@ -361,14 +372,13 @@ Para el resto de labels de los argumentos XXX\newline
 - Anotaciones para metódos de sobreescritura: en \ref{subsec:consVerPol},
 también se definieron las clases de la API para las que se debe soportar el
 \textit{Acceso a métodos de sobreescritura}(Activity, Service y
-BroadcastReceiver). La anotación para la definicíon de tales métodos se basa en
-los siguientes criterios: (1)reglas de Jif para la sobreescritura de métodos y
-(2)desde dónde pueden ser invocados. (1) Jif exige que el nivel de seguridad del
-BL del método desde donde se invoca el método a sobreescribir, no debe ser menos
-restrictivo que el BL de la definición de tal método(Cómo se traduce qué es más
-restrictivo y que es más restrictivo? Definiciones previas).
-(2) la sobreescritura de métodos se debe poder utilizar desde cualquier aplicativo que
-extienda de las clases Activity, Service y BroadcastReceiver.\newline
+BroadcastReceiver). La anotación para la definicíon de tales métodos se basa en:
+(1)reglas de Jif para la sobreescritura de métodos y (2)desde dónde pueden ser
+invocados. (1)Jif exige que el nivel de seguridad del BL del método desde donde
+se invoca el método a sobreescribir, no debe ser menos restrictivo que el BL de
+la definición de tal método(privado es más restrictivo que público). (2) la
+sobreescritura de métodos se debe poder utilizar desde aplicativos que extiendan
+de las clases Activity, Service y BroadcastReceiver.\newline 
 Para cumplir con (1) y (2), los métodos que requieren ser sobreescritos se
 definen con BL público(\{\}). De este modo los aplicativos desde dónde se
 invocan los métodos a sobreescribir deben tener igual BL.
@@ -404,6 +414,7 @@ seguridad(mecanismo de signaturas nativas más labels de seguridad).\newline
 Para el presente caso y de acuerdo a los criterios de anotación previamente
 establecidos las clases a implementar mediante uno u otro mecanismo, son
 ilustrados en la siguiente figura \ref{fig:annotationsMechanims}.\newline
+
 Nota: Falta decir qué las anotaciones a la API se implementan manualmente.
 
 \subsubsection{Anotaciones en los aplicativos a analizar}
@@ -485,7 +496,7 @@ Conceptos y términos implicados en la sintaxis de anotación Jif, se
 encuentran en la sección de background \ref{sssec:JifSintax}.
 Los labels de seguridad que no son anotadas mediante este esquema, son generados
 automáticamente por Jif, acorde a los labels que estable por defecto para la
-definición de variables, métodos y arrays(Tal como se ilustra en).
+definición de variables, métodos y arrays, etc.
 
 - Definición A: anotación de variable source.\newline 
 \emph{java-type \{Alice:\} nameVar}\newline
@@ -592,7 +603,7 @@ Luego la versión obtenida se evalúa con el compilador de Jif.
 \label{subsec:pasosSol}
 \begin{figure}[t!]
 	\begin{center}
-	\includegraphics[width=7cm]{desingSolution2.jpg}
+	\includegraphics[width=10cm]{desingSolution2.jpg}
 	\end{center}
 	\caption{Entradas y salidas para el generador de anotaciones.}
 	\label{fig:desingSolution} 
@@ -637,7 +648,16 @@ Luego la versión obtenida se evalúa con el compilador de Jif.
 % En la figura \ref{fig:desingSol-details} se
 % especifican clases de la API Android a anotar.\newline
 
-\subsection{Descripción implementación prototipo}
+\subsection{Descripción implementación}
+Como se describio anteriormente, la implementación de la solución requiere
+anotaciones a la API de Android y anotaciones en los aplicativos a analizar.
+En el caso de las anotaciones requeridas para la API, su implementación se hace
+manualmente. En el caso de las anotaciones en el aplicativo a analizar, para lo
+cual se propuso un esquema de anotación automatizable, se realizan las
+descripciones pertinentes para la implementación del prototipo de
+anotación, así:\newline
+
+
 -Diagrama de clases o descripción\newline
 En la sección \ref{sec:diagramaClass} de los anexos, se incluye el diagrama de
 clases para la implementación del anotador.\newline
