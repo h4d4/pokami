@@ -53,6 +53,14 @@ En sisntesís, las políticas de seguridad definen que principals pueden leer o
 modificar la información, y esas políticas se expresan mediante labels.
 
 \subsubsection{Label Checking}
+% Jif hace chequeo de labels para verificar si un programa cumple con las
+% políticas de seguridad indicadas en sus labels. Las reglas de chequeo se centran
+% en verificar si se cumplen las siguiguientes restricciones:\newline
+% (1) El label con que aparece cada expresión es por lo menos tan
+% restrictivo como el label de cada valor que podría producir.\newline
+% (2) El label con que aparece un valor, es por lo menos tan restrictivo como la
+% etiqueta de los valores que puedan afectarlo.
+
 Para hacer seguimiento al flujo de información de un programa, el compilador de
 Jif asocia un label al program counter de cada punto del programa,
 progam-counter label(\underline{pc}). En cada punto del programa, el
@@ -66,10 +74,10 @@ Adicionalmente, jif define labels que representan la información que podría
 conocerse tras la terminación normal, o terminación por excepción de las
 sentencias del programa. Y labels enviroments, que para cada punto del programa
 determinan la forma en que se relacionan labels y principals.\newline
-El valor dichos labels es verificado durante la compilación del programa, si se
-detecta que no cumplen con las restricciones establecidas en la anotación del
+El valor de dichos labels es verificado durante la compilación del programa, si
+se detecta que no cumplen con las restricciones establecidas en la anotación del
 mismo, el compilador genera error, indicando los puntos del programa que las
-incumple.\newline
+incumplen.\newline
 
 -Implicit flows and program-counter labels\newline
 
@@ -130,12 +138,49 @@ finalización del método.
 
 \subsubsection{Labels de anotación que Jif asume por defecto}
 \label{sssec:default-labels}
-Cuando un label no es especificado, Jif define unos por defecto. 
-- Labels por defecto para la declaración de métodos\newline
-En el caso de
-RTL, jif hace un join entre los diferentes AL con que ha sido definido el
-método.
+Cuando en la declaración de variables o métodos no se especifica su respectivo
+label de seguridad, Jif lo infiere o genera automáticamente. De acuerdo al tipo
+de sentencia. Así:\newline
+- Variables locales: Jif infiere sus labels, de modo que se respeten las
+restricciones sobre el flujo de información.\newline
+- Arrays: por defecto, Jif define el label público para el Base Label(BL) y el
+Size Label(SL) de un array.\newline
+- Class fields: el label por defecto es \{ \}, que representa información con el
+menor nivel de confidencialidad. Es el label menos confiable, con este se
+asegura que información altamente confidencial no podrá ser almacenado en el
+campo de la clase.\newline
+- Métodos: los labels que Jif genera por defecto para la definción de
+métodos son:\newline 
+Argument Label(AL): el label por defecto es el Top principal, es decir que sólo
+la máxima autoridad podra leer la información del argumento.\newline 
+Begin Label(BL): su label por defecto es el Top principal.\newline
+End Label(EL): Jif hace un Join de los labels con que se definen las
+excepciones del método, si el método no tiene excepciones, el label por defecto
+es el menos restrictivo \{ \}\newline
+Return Type Label(RTL): Jif hace un Join de los AL y el EL.\newline
+Labels para excepciones: el valor del EL.\newline
 
-- Labels por defecto para \newline
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \subsubsection{Llamada a métodos}
