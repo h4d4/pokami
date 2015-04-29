@@ -1,5 +1,6 @@
 \label{ch:desing}
 \chapter{Diseño e Implementación}
+\input{propuesta-sol}
 
 \section{Limitaciones técnicas}
 \label{sec:limitaciones}
@@ -96,17 +97,17 @@ no puede ser anotada con jif. Esto puede solucionarse implementando una
 versión Jif generalizada de la clase R, que contenga los recursos utilizados en
 una aplicación, definidos como variables y no como clases.
 
-- \textit{Sources y Sinks}\newline
-En los preliminares para el diseño de la solución se propone utilizar SuSi
-para clasificar los sources y sinks en las aplicaciones a analizar, sin embargo, partir del
-extenso conjunto de sources y sinks, clasificados por SuSi para la API de
-Android, implica una mayor complejidad en el análisis, puesto que, en un
-aplicativo todo el código que le conforma puede hacer parte de sources o de
-sinks. Adicional a lo complejo que se puede tornar el análisis, los sources y
-sinks a considerar deben depender de la política de seguridad a evaluar. En ese
-orden de ideas, resulta más viable tomar un subconjunto del listado proveído por
-SuSi, partiendo de los sources y sinks que evalué la política de seguridad que
-se defina.
+% - \textit{Sources y Sinks}\newline
+% En los preliminares para el diseño de la solución se propone utilizar SuSi
+% para clasificar los sources y sinks en las aplicaciones a analizar, sin embargo, partir del
+% extenso conjunto de sources y sinks, clasificados por SuSi para la API de
+% Android, implica una mayor complejidad en el análisis, puesto que, en un
+% aplicativo todo el código que le conforma puede hacer parte de sources o de
+% sinks. Adicional a lo complejo que se puede tornar el análisis, los sources y
+% sinks a considerar deben depender de la política de seguridad a evaluar. En ese
+% orden de ideas, resulta más viable tomar un subconjunto del listado proveído por
+% SuSi, partiendo de los sources y sinks que evalué la política de seguridad que
+% se defina.
 
 - \textit{Enhanced for loop} \newline
 Además de soportar la estructura de control for, el lenguaje Java permite el uso
@@ -158,7 +159,16 @@ su implementación las estructuras de datos descritas.\newline
 %(\{\}):}\newline
 
 \section{Diseño de la solución}
+Como se describe en la propuesta de solución, el diseño ideal para contribuir
+con la solución del problema es: contar con una herramienta de análisis que
+permita evaluar 
+\newline
 
+Sin embargo, para efectos de esta tesis el diseño se centra en:\newline
+ 
+
+
+XXXXXXX\newline
 \textcolor{red}
 {Pregunta: los siguientes tres parrafos explican que se cambió la propuesta
 incial y por qué. Es adecuado clarificarlo aquí, o se debe actualizar la

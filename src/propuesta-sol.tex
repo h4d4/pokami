@@ -1,5 +1,7 @@
-\section{Preliminares para diseño de la solución}
-\label{sec:propuesta-sol}
+\section{Propuesta de solución}
+\label{sec:propuesta-sol} 
+(Descripción de la propuesta para solucionar el problema)
+
 La propuesta para detectar fuga de información en aplicaciones Android, antes de
 su publicación, consiste en proveer al desarrollador una herramienta para
 análisis estático de flujos de información de la aplicación. Así, partiendo de
@@ -25,14 +27,15 @@ Acorde a los propósitos del presente trabajo, JIF ofrece los beneficios de un
 lenguaje tipado de seguridad y un sistema  sólido  de anotaciones, facilitando
 la definición de las propiedades de seguridad a verificar.\newline 
 Partiendo de JIF como el lenguaje tipado de seguridad, los retos subsiguientes
-son: implementar el setup de JIF para Android e integrar a JIF un clasificador
-para sources y sinks de Android. El setup de JIF para Android consiste en
-implementar las adaptaciones necesarias para que el lenguaje JIF reconozca
-código de la API de Android, y admita anotaciones JIF dentro de código
-Android, pues aunque en esencia el código Android es código Java, JIF no tiene
-como saberlo. También se requiere la integración de un clasificador de sources y
-sinks al sistema de anotaciones de JIF, con el fin de proveer información
-necesaria para evaluar las políticas de confidencialidad.\newline 
+son: implementar el setup de JIF para Android e integrar un clasificador
+para sources y sinks de Android. 
+El setup de JIF para Android consiste en implementar las adaptaciones necesarias
+para que el lenguaje JIF reconozca código de la API de Android, y admita
+anotaciones JIF dentro de código Android, pues aunque en esencia el código
+Android es código Java, JIF no tiene como saberlo. También se requiere la
+integración de un clasificador de sources y sinks al sistema de anotaciones de
+JIF, con el fin de proveer información necesaria para evaluar las políticas de
+confidencialidad.\newline 
 La figura \ref{fig:desing1-in} expone los elementos necesarios para construir la
 herramienta de análisis. Básicamente, se requiere un módulo que extienda las
 clases en JIF para que el lenguaje reconozca código de la API de Android, es
@@ -51,7 +54,7 @@ esperado.\newline
 
 \begin{figure}[t!]
 	\begin{center}
-	\includegraphics[width=4.6cm]{desing2-inside.png}
+	\includegraphics[width=4.6cm]{desingInside3.jpg}
 	\end{center}
 	\caption{Static Analisys Tool Diagrama interno. Ilustra la composición interna
 	de la herramienta propuesta para el análisis estático de aplicaciones Android.}
@@ -60,7 +63,7 @@ esperado.\newline
 
 \begin{figure}[t!]
 	\begin{center}
-	\includegraphics[width=3.5cm]{desing1-2.png}
+	\includegraphics[width=9cm]{desingInOut-3.jpg}
 	\end{center}
 	\caption{Static Analisys Tool. Ilustra el input esperado por la herramienta, y
 	el resultado devuelto.}
@@ -99,11 +102,7 @@ en: medir recall frente a la detección de flujos implícitos, es decir, medir q
 no genere falsos negativos ante la existencia de fugas de información,
 provenientes de flujos implícitos.\newline
 
-Por último, cabe anotar que aunque la presente propuesta está centrada en
-verificar políticas de confidencialidad, en caso de contar con el tiempo
-prudente, sería interesante analizar políticas adicionales como por ejemplo,
-integridad y declasificación, pues estas son verificables mediante el modelo de
-evaluación de JIF, modelo del que parte la herramienta de evaluación planteada.
+
 
 
 
