@@ -159,58 +159,57 @@ su implementación las estructuras de datos descritas.\newline
 %(\{\}):}\newline
 
 \section{Diseño de la solución}
-Como se describe en la propuesta de solución, el diseño ideal para contribuir
-con la solución del problema es: contar con una herramienta de análisis que
-permita evaluar 
-\newline
+Como se describe en la propuesta de solución \ref{sec:propuesta-sol}, el
+diseño ideal para contribuir con la solución del problema es: una herramienta que contenga el setup de Jif
+para Android, e integregre un clasificador de sources y sinks, de tal manera que
+la herramienta permita evaluar el control de flujo de información en aplicativos
+Android. Así, mediante anotaciones Jif en el código de su aplicación, el
+desarrollador define la política de seguridad a evaluar.
 
-Sin embargo, para efectos de esta tesis el diseño se centra en:\newline
- 
+Sin embargo, para efectos de esta tesis se limitia el Setup de Jif, partiendo de
+una política de seguridad específica. De este modo, el diseño se centra en
+soportar un conjunto reducido de clases de la Api de Android, y en integrar un
+conjunto específico de sources y sinks de acuerdo a una política de seguridad
+establecida. Ese conjunto de sources y sinks, se toma del listado de sources y
+sinks proveido por SuSi \ref{sec:susi}.\newline 
+Adicionalmente para aspectos de evaluación, se incluye el diseño de un
+prototipo de anotacion automático que anota el conjunto de aplicativos a
+analizar acorde a la política de seguridad que se evalua. 
 
-
-XXXXXXX\newline
-\textcolor{red}
-{Pregunta: los siguientes tres parrafos explican que se cambió la propuesta
-incial y por qué. Es adecuado clarificarlo aquí, o se debe actualizar la
-propuesta inicial acorde al diseño real? Nota: Sandra recomienda que discutamos
-si los cambios han sido en el diseño o en la implementación. De ello depende
-dónde deben ir, es decir, si se cambian los preliminares para el diseño de la
-solución o si se dejan así.}
-
-En los preliminares para el diseño de la solución se consideró la siguiente
-opción: Anotar un conjunto de clases de la API de Android mediante el sistema de
-anotaciones de Jif, de modo que el compilador de Jif reconociera clases propias
-de esa API, y por tanto, permitiese el análisis de flujo de información a través
-de estas. Habiendo asegurado el reconocimiento a un
-conjunto de clases de la API de Android, era tarea del desarrollador implementar
-la versión Jif del aplicativo a evaluar.
-
-Si bien, con dicha opción de diseño se aporta para que el desarrollador
-Android evalúe flujos de información en su aplicación, mediante Jif; también se
-incrementa su carga de programación, puesto que, al delegarle la anotación de la
-aplicación a analizar, este debe pensar dos versiones. La versión .java, donde
-utiliza los métodos proveídos por la API Android para definir las
-funcionalidades de su aplicación; y la versión .jif, donde define las anotaciones pertinentes para
-evaluar flujos de información; tarea para la cual, se requiere un conocimiento
-previo del sistema de anotaciones de Jif y la implementación de aplicaciones
-haciendo uso de las mismas.
-
-En consecuencia, se opta por un diseño que reduzca la carga de programación
-del desarrollador, durante el análisis del aplicativo.\newline 
-El diseño de solución consta de dos elementos fundamentales: anotaciones a la
-API de Android, más el anotador que genere la versión Jif del aplicativo a
-analizar, acorde a una política de seguridad previamente definida.\newline 
-Ambos elementos son complementarios, puesto que, por más que se genere la
-versión Jif del aplicativo a analizar, si el compilador no reconoce clases
-específicas de la API que allí se usan, .jif no puede ser compilado.
+% En los preliminares para el diseño de la solución se consideró la siguiente
+% opción: Anotar un conjunto de clases de la API de Android mediante el sistema de
+% anotaciones de Jif, de modo que el compilador de Jif reconociera clases propias
+% de esa API, y por tanto, permitiese el análisis de flujo de información a través
+% de estas. Habiendo asegurado el reconocimiento a un
+% conjunto de clases de la API de Android, era tarea del desarrollador implementar
+% la versión Jif del aplicativo a evaluar.
+% 
+% Si bien, con dicha opción de diseño se aporta para que el desarrollador
+% Android evalúe flujos de información en su aplicación, mediante Jif; también se
+% incrementa su carga de programación, puesto que, al delegarle la anotación de la
+% aplicación a analizar, este debe pensar dos versiones. La versión .java, donde
+% utiliza los métodos proveídos por la API Android para definir las
+% funcionalidades de su aplicación; y la versión .jif, donde define las
+% anotaciones pertinentes para evaluar flujos de información; tarea para la cual,
+% se requiere un conocimiento previo del sistema de anotaciones de Jif y la
+% implementación de aplicaciones haciendo uso de las mismas.
+% 
+% En consecuencia, se opta por un diseño que reduzca la carga de programación
+% del desarrollador, durante el análisis del aplicativo.\newline 
+% El diseño de solución consta de dos elementos fundamentales: anotaciones a la
+% API de Android, más el anotador que genere la versión Jif del aplicativo a
+% analizar, acorde a una política de seguridad previamente definida.\newline 
+% Ambos elementos son complementarios, puesto que, por más que se genere la
+% versión Jif del aplicativo a analizar, si el compilador no reconoce clases
+% específicas de la API que allí se usan, .jif no puede ser compilado.
 
 Así, (1) se parte definiendo la política de seguridad a evaluar
 \ref{subsection:politica}, (2) se toman a consideración elementos influyentes
 para verificar el cumplimiento de la política mediante Jif
 \ref{subsec:consVerPol}, y finalmente, teniendo en cuenta (1) y (2), se definen
 los lineamientos de anotación \ref{subsec:linemientos}, donde se define el
-esquema de anotación tanto para las anotaciones requeridas en la API como para las anotaciones de los
-aplicativos a analizar(linemientos del anotador).
+esquema de anotación tanto para las anotaciones requeridas en la API como para
+las anotaciones de los aplicativos a analizar(linemientos del anotador).
 
 \subsection{Definición de la política de seguridad}
 \label{subsection:politica}
@@ -227,14 +226,24 @@ mediante Jif}
 Teniendo definida la política de seguridad a verificar, se describen
 elementos influyentes en el diseño de la solución.
 
-\textit{Versión de la API de Android}\newline
-Las aplicaciones utilizadas para los experimentos previos a la implementación
-del prototipo, y las aplicaciones a anotar con el mismo, se realiza partiendo de
-la versión Android 4.2.2(API Level 17).
+\textit{Información considerada con nivel de seguridad alto}\newline
+Para verificar el cumplimiento de la política de seguridad a evaluar se parte de
+un conjunto de sources(), caracterizados por dar a conocer información del
+usuario, considerada como privada o sensible. Los métodos que integran
+el conjunto de sources son: getDeviceId, getSimSerialNumber, findViewById,
+getLatitude, getLongitude y getSubscriberId. Adicional a estos métodos, se
+incluye el tipo de dato EditText, si y sólo si, el campo UI al que referencia
+corresponde a un campo tipo textPassword, es decir, un campo que almacena
+contraseñas.\newline 
 
-\textit{Versión del compilador de Jif}\newline
-se parte de la versión 3.4.2 del compilador de jif, para llevar a cabo tanto los
-experimentos previos como el análisis de las aplicaciones anotadas por el prototipo.
+\textit{Canales que muestran información con nivel de seguridad bajo}\newline
+La información enviada a través de mensajes de texto y la información conocida
+tanto a través de mensajes de Log, como a través de canales generados por el
+control de flujo del programa, tiene en común que debe poder ser conocida por
+terceros. En consecuencia, se considera que estos canales deben dar a conocer
+información con nivel de seguridad bajo.\newline
+En el caso de mensajes de texto y mensajes de Log, se hace referencia
+específicamente a las clases Log y SmsManager de la API de Android.
 
 \textit{Diferencia entre una aplicación Android y una aplicación Java
 convencional}\newline 
@@ -271,24 +280,6 @@ declararlas en el programa, de lo contrario, el compilador de Jif genera error.
 Para las aplicaciones a analizar, se espera que el desarrollador haya
 especificado las excepciones necesarias.
 
-\textit{Información considerada con nivel de seguridad alto}\newline
-Para verificar el cumplimiento de la política de seguridad a evaluar se parte de
-un conjunto de sources, caracterizados por dar a conocer información del usuario, 
-considerada como privada o sensible. Los métodos que integran el conjunto de sources son: 
-getDeviceId, getSimSerialNumber, findViewById, getLatitude, getLongitude y
-getSubscriberId. Adicional a estos métodos, se incluye el tipo de dato EditText,
-si y sólo si, el campo UI al que referencia corresponde a un campo tipo
-textPassword, es decir, un campo que almacena contraseñas.
-
-\textit{Canales que muestran información con nivel de seguridad bajo}\newline
-La información enviada a través de mensajes de texto y la información conocida
-tanto a través de mensajes de Log, como a través de canales generados por el
-control de flujo del programa, tiene en común que debe poder ser conocida por
-terceros. En consecuencia, se considera que estos canales deben dar a conocer
-información con nivel de seguridad bajo.\newline
-En el caso de mensajes de texto y mensajes de Log, se hace referencia
-específicamente a las clases Log y SmsManager de la API de Android.
-
 \textit{Evaluación del flujo de información}\newline
 Para evaluar el flujo de información, se asume que todos los métodos definidos
 en la clase serán invocados, y por tanto, todos son incluidos en el análisis.\newline 
@@ -303,7 +294,7 @@ debe poder utilizarlos.
 \subsection{Lineamientos de anotación}
 \label{subsec:linemientos}
 Para verificar el cumplimiento de la política de seguridad
-establecida\ref{subsection:politica} mediante el sistema de anotaciones de Jif,
+establecida \ref{subsection:politica} mediante el sistema de anotaciones de Jif,
 se requiere: (a) definir los elementos básicos de anotación, (b) definir
 las anotaciones necesarias para la API de Android y (c) definir los
 criterios de anotación para los aplicativos a analizar, tales 
@@ -424,8 +415,6 @@ seguridad(mecanismo de signaturas nativas más labels de seguridad).\newline
 Para el presente caso y de acuerdo a los criterios de anotación previamente
 establecidos las clases a implementar mediante uno u otro mecanismo, son
 ilustrados en la siguiente figura \ref{fig:annotationsMechanims}.\newline
-
-Nota: Falta decir qué las anotaciones a la API se implementan manualmente.
 
 \subsubsection{Anotaciones en los aplicativos a analizar}
 %\subsubsection{Criterios de anotación para los aplicativos a analizar}
@@ -659,6 +648,17 @@ Luego la versión obtenida se evalúa con el compilador de Jif.
 % especifican clases de la API Android a anotar.\newline
 
 \subsection{Descripción implementación}
+
+\textit{Versión de la API de Android}\newline
+Las aplicaciones utilizadas para los experimentos previos a la implementación
+del prototipo, y las aplicaciones a anotar con el mismo, se realiza partiendo de
+la versión Android 4.2.2(API Level 17).
+
+\textit{Versión del compilador de Jif}\newline
+se parte de la versión 3.4.2 del compilador de jif, para llevar a cabo tanto los
+experimentos previos como el análisis de las aplicaciones anotadas por el prototipo.
+
+
 Como se describio anteriormente, la implementación de la solución requiere
 anotaciones a la API de Android y anotaciones en los aplicativos a analizar.
 En el caso de las anotaciones requeridas para la API, su implementación se hace
