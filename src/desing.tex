@@ -160,21 +160,29 @@ su implementación las estructuras de datos descritas.\newline
 
 \section{Diseño de la solución}
 Como se describe en la propuesta de solución \ref{sec:propuesta-sol}, el
-diseño ideal para contribuir con la solución del problema es: una herramienta que contenga el setup de Jif
-para Android, e integregre un clasificador de sources y sinks, de tal manera que
-la herramienta permita evaluar el control de flujo de información en aplicativos
-Android. Así, mediante anotaciones Jif en el código de su aplicación, el
-desarrollador define la política de seguridad a evaluar.
+diseño ideal para contribuir con la solución del problema es: una herramienta
+que contenga el setup de Jif para Android, e integregre un clasificador de
+sources y sinks, de tal manera que la herramienta permita evaluar el control de
+flujo de información en aplicativos Android. Así, mediante anotaciones Jif en el
+código de su aplicación, el desarrollador define la política de seguridad a evaluar.
 
 Sin embargo, para efectos de esta tesis se limitia el Setup de Jif, partiendo de
 una política de seguridad específica. De este modo, el diseño se centra en
-soportar un conjunto reducido de clases de la Api de Android, y en integrar un
+soportar un conjunto reducido de clases de la Api de Android, y en incluir un
 conjunto específico de sources y sinks de acuerdo a una política de seguridad
 establecida. Ese conjunto de sources y sinks, se toma del listado de sources y
 sinks proveido por SuSi \ref{sec:susi}.\newline 
-Adicionalmente para aspectos de evaluación, se incluye el diseño de un
-prototipo de anotacion automático que anota el conjunto de aplicativos a
-analizar acorde a la política de seguridad que se evalua. 
+Adicionalmente para aspectos de evaluación, se incluye el diseño de un anotador
+que anota automáticamente el conjunto de aplicativos a analizar acorde a la
+política de seguridad que se evalua. La figura \ref{fig:desingReal} muestra el
+esquema del diseño.
+\begin{figure}[t!]
+	\begin{center} 
+	\includegraphics[width=11cm]{desing3Real.jpg} 
+	\end{center}
+	\caption{Herramienta de análisis estático  }
+	\label{fig:desingReal}
+\end{figure}
 
 % En los preliminares para el diseño de la solución se consideró la siguiente
 % opción: Anotar un conjunto de clases de la API de Android mediante el sistema de
