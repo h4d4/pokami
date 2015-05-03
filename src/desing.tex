@@ -180,7 +180,7 @@ esquema del diseño.
 	\begin{center} 
 	\includegraphics[width=11cm]{desing3Real.jpg} 
 	\end{center}
-	\caption{Herramienta de análisis estático  }
+	\caption{Diseño herramienta de análisis estático}
 	\label{fig:desingReal}
 \end{figure}
 
@@ -656,31 +656,67 @@ Luego la versión obtenida se evalúa con el compilador de Jif.
 % especifican clases de la API Android a anotar.\newline
 
 \subsection{Descripción implementación}
+Como se describio anteriormente, la implementación del diseño requiere
+anotaciones a la API de Android y anotaciones en los aplicativos a
+analizar.\newline 
+En el caso de las anotaciones requeridas para la API, su
+implementación se hace manualmente.\newline
+En el caso de las anotaciones en el aplicativo a analizar, para lo
+cual se propuso un esquema de anotación automatizable, se implementa un
+prototipo de anotación en lenguaje Java. En la sección \ref{sec:diagramaClass}
+de los anexos, se incluye su respectivo diagrama de clases.\newline
+El anotador consta de cinco clases: Main, Source, XmlExtract, Annotation y
+BufferWriter. 
+En la clase Main se coordinan todos los pasos de anotación, así, la clase
+Sources  identifica qué variable sources contiene la aplicación que se está
+analizando; la clase Source  se apoya en la clase XmlExtract  para
+identificar el source EdidText cuando el campo UI al que referencia corresponde
+a un tipo textPassword. Como las interfaces UI se describen mediante XML, es
+necesario extraer los datos de la interfaz con parsers XML.\\
+Con la clase Annotation  se identifican y anotan los diferentes tipos de
+métodos(métodos source, no source y métodos a sobreescribir).
+En la clase BufferWriter  se anotan las variables sources, y finalmente se
+retorna la versión .jif del aplicativo que se está analizando.\newline 
+Para la anotación del código se utiliza la librería Java Parser 1.8  que permite
+generar y visitar el arbol de sintaxis para la estructura del código de cada
+programa, haciendo posible la adición de los labels de seguridad respectivos.
+La figura XXX expone el funcionamiento del anotador\newline
 
+\subsection{Ambiente y herramientas}
 \textit{Versión de la API de Android}\newline
-Las aplicaciones utilizadas para los experimentos previos a la implementación
-del prototipo, y las aplicaciones a anotar con el mismo, se realiza partiendo de
-la versión Android 4.2.2(API Level 17).
+Las anotaciones a las clases de la API Android y las aplicaciones a anotar
+mediante el prototipo, corresponden a la versión Android 4.2.2(API Level 17).
 
 \textit{Versión del compilador de Jif}\newline
-se parte de la versión 3.4.2 del compilador de jif, para llevar a cabo tanto los
-experimentos previos como el análisis de las aplicaciones anotadas por el prototipo.
+El componente que verifica el cumplimiento de las políticas de seguridad,
+corresponde a la versión 3.4.2 del compilador de Jif.
+
+\textit{Estructura de trabajo en JIF}\newline
+El compilador de Jif maneja una estructura de directorios en la que se incluye
+el código fuente .jif de las aplicaciones a analizar.\newline
+Esta estructura de directorios se compone de la siguiente manera 
+
+\subsection{Compilación, integración y finalmente ejecución }
 
 
-Como se describio anteriormente, la implementación de la solución requiere
-anotaciones a la API de Android y anotaciones en los aplicativos a analizar.
-En el caso de las anotaciones requeridas para la API, su implementación se hace
-manualmente. En el caso de las anotaciones en el aplicativo a analizar, para lo
-cual se propuso un esquema de anotación automatizable, se realizan las
-descripciones pertinentes para la implementación del prototipo de
-anotación, así:\newline
 
 
--Diagrama de clases o descripción\newline
-En la sección \ref{sec:diagramaClass} de los anexos, se incluye el diagrama de
-clases para la implementación del anotador.\newline
 
-El anotador consta de cinco clases 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
