@@ -680,15 +680,14 @@ retorna la versión .jif del aplicativo que se está analizando.\newline
 Para la anotación del código se utiliza la librería Java Parser 1.8  que permite
 generar y visitar el arbol de sintaxis para la estructura del código de cada
 programa, haciendo posible la adición de los labels de seguridad respectivos.\\
-La figura XXX expone el funcionamiento del anotador\newline
+(Incluir Figura)\newline
 \label{subsec:anotador}
-\label{subsec:pasosSol}
 \begin{figure}[t!]
 	\begin{center}
 	\includegraphics[width=12cm]{JifFilesystem.jpg}
 	\end{center}
-	\caption{Entradas y salidas para el generador de anotaciones.}
-	\label{fig:desingSolution} 
+	\caption{Estructura de directorios en Jif.}
+	\label{fig:jifFilesystem} 
 \end{figure}
 
 \subsection{Ambiente y herramientas}
@@ -702,12 +701,20 @@ corresponde a la versión 3.4.2 del compilador de Jif.
 
 \textit{Estructura de trabajo en JIF}\newline
 El compilador de Jif maneja una estructura de directorios en la que se incluye
-el código fuente .jif de las aplicaciones a analizar.\newline
-Esta estructura de directorios se compone de la siguiente manera 
+el código fuente .jif de las aplicaciones a analizar. Como ilustra la figura
+\ref{fig:jifFilesystem} se tienen los directorios principales sig-src y jif-src.
+El directorio sig-src está destinado para incluir librerías adicionales.\newline 
+El directorio jif-src contiene todo el código jif correspondiente al programa
+como tal que se va evaluar mediante Jif. Para los propósitos del presente
+trabajo, se tienen los subdirectorios principals y project. En el subdirectorio
+principals se incluyen las autoridades requeridas, y en el subdirectorio
+project se incluyen, tanto las clases específicas de los aplicativos Android a
+analizar, como las clases de que estos heredan como: Activity.jif, Service.jif,
+etc.
 
 \subsection{Compilación, integración y finalmente ejecución }
-
-
+En \ref{sec:ejecutarPrototipo} se describen las intrucciones paso a paso de cómo
+ejecutar el anotador, y cómo compilar los aplicativos a analizar mediante Jif.
 
 
 
