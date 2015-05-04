@@ -37,7 +37,7 @@ El setup de JIF para Android consiste en implementar adaptaciones necesarias
 a las clases de la API de Android, de modo que el compilador de Jif las
 reconozca, y sea posible adicionar anotaciones de Jif dentro de aplicaciones
 Android. Puesto que, aunque Jif permite extender al lenguaje Java, y en el fondo
-las clases de la API Android estan implementadas en Java, si no se cuenta con
+las clases de la API Android están implementadas en Java, si no se cuenta con
 una versión Jif de tales clases, el compilador de Jif no tiene como
 reconocerlas, por tanto, no admite anotaciones en programas que usen esas
 clases(aplicativos Android.)\newline
@@ -47,7 +47,7 @@ clases(aplicativos Android.)\newline
 % Android es código Java, JIF no tiene como saberlo. 
 Con la integración de un clasificador de sources y sinks para Android al sistema
 de anotaciones de JIF, se provee información necesaria para construir las
-políticas de seguridad. Porque, al conocer qué código de la Api de Android,
+políticas de seguridad. Porque, al conocer qué código de la API de Android,
 es considerado como source o como sink, se tiene el criterio para decidir su
 anotación. Permitiendo conocer el nivel de seguridad con que deben ser
 anotados el código tanto de la API como el código del aplicativo a
@@ -61,7 +61,7 @@ Básicamente, se requiere un módulo que extienda las clases en JIF para que el
 lenguaje reconozca código de la API Android(\emph{Android Jif Setup}), más un
 módulo que integre el clasificador de sources y sinks para Android(\emph{Sources
 y Sinks}). 
-Ambos modulos deben tener comunicación con el módulo que evalúa las
+Ambos módulos deben tener comunicación con el módulo que evalúa las
 políticas de seguridad \emph{verificador de políticas}, que en esencia es el
 compilador de Jif.\newline
 % s decir, para que admita anotaciones dentro del código Android: Setup extended JIF classes.
@@ -105,7 +105,7 @@ hacen data-flow analysis aplicando técnicas de análisis tainting, y en contras
 con las técnicas de análisis de flujo de información, las técnicas de análisis
 tainting no necesariamente consideran flujos implícitos. Por tanto, al estar
 basada en JIF, cuyo enfoque de análisis es precisamente flujo de información, se
-esperaría que la herramienta planteada esté en capacidad de reconocer flujos
+esperaría que la herramienta propuesta esté en capacidad de reconocer flujos
 implícitos.
 
 % Se esperaría que: al realizar análisis de flujo de información aplicando
