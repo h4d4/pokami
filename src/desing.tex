@@ -4,6 +4,7 @@
 
 \section{Limitaciones técnicas}
 \label{sec:limitaciones}
+\textcolor{blue}{P: estás limitaciones técnicas realmente deben ir aquí?}
 Como parte del diseño de la solución, se inicia con una etapa exploratoria. En
 esta se anotan manualmente varias aplicaciones de Android, y se identifican
 limitaciones del lenguaje Jif para anotar código de la API de Android.
@@ -215,9 +216,9 @@ Así, (1) se parte definiendo la política de seguridad a evaluar
 \ref{subsection:politica}, (2) se toman a consideración elementos influyentes
 para verificar el cumplimiento de la política mediante Jif
 \ref{subsec:consVerPol}, y finalmente, teniendo en cuenta (1) y (2), se definen
-los lineamientos de anotación \ref{subsec:linemientos}, donde se define el
-esquema de anotación tanto para las anotaciones requeridas en la API como para
-las anotaciones de los aplicativos a analizar(lineamientos del anotador).
+los lineamientos de anotación \ref{subsec:linemientos}, donde se establece el
+esquema tanto para las anotaciones requeridas en la API como para las
+anotaciones de los aplicativos a analizar(lineamientos del anotador).
 
 \subsection{Definición de la política de seguridad}
 \label{subsection:politica}
@@ -231,27 +232,37 @@ mensajes de texto y mensajes de Log.\newline
 \subsection{Consideraciones para verificar el cumplimiento de la política
 mediante Jif} 
 \label{subsec:consVerPol}
-Teniendo definida la política de seguridad a verificar, se describen
-elementos influyentes en el diseño de la solución.
+Teniendo definida la política de seguridad a verificar se describe: cuál es la
+información considerada con nivel de seguridad alto; cuáles son los canales que
+muestran información con nivel de seguridad bajo; cuál es el punto de entrada
+para el análisis de la aplicación(diferencia entre una aplicación Android y una
+aplicación Java convencional); qué se espera del desarrollador si la aplicación
+a analizar requiere excepciones tipo Runtime; qué se asume para evaluar el flujo
+de información; y cómo es el acceso a métodos que deben ser
+sobreescritos.\newline
+Todos, elementos relevantes para proponer un esquema de anotación.
 
 \textit{Información considerada con nivel de seguridad alto}\newline
 Para verificar el cumplimiento de la política de seguridad a evaluar se parte de
-un conjunto de sources(), caracterizados por dar a conocer información del
-usuario, considerada como privada o sensible. Los métodos que integran
+un conjunto de sources, caracterizados por dar a conocer
+información del usuario, considerada como privada o sensible. Los métodos que integran
 el conjunto de sources son: getDeviceId, getSimSerialNumber, findViewById,
 getLatitude, getLongitude y getSubscriberId. Adicional a estos métodos, se
 incluye el tipo de dato EditText, si y sólo si, el campo UI al que referencia
 corresponde a un campo tipo textPassword, es decir, un campo que almacena
 contraseñas.\newline 
+Este conjunto de sources es tomado del listado proveído por el clasificador SuSi
+\ref{sec:susi}.
 
 \textit{Canales que muestran información con nivel de seguridad bajo}\newline
 La información enviada a través de mensajes de texto y la información conocida
 tanto a través de mensajes de Log, como a través de canales generados por el
-control de flujo del programa, tiene en común que debe poder ser conocida por
-terceros. En consecuencia, se considera que estos canales deben dar a conocer
-información con nivel de seguridad bajo.\newline
-En el caso de mensajes de texto y mensajes de Log, se hace referencia
-específicamente a las clases Log y SmsManager de la API de Android.
+control de flujo del programa, tiene en común que debe poderse conocer por
+terceros.
+En consecuencia, se considera que estos canales deben dar a conocer información
+con nivel de seguridad bajo.\newline En el caso de mensajes de texto y mensajes
+de Log, se hace referencia específicamente a las clases Log y SmsManager de la
+API de Android.
 
 \textit{Diferencia entre una aplicación Android y una aplicación Java
 convencional}\newline 
@@ -309,7 +320,7 @@ criterios de anotación para los aplicativos a analizar, tales
 criterios se sintetizan en un anotador.
 
 %\textbf{(a)Elementos básicos de anotación}\newline
-\subsubsection{Elementos básicos de anotación}
+\subsubsection{(a) Elementos básicos de anotación}
 En \ref{subsec:consVerPol} se definió qué \textit{Canales muestran
 información con nivel de seguridad bajo} y cuál es la \textit{Información
 considerada con nivel de seguridad alto}. Ahora, para anotar la información
@@ -337,7 +348,7 @@ Label de seguridad \emph{\{\}}\newline
 este label indica que la información tiene nivel de seguridad bajo, es decir,
 información de conocimiento público.
 
-\subsubsection{Anotaciones a la API de Android}
+\subsubsection{(b) Anotaciones a la API de Android}
 %\textbf{(b)Anotaciones a la API de Android}\newline
 
 \begin{figure}[h!]
@@ -345,39 +356,51 @@ información de conocimiento público.
 	\includegraphics[width=12cm]{annotationsMechanims.jpeg}
 	\end{center}
 	\caption{Mecanismos de anotación para clases de la API.}
-	\label{fig:annotationsMechanims}
+	\label{fig:annotationsMechanims}  
 \end{figure}
 
 - Anotaciones para \textit{Canales que muestran información con nivel de
 seguridad bajo}: para controlar el flujo de información que se envía hacia
 \textit{Canales que muestran información con nivel de seguridad bajo}, es
 necesario anotar la definición de los métodos de las clases Log y SmsManager de
-la API Android, de manera tal, que se controle el nivel de seguridad de los
+la API Android, de manera tal que se controle el nivel de seguridad de los
 argumentos con que se invocan.\newline
 Tomando como ejemplo el método sendTextMessage de la clase SmsManager, mediante
-el cual se envían mensajes de texto:\newline
-public final void sendTextMessage (String destinationAddress, String
-scAddress, String text, PendingIntent sentIntent, PendingIntent
-deliveryIntent)\newline
-El argumento \emph{text} es el que recibe la información a mostrar, por tanto
-esa información debe ser pública.\newline 
+el cual se envían mensajes de texto:
+\begin{lstlisting}
+sendTextMessage(String destinationAddress, String scAddress, 
+String text, PendingIntent sentIntent, PendingIntent deliveryIntent)
+\end{lstlisting}
+
+Se tiene que el parámetro \emph{text} es el que recibe la información a mostrar,
+y por tanto esa información debe ser pública.\newline 
 Por consiguiente, en la definición del método el label de seguridad del
 argumento(AL) correspondiente a la información a mostrar(logs) o la información
 a enviar(sms), se anota con el label de seguridad bajo(label público\{\}). Con
 esto se garantiza que la información se muestra o envía, si y sólo si el nivel
 de seguridad del argumento con que se invoca el método es público. Por ejemplo,
-si el método se llama con información anotada con label de seguridad alto, se
+si el método se invoca con información anotada con label de seguridad alto, se
 genera error en la compilación del programa que le llama.\newline 
 El resto de argumentos del método se anotan con label de seguridad \{Alice:\},
 puesto que esa información puede ser pública o privada.\newline
 En el caso del BL al anotarlo con el label \{Alice:\}, se permite que el método
 sea invocado desde cualquier punto de un programa. 
-Para el resto de labels se dejan los que Jif genera por defecto\newline
+Para el resto de labels se dejan los que Jif genera por defecto.\newline
 % cualquier punto de un programa que sea igual o menor de restrictivo que el
 % principal Alice, esto se traduce en que podrá ser invocado desde cualquier punto
 % de un programa, lo cual es correcto porque lo que se busca el evitar que se
 % envíe información considerada con nivel se deguridad alto y no, evitar que el
 % método sea utilizado. Poner ejemplo XXXX?\newlie
+Continuando con el ejemplo del método sendTextMessage y aplicando lo
+anteriormente descrito, este método se anota de la siguiente manera:
+\begin{lstlisting}
+sendTextMessage{Alice:}(String{Alice:} destinationAddress, 
+	String{Alice:}scAddress, 
+	String{} text, 
+	PendingIntent{Alice:} sentIntent,
+	PendingIntent{Alice:} deliveryIntent) { }
+\end{lstlisting}
+
 - Anotaciones para métodos de sobreescritura: en \ref{subsec:consVerPol},
 también se definieron las clases de la API para las que se debe soportar el
 \textit{Acceso a métodos de sobreescritura}(Activity, Service y
@@ -390,12 +413,28 @@ sobreescritura de métodos se debe poder utilizar desde aplicativos que extienda
 de las clases Activity, Service y BroadcastReceiver.\newline 
 Para cumplir con (1) y (2), los métodos que requieren ser sobreescritos se
 definen con BL público(\{\}). De este modo los aplicativos desde dónde se
-invocan los métodos a sobreescribir deben tener igual BL.
+invocan los métodos a sobreescribir deben tener igual BL.\newline
+Por ejemplo, el método OnCreate de la clase Activity, se define de la forma:
+\begin{lstlisting}
+protected native void onCreate{}(Bundle savedInstanceState);
+\end{lstlisting}
 
-- Adicional a las clases de la API (Log, SmsManager, Activity, Service y
-BroadcastReceiver), es necesario brindar soporte a un conjunto de clases que
-representan librerías importadas por los aplicativos a analizar. 
-Brindar soporte significa que deben ser reconocidas por el compilador Jif.
+- Anotaciones a librerias de la API: 
+adicional a las clases Log, SmsManager, Activity, Service y
+BroadcastReceiver, es necesario soportar las librerías requeridas por estas,
+para lo cual se utilizan signaturas nativas de anotación. Tales librerías son:
+android.app.PendingIntent\\
+android.telephony.TelephonyManager\\
+android.content.Context\\
+android.content.Intent\\
+android.text.Editable\\
+android.os.Bundle\\
+android.os.IBinder\\
+android.widget.EditText\\
+android.widget.TextView\\ 
+android.view.Menu\\
+android.view.MenuInflater\\
+android.view.View 
 
 % Y para poder integrarlas al conjunto de clases reconocidas por el compilador
 % de Jif, basta con recurrir a signaturas nativas. Mediante el uso de signaturas
@@ -409,7 +448,7 @@ Brindar soporte significa que deben ser reconocidas por el compilador Jif.
 - Integración de clases de la API de Android a las clases reconocidas por el
 compilador de Jif:\newline
 Definidos los criterios de anotación para las clases de la API, a las cuales se
-debe implementar su respectiva versión Jif. Se definen los mecanismos a utilizar
+debe implementar su respectiva versión Jif, se definen los mecanismos a utilizar
 para implementar tal versión. Además del mecanismo de anotación completa en que
 se basa la implementación de aplicativos en Jif(mecanismo de anotación), el
 compilador provee un mecanismo que permite reutilizar código de clases Java ya
@@ -417,14 +456,13 @@ existentes, para esto, se recurre a signaturas nativas. Así, se implementa una
 versión Jif de una clase Java ya existente, en la que se declaran signaturas
 nativas proveídas por Jif, constructor y métodos necesarios de la
 clase(mecanismo de signaturas nativas).
-Dependiendo de las implicaciones que pueda tener para el análisis de flujo de información del
-sistema, a la versión simplificada puede especificar u omitir labels de
-seguridad(mecanismo de signaturas nativas más labels de seguridad).\newline 
+Al mecanismo de signaturas nativas también se puede  adicionar labels de
+seguridad(mecanismo de signaturas nativas más labels de seguridad).\newline
 Para el presente caso y de acuerdo a los criterios de anotación previamente
 establecidos las clases a implementar mediante uno u otro mecanismo, son
-ilustrados en la siguiente figura \ref{fig:annotationsMechanims}.\newline
+ilustrados en la figura \ref{fig:annotationsMechanims}.\newline
 
-\subsubsection{Anotaciones en los aplicativos a analizar}
+\subsubsection{(c) Anotaciones en los aplicativos a analizar}
 %\subsubsection{Criterios de anotación para los aplicativos a analizar}
 %\textbf{(c)Criterios de anotación para los aplicativos a analizar}\newline
 % XXXPara evaluar los flujos de información de una aplicación Android, de modo que

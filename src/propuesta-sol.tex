@@ -11,7 +11,7 @@ verifica si la aplicación cumple con políticas de seguridad.\newline
 % seguridad bajo y con nivel de seguridad alto?}\newline
 Los requerimientos iniciales para construir tal herramienta son: un lenguaje
 tipado de seguridad que permita anotar código fuente Android, y el conjunto de
-reglas que evaluarán las políticas de confidencialidad.\newline 
+reglas que evaluarán las políticas de seguridad.\newline 
 Al consultar literatura científica al respecto, se encuentran herramientas como
 JIF \ref{JIF-Tool} y JOANA \ref{JOANA-Tool}, especializadas en anotar código
 Java, pero no código Android. Es decir, las anotaciones son válidas para clases
@@ -77,9 +77,10 @@ análisis verifica si los flujos de información del aplicativo, cumplen con la
 política de seguridad expresada a través sus anotaciones, y retorna los
 resultados del análisis.
 
-Habiendo realizado las extensiones necesarias, se espera contar con una
-herramienta de análisis de flujo de información, para aplicativos Android,
+Habiendo realizado las extensiones necesarias, se espera contar
+con una herramienta de análisis de flujo de información, para aplicativos Android,
 mediante el sistema de anotaciones de Jif.
+
 \begin{figure}[t!]
 	\begin{center}
 	\includegraphics[width=10cm]{desing3-integration.jpg} 
@@ -97,6 +98,9 @@ mediante el sistema de anotaciones de Jif.
 % 	\label{fig:desing1}
 % \end{figure} 
 
+%color-question para Martín
+\textcolor{blue}{ \textit{P: desde este parrafo hasta el final de la sección,
+está bien dejar esa información así, o sencillamente la podemos omitir?}}\newline
 Luego, la estrategia de evaluación, consiste en verificar si la herramienta
 identifica pérdida de información mediante detección de flujos implícitos. Esto
 debido a que, como se menciona en la descripción del problema, parte importante
@@ -122,13 +126,12 @@ aplicaciones con que prueban la detección de flujos implícitos, y analizarlas
 con la herramienta propuesta.\newline
 Finalmente estos resultados serían
 comparados con los obtenidos mediante otras herramientas para análisis de fuga
-de información en aplicaciones Android.\newline
+de información en aplicaciones Android.
 
 En este orden de ideas, la evaluación de la herramienta propuesta está enfocada
 en: medir recall frente a la detección de flujos implícitos, es decir, medir que
 no genere falsos negativos ante la existencia de fugas de información,
 provenientes de flujos implícitos.\newline
-
 
 
 

@@ -102,16 +102,19 @@ anotar el array es:\\
 \emph{java-type\{BL\} [ ]\{SL\} nameArray}
 
 -Definición de métodos.\newline
-En Java la definición de un método tiene la siguiente sintaxis:\newline
-\emph{modifier java-type methodName(java-type arg1,,, java-type
-argn)\{body method\}}
-En Jif se debe asociar un label de seguridad al tipo de dato retornando, los
+En Java la definición de un método tiene la siguiente sintaxis:
+\begin{lstlisting}
+modifier java-type methodName(java-type arg1,,, java-type argn)
+{body method}
+\end{lstlisting}
+En Jif se debe asociar un label de seguridad al tipo de dato retornado, los
 argumentos que recibe y las excepciones declaradas.
 Adicionalmente, se declara un begin-label(BL) y un end-label(EL). La sintaxis es
-la siguiente:\newline 
-\emph{ modifier java-type\{RTL\} methodName \{BL\}(java-type arg1\{AL\},,,
-java-type argn\{AL\}) :\{EL\} }
-
+la siguiente:
+\begin{lstlisting}
+modifier java-type{RTL} methodName{BL}(java-type arg1{AL},,,
+				java-type argn{AL}) :{EL}
+\end{lstlisting}
 Donde: \emph{java-type}, es el tipo de dato Java retornado por el
 método.\newline 
 \emph{RTL}, Return Type Label, indica el label de seguridad para el valor
