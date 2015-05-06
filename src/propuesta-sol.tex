@@ -1,7 +1,5 @@
 \section{Propuesta de solución}
 \label{sec:propuesta-sol} 
-(Descripción de la propuesta para solucionar el problema)
-
 La propuesta para detectar fuga de información en aplicaciones Android, antes de
 su publicación, consiste en proveer al desarrollador una herramienta para
 análisis estático de flujos de información de la aplicación. Así, partiendo de
@@ -15,7 +13,7 @@ reglas que evaluarán las políticas de seguridad.\newline
 Al consultar literatura científica al respecto, se encuentran herramientas como
 JIF \ref{JIF-Tool} y JOANA \ref{JOANA-Tool}, especializadas en anotar código
 Java, pero no código Android. Es decir, las anotaciones son válidas para clases
-del lenguaje java estandar, pero no para clases específicas de la API de Android.
+del lenguaje java estándar, pero no para clases específicas de la API de Android.
 
 Si bien, ambas analizan flujos de información en aplicaciones Java, y
 podrían ser extendidas para anotar código Android, las técnicas utilizadas por cada una
@@ -55,8 +53,8 @@ analizar.\newline
 %Si el desarrollador no sabe que es source y que es sink, cómo sabe que nivel
 % de seguridad anotar durante la implementación de la versión JIf que va a
 % evaluar 
-La figura \ref{fig:desingInteger} expone los elementos necesarios para construir la
-herramienta de análisis.
+% La figura \ref{fig:desingInteger} expone los elementos necesarios para construir la
+% herramienta de análisis.
 Básicamente, se requiere un módulo que extienda las clases en JIF para que el
 lenguaje reconozca código de la API Android(\emph{Android Jif Setup}), más un
 módulo que integre el clasificador de sources y sinks para Android(\emph{Sources
@@ -69,7 +67,8 @@ compilador de Jif.\newline
 % sistema de anotaciones en JIF:  Android Sources and Sinks. Adicionalmente, se
 % requiere un modulo que evalúe las políticas de confidencialidad, Checking
 % Rule Sets, que debe tener comunicación con los módulos anteriormente descritos.
-Adicionalmente, la figura \ref{fig:desingInteger} ilustra que la herramienta
+% Adicionalmente, la figura \ref{fig:desingInteger} ilustra que la herramienta
+Adicionalmente, la herramienta
 debe recibir como entrada el código fuente de la aplicación, debidamente
 anotado por el desarrollador. De modo que el desarrollador defina las políticas
 de seguridad a evaluar. A partir de tales anotaciones, la herramienta de
@@ -81,13 +80,13 @@ Habiendo realizado las extensiones necesarias, se espera contar
 con una herramienta de análisis de flujo de información, para aplicativos Android,
 mediante el sistema de anotaciones de Jif.
 
-\begin{figure}[t!]
-	\begin{center}
-	\includegraphics[width=10cm]{desing3-integration.jpg} 
-	\end{center}
-	\caption{Herramienta de análisis estático  }
-	\label{fig:desingInteger}
-\end{figure}
+% \begin{figure}[t!]
+% 	\begin{center}
+% 	\includegraphics[width=10cm]{desing3-integration.jpg} 
+% 	\end{center}
+% 	\caption{Herramienta de análisis estático  }
+% 	\label{fig:desingInteger}
+% \end{figure}
 
 % \begin{figure}[t!]
 % 	\begin{center}
@@ -99,41 +98,41 @@ mediante el sistema de anotaciones de Jif.
 % \end{figure} 
 
 %color-question para Martín
-\textcolor{blue}{ \textit{P: desde este parrafo hasta el final de la sección,
-está bien dejar esa información así, o sencillamente la podemos omitir?}}\newline
-Luego, la estrategia de evaluación, consiste en verificar si la herramienta
-identifica pérdida de información mediante detección de flujos implícitos. Esto
-debido a que, como se menciona en la descripción del problema, parte importante
-de las propuestas para detección de fuga de información en aplicaciones Android,
-hacen data-flow analysis aplicando técnicas de análisis tainting, y en contraste
-con las técnicas de análisis de flujo de información, las técnicas de análisis
-tainting no necesariamente consideran flujos implícitos. Por tanto, al estar
-basada en JIF, cuyo enfoque de análisis es precisamente flujo de información, se
-esperaría que la herramienta propuesta esté en capacidad de reconocer flujos
-implícitos.
-
-% Se esperaría que: al realizar análisis de flujo de información aplicando
-% técnicas Security-Typing, la herramienta propuesta, esté en capacidad de
-% reconocer flujos implícitos.\newline
-% Más específicamente, se puede tomar el conjunto de aplicaciones utilizadas como
-% casos de prueba para la detección de flujos implícitos en
-% DroidBench\cite{DroidBenchBenchmarks}, el benchmark de Flowdroid, y analizarlas
+% \textcolor{blue}{ \textit{P: desde este parrafo hasta el final de la sección,
+% está bien dejar esa información así, o sencillamente la podemos omitir?}}\newline
+% Luego, la estrategia de evaluación, consiste en verificar si la herramienta
+% identifica pérdida de información mediante detección de flujos implícitos. Esto
+% debido a que, como se menciona en la descripción del problema, parte importante
+% de las propuestas para detección de fuga de información en aplicaciones Android,
+% hacen data-flow analysis aplicando técnicas de análisis tainting, y en contraste
+% con las técnicas de análisis de flujo de información, las técnicas de análisis
+% tainting no necesariamente consideran flujos implícitos. Por tanto, al estar
+% basada en JIF, cuyo enfoque de análisis es precisamente flujo de información, se
+% esperaría que la herramienta propuesta esté en capacidad de reconocer flujos
+% implícitos.
+% 
+% % Se esperaría que: al realizar análisis de flujo de información aplicando
+% % técnicas Security-Typing, la herramienta propuesta, esté en capacidad de
+% % reconocer flujos implícitos.\newline
+% % Más específicamente, se puede tomar el conjunto de aplicaciones utilizadas como
+% % casos de prueba para la detección de flujos implícitos en
+% % DroidBench\cite{DroidBenchBenchmarks}, el benchmark de Flowdroid, y analizarlas
+% % con la herramienta propuesta.\newline
+% 
+% Más específicamente, se puede partir de DroidBench\cite{DroidBenchBenchmarks},
+% el benchmark de Flowdroid[\ref{FlowDroid-Tool}], tomar el conjunto de
+% aplicaciones con que prueban la detección de flujos implícitos, y analizarlas
 % con la herramienta propuesta.\newline
-
-Más específicamente, se puede partir de DroidBench\cite{DroidBenchBenchmarks},
-el benchmark de Flowdroid[\ref{FlowDroid-Tool}], tomar el conjunto de
-aplicaciones con que prueban la detección de flujos implícitos, y analizarlas
-con la herramienta propuesta.\newline
-Finalmente estos resultados serían
-comparados con los obtenidos mediante otras herramientas para análisis de fuga
-de información en aplicaciones Android.
-
-En este orden de ideas, la evaluación de la herramienta propuesta está enfocada
-en: medir recall frente a la detección de flujos implícitos, es decir, medir que
-no genere falsos negativos ante la existencia de fugas de información,
-provenientes de flujos implícitos.\newline
-
-
+% Finalmente estos resultados serían
+% comparados con los obtenidos mediante otras herramientas para análisis de fuga
+% de información en aplicaciones Android.
+% 
+% En este orden de ideas, la evaluación de la herramienta propuesta está enfocada
+% en: medir recall frente a la detección de flujos implícitos, es decir, medir que
+% no genere falsos negativos ante la existencia de fugas de información,
+% provenientes de flujos implícitos.\newline
+% 
+% 
 
 
 
