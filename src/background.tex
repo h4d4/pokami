@@ -7,25 +7,22 @@ Explicar composición de aplicaciones Android, actividades, servicios, etc.
 \subsection{Sistema de anotaciones en Jif}
 Jif es un lenguaje tipado de seguridad que extiende al lenguaje Java con labels
 de seguridad, a través de los cuales se especifican restricciones de cómo
-debería ser utilizada la información.\newline 
-Jif está compuesto por un compilador y un sistema de anotaciones.\newline
+debería ser utilizada la información. Jif está compuesto por un compilador y un
+sistema de anotaciones.\newline
 % El sistema de anotaciones está basado en un modelo de etiquetas
 % DLM(Decentralized Label Model), donde existen principals, políticas y
 % labels.\newline
-Para hacer seguimiento al control de flujo de información de un programa
-implementado en Java, se debe implementar la respectiva versión Jif, es decir,
-la versión del programa donde mediante el sistema de anotaciones se especifican
-las políticas de seguridad a evaluar.\newline
-Básicamente, la implementación de programas en Jif, consiste en adicionar labels
-de seguridad a la definición de métodos, variables, arrays, etc. Los labels de
-seguridad que no se especifiquen son generados automáticamente con labels por
-defecto.
+El análisis de flujo de información de aplicativos Java mediante Jif, requiere
+su implementación haciendo uso del sistema de anotaciones de Jif, de modo que se
+especifiquen las políticas de seguridad a evaluar.
+Tal implementación se basa en adicionar labels de seguridad a la definición
+de métodos, variables, arrays, etc; los labels de seguridad no especificados son
+generados automáticamente con labels por defecto.\newline
 %http://www.cs.cornell.edu/jif/doc/jif-3.3.0/language.html#inference.
-
-Luego, la versión Jif del programa se compila con el compilador de Jif.
-Este aplica chequeo de labels(label checking)\cite{jifRef} para verificar que
-los flujos de información que se generan al interior del programa, cumplen con
-las políticas definidas.
+La verificación del cumplimiento de las políticas de seguridad, tiene lugar
+durante la compilación del aplicativo, allí el compilador Jif aplica chequeo de
+labels(label checking)\cite{jifRef},  verificando que los flujos de información
+generados cumplen con las restricciones establecidas. 
 
 \subsubsection{DML(Decentralized Label Model)}
 Jif basa su sistema de anotaciones en el modelo de etiquetas DLM(Decentralized
@@ -42,9 +39,9 @@ influenciar la información. Así, una política puede ser de confidencialidad o
 integridad, y se especifican de la forma: \{owner: reader list\} u
 \{owner: writer list\}.\newline 
 Labels: un label consiste en un conjunto de políticas de confidencialidad e
-integridad. Los labels se escriben en las expresiones del progrma que se
+integridad. Los labels se escriben en las expresiones del programa que se
 anota(labels de seguridad), esto es métodos, variables, arrays, etc..\newline 
-En sisntesís, las políticas de seguridad definen que principals pueden leer o
+En síntesis, las políticas de seguridad definen que principals pueden leer o
 modificar la información, y esas políticas se expresan mediante labels.
 
 \subsubsection{Label Checking}
@@ -147,10 +144,10 @@ Size Label(SL) de un array.\newline
 menor nivel de confidencialidad. Es el label menos confiable, con este se
 asegura que información altamente confidencial no podrá ser almacenado en el
 campo de la clase.\newline
-- Métodos: los labels que Jif genera por defecto para la definción de
+- Métodos: los labels que Jif genera por defecto para la definición de
 métodos son:\newline 
 Argument Label(AL): el label por defecto es el Top principal, es decir que sólo
-la máxima autoridad podra leer la información del argumento.\newline 
+la máxima autoridad podrá leer la información del argumento.\newline 
 Begin Label(BL): su label por defecto es el Top principal.\newline
 End Label(EL): Jif hace un Join de los labels con que se definen las
 excepciones del método, si el método no tiene excepciones, el label por defecto
@@ -159,26 +156,24 @@ Return Type Label(RTL): Jif hace un Join de los AL y el EL.\newline
 Labels para excepciones: el valor del EL.\newline
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 \subsubsection{Llamada a métodos}
+Dos términos son fundamentales para hablar de llamada a métodos en Jif:
+argumentos formales y argumentos actuales. Los argumentos actuales hacen
+referencia a los labels de seguridad con que se definen los parámetros de un
+método. Los labels actuales hacen refe
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
