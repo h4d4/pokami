@@ -2,7 +2,15 @@
 \label{sec:back}
 
 \subsection{Aplicaciones Android}
-Explicar composición de aplicaciones Android, actividades, servicios, etc.
+Una aplicación Android puede estar compuesta por uno o más de los siguientes
+componentes: Activities, Services, Content Providers y Broadcast Receivers.\\
+Las actividades representan acciones a ejecutar por el usuario, permiten que el
+usuario se comunique con la aplicación.\\
+Los servicios son componentes de aplicación que ejecutan tareas en background.\\
+Los proveedores de contenido son componentes que permiten compartir datos entre
+diferentes aplicaciones Android.\\
+Los componentes Broadcast Receives reciben mensajes envíados por el sistema o
+por otras aplicaciones.
 
 \subsection{Sistema de anotaciones en Jif}
 Jif es un lenguaje tipado de seguridad que extiende al lenguaje Java con labels
@@ -71,32 +79,53 @@ se detecta que no cumplen con las restricciones establecidas en la anotación de
 mismo, el compilador genera error, indicando los puntos del programa que las
 incumplen.\newline
 
--Implicit flows and program-counter labels\newline
 
-\subsubsection{Sintaxis de labels}
-Como se representa leer y escribir
+% \subsubsection{Sintaxis de labels}
+% Como se representa leer y escribir
 
 \subsubsection{Sintaxis de Anotación en Jif}
 \label{sssec:JifSintax} 
 
+% \begin{center}
+%   \lstset{%
+%     caption=Descriptive Caption Text,
+%     basicstyle=\ttfamily\footnotesize\bfseries,
+%     frame=tb
+%   }
+%   \begin{lstlisting}
+%     printf("this should be centered!");
+%   \end{lstlisting}
+% \end{center}
 -Definición de variables: \newline 
-En Java la sintaxis para definir una variable es: \emph{ modifier java-type
-varName}\newline Extendiendo la sintaxis Java, en Jif las variables se definen de la forma:\\
-\emph{ modifier java-type\{L\} varName}\newline 
-donde java-type especifica el tipo de dato Java que almacena la variable, \{L\}
+En Java la sintaxis para definir una variable es:
+
+\begin{lstlisting}
+	modifier java-type varName
+\end{lstlisting}
+Extendiendo la sintaxis Java, en Jif las variables se definen de la forma:
+\begin{lstlisting}
+	modifier java-type {L} varName
+\end{lstlisting}
+Donde java-type especifica el tipo de dato Java que almacena la variable, \{L\}
 el label de seguridad  para especificar quien es el dueño de la variable, y
 varName, el respectivo nombre de la variable.
 
 -Definición de arrays:\newline
-En Java un array se define de la forma:\\
-\emph{modifier java-type [ ] nameArray}\\
+En Java un array se define de la forma:
+\begin{lstlisting}
+	modifier java-type [ ] nameArray
+\end{lstlisting}
+% \emph{modifier java-type [ ] nameArray}\\
 En Jif, además del tipo de dato Java(java-type) de los elementos almacenados en
 el array, se deben especificar dos labels de seguridad: Base Label(BL) y Size
 Label(SL). BL indica el nivel de seguridad de los elementos que almacena el
 array, controlando quien puede conocer la información del mismo. SL especifica
 quienes pueden conocer la número de elementos almacenados. Así, la sintaxis para
-anotar el array es:\\
-\emph{java-type\{BL\} [ ]\{SL\} nameArray}
+anotar el array es:
+\begin{lstlisting}
+	java-type {BL} [ ]{SL} nameArray
+\end{lstlisting}
+% \emph{java-type\{BL\} [ ]\{SL\} nameArray}
 
 -Definición de métodos.\newline
 En Java la definición de un método tiene la siguiente sintaxis:
@@ -156,12 +185,40 @@ Return Type Label(RTL): Jif hace un Join de los AL y el EL.\newline
 Labels para excepciones: el valor del EL.\newline
 
 
-\subsubsection{Llamada a métodos}
-Dos términos son fundamentales para hablar de llamada a métodos en Jif:
-argumentos formales y argumentos actuales. Los argumentos actuales hacen
-referencia a los labels de seguridad con que se definen los parámetros de un
-método. Los labels actuales hacen refe
+% \subsubsection{Llamada a métodos}
+% En Jif la invocación de métodos se regula por el nivel de seguridad de los
+% labels con que se define el método y los labels con que se invoca el
+% método(método actual). De este modo: los labels del método actual no deben ser
+% más restrictivos que los labels con que se define el método. Así:\newline
+% - Los AL del método actual deben ser menor o igual de restrictivos que los AL
+% con que se define el método.\\
+% - El BL del método actual, no debe ser más restrictivo que el BL con que se ha
+% definido el método.\newline
 
+
+\subsubsection{Flujos implícitos y \underline{pc}}
+Los flujos implícitos son canales creados durante el control de flujo del
+programa. Buscando prevenir la fuga de información a través de estos canales,
+Jif asocia un \underline{pc} a cada statement y expresión del programa,
+representando la información que debería conocerse tras su evaluación.\\
+El sistema de tipos de Jif asegura que el \underline{pc} debe ser por
+lo menos tan restrictivo como los labels de las variables de que depende el
+program counter de la sentencia.\newline
+En el siguiente ejemplo se ilustra la generación de flujos implícitos:
+\begin{lstlisting}
+boolean {Alice:} secreto;
+boolean {} publico;
+secreto = true;
+if( secreto )		
+	publico = 0;
+else				//Implicit Flow
+	publico = 1;
+\end{lstlisting}
+
+El flujo implícito tiene lugar en el condicional porque la variable
+\emph{publico}, cuyo nivel de seguridad es bajo (\underline{pc}=\{\}) permite
+conocer información de la variable \emph{secreto}, con nivel de seguridad alto
+(\underline{pc}=\{Alice:\})
 
 
 
