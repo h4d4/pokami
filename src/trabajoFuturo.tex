@@ -1,11 +1,23 @@
 \label{ch:trabajoFuturo}
 \chapter{Trabajo Futuro y Conclusiones}
-\section{Discusión}
+\section{DiscusiónXXXXXXXXX}
 Límites de la solución propuesta\newline
-En el diseño de la solución se propone un esquema de anotación con niveles de
-seguridad alto y bajo, y sólo considera políticas de confidencialidad. EL
-esquema de anotación podría se extendido para permitir la evaluación de
-políticas de integridad y endorsement, las cuales son evaluables mediante Jif.
+
+Las limitaciones de la solución propuesta se enmarcan en: políticas evaluables y
+características del lenguaje Jif.\\
+Por un lado, se propone un esquema de anotación con niveles de seguridad alto y
+bajo, que permite definir y evaluar políticas de confidencialidad en aplicativos
+Android mediante el sistema de anotaciones de Jif.
+Sin embargo, el esquema de anotación propuesto no permite evaluar políticas de
+integridad ni aplicar mecánismos Downgrading, características ofrecidas por el
+sistema de anotaciones de Jif.
+
+Por otro lado, están las limitaciones propias del lenguaje Jif, es decir, las
+características para el lenguaje Java estandar que aún no están soportadas por
+el compilador de Jif, y que por tanto, impiden analizar el flujo de información
+de aplicativos Android que requieran de tales caracteríticas del lenguaje Java.
+Más específicamente, se hace referencia a las limitaciones descritas en
+\ref{subsec:limitaciones}: nested clases, initializer blocks, threads, etc.
 
 \subsection{Analizar flujo de información de aplicaciones Android mediante Jif:}
 - Si bien, con el prototipo de anotación se evita la anotación manual del
@@ -18,7 +30,7 @@ aplicativos en jif, y para esto, la documentación existente es poca.\newline
 de la Api de Android.\newline
 - No todas las características del lenguaje Java son soportadas.
 
-\subsection{Qué tanto cambia la anotación del código original}
+\subsection{Qué tanto cambia el código original con las anotaciones}
 En el diseño de la solución se describieron los retos
 técnicos\ref{sec:limitaciones} que implica anotar código Android, y cómo superar
 algunos de estos. Específicamente, las limitaciones para las que se propone un
@@ -74,6 +86,16 @@ programa.
 Cómo puede ser extendido el trabajo y qué beneficios tendría esa
 extensión\newline
 
+Exceptuando las clases de la API que requieran características del lenguaje Java
+que no son soportadas por Jif, se podría ampliar el setup de Jif para Android,
+de modo que se brinde soporte mediante el sistema de anotaciones de Jif a la
+mayor cantidad de clases posibles de la API. Esto permitiría hacer análisis de
+flujo de información a una mayor cantidad de aplicativos Android.\newline
+El esquema de anotación podría ser extendido para definir y evaluar políticas de
+integridad y mecanismos de downgrading, de manera tal que el desarrolador tenga
+un mayor rango de opciones para verificar si el aplicactivo que
+implementa, cumple con políticas de seguriad.\newline
+
 Tomado de la propuesta de solución:\newline
 Por último, cabe anotar que aunque la presente propuesta está centrada en
 verificar políticas de confidencialidad, en caso de contar con el tiempo
@@ -81,7 +103,7 @@ prudente, sería interesante analizar políticas adicionales como por ejemplo,
 integridad y declasificación, pues estas son verificables mediante el modelo de
 evaluación de JIF, modelo del que parte la herramienta de evaluación planteada.
 
-\section{Conclusiones}
+\section{ConclusionesXXXXXXXXX}
 Qué aprendimos con este trabajo.\newline
 
 Buscando contribuir en la labor del desarrollador de aplicaciones Android, de
