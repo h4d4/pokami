@@ -1,6 +1,6 @@
 \label{ch:trabajoFuturo}
 \chapter{Trabajo Futuro y Conclusiones}
-\section{DiscusiónXXXXXXXXX}
+\section{Discusión}
 Límites de la solución propuesta\newline
 
 Las limitaciones de la solución propuesta se enmarcan en: políticas evaluables y
@@ -19,18 +19,20 @@ de aplicativos Android que requieran de tales caracteríticas del lenguaje Java.
 Más específicamente, se hace referencia a las limitaciones descritas en
 \ref{subsec:limitaciones}: nested clases, initializer blocks, threads, etc.
 
-\subsection{Analizar flujo de información de aplicaciones Android mediante Jif:}
-- Si bien, con el prototipo de anotación se evita la anotación manual del
-aplicativo Android, mediante el sistema de anotaciones de Jif, el trabajo
-subyacente para generar tal anotación implica grandes retos, entre ellos:\newline
--la versión java del programa debe ser pensada e implementada mediante el
-sistema de anotaciones de Jif, es decir, se debe aprender a implementar
-aplicativos en jif, y para esto, la documentación existente es poca.\newline
-- Para generar la versión Jif del programa, se deben anotar una serie de clases
-de la Api de Android.\newline
-- No todas las características del lenguaje Java son soportadas.
+
+% \subsection{Analizar flujo de información de aplicaciones Android mediante Jif:}
+% - Si bien, con el prototipo de anotación se evita la anotación manual del
+% aplicativo Android, mediante el sistema de anotaciones de Jif, el trabajo
+% subyacente para generar tal anotación implica grandes retos, entre ellos:\newline
+% -la versión java del programa debe ser pensada e implementada mediante el
+% sistema de anotaciones de Jif, es decir, se debe aprender a implementar
+% aplicativos en jif, y para esto, la documentación existente es poca.\newline
+% - Para generar la versión Jif del programa, se deben anotar una serie de clases
+% de la Api de Android.\newline
+% - No todas las características del lenguaje Java son soportadas.
 
 \subsection{Qué tanto cambia el código original con las anotaciones}
+\label{subsec:cambios}
 En el diseño de la solución se describieron los retos
 técnicos\ref{sec:limitaciones} que implica anotar código Android, y cómo superar
 algunos de estos. Específicamente, las limitaciones para las que se propone un
@@ -86,11 +88,13 @@ programa.
 Cómo puede ser extendido el trabajo y qué beneficios tendría esa
 extensión\newline
 
-Exceptuando las clases de la API que requieran características del lenguaje Java
-que no son soportadas por Jif, se podría ampliar el setup de Jif para Android,
-de modo que se brinde soporte mediante el sistema de anotaciones de Jif a la
-mayor cantidad de clases posibles de la API. Esto permitiría hacer análisis de
-flujo de información a una mayor cantidad de aplicativos Android.\newline
+Exceptuando las características del lenguaje Java que no son soportadas por el
+compilador de Jif(nested clases, initializer blocks,
+threads)\ref{subsec:limitaciones}, se podría ampliar el setup de Jif para clases
+de la API de Android, de modo que se brinde soporte mediante el sistema de
+anotaciones de Jif a la mayor cantidad de clases posibles de la API.
+Esto permitiría hacer análisis de flujo de información a aplicaciones
+Android más robustas.\newline 
 El esquema de anotación propuesto podría ser extendido para definir y analizar
 políticas de integridad y mecanismos adicionales como declasificación y
 endorsment, verificables mediante el modelo de anotaciones de JIF. De este modo,
@@ -106,7 +110,7 @@ de las políticas tanto de confidencialidad como de integridad.
 % integridad y declasificación, pues estas son verificables mediante el modelo de
 % evaluación de JIF, modelo del que parte la herramienta de evaluación planteada.
 
-\section{ConclusionesXXXXXXXXX}
+\section{Conclusiones}
 Qué aprendimos con este trabajo.\newline
 
 Durante el presente trabajo de investigación se ha abordado la problemática que
@@ -128,29 +132,61 @@ a una política de confidencialidad específica.
 El diseño de solución en que se hace enfasis para la herramienta de análisis
 estático, es evaluado y los resultados obtenidos son comparados frente a otras
 herramientas de análisis estático: FlowDroid y Jodroid. Partiendo de los tipos
-de análisis y técnicas evaluadas, de sus ventajas y desventajas, 
+de análisis y técnicas evaluadas, de sus ventajas y desventajas, es pertinente
+anotar que:
 
+Mediante el sistema de anotaciones de Jif es posible proveer una herramienta
+para que el desarrollador evalue el cumplimiento de políticas de seguridad en
+los aplicativos que implementa.\\
+Al estar basado en análisis de flujo de información, Jif ofrece la ventaja de
+detección de flujos implícitos. Adicionalmente, al tratarse de un lenguaje
+tipado de seguridad, ofrece las ventajas de desempeño con que se implementan los
+compiladores.\\
+No obstante, extender el setup de Jif para Android implica importantes retos
+técnicos, porque además de requerirse la implementación de las clases de la API
+de Android, mediante el sistema de anotaciones de Jif, es necesario extender
+características del lenguaje Java estandar características como:\\
+Adicionalmente, para aspectos del código que definitivamente no puedan ser
+soportadas mediante el sistema de anotaciones de Jif, se debe optar por un
+mecanismo que permita soportarlas por ejemplo, como se menciona en
+\ref{subsec:cambios}.
 
+También es importante anotar que, el análisis de flujo de información mediante
+el sistema de anotaciones de Jif no es ajeno al overtainting.\\
 
-Partiendo del diseño de solución simplificado, se evalua un conjunto de
-aplicaciones
+Por último, aunque el análisis de aplicativos Android mediante el sistema de
+anotaciones de Jif es un tema de investigación con bastantes retos por superar,
+el presente trabajo evidencia que es posible anotar código de la API Android
+mediante JIF, de modo que el desarrollador pueda verificar el cumplimiento de
+políticas de seguridad en los aplicativos que implementa.
 
-
-
-en la labor del desarrollador de aplicaciones Android, de
-modo que este pueda garantizar el cumplimiento de determinadas políticas de
-seguridad, en el presente trabajo se exploró el análisis de flujo de información
-en aplicaciones Android, mediante técnicas de lenguajes tipados de seguridad,
-específicamente mediante el sistema de anotaciones de Jif.\newline 
-Acorde a la literatura científica consultada, el análisis de aplicaciones
-Android mediante el sistema de anotaciones de Jif, es una opción no antes
-explorada.\newline
-Habiendo superado una serie de limitaciones técnicas, se implementó un
-prototipo de anotación, y se comparó con otras herramientas de
-análisis(FlowDroid y JoDroid).
-Partiendo de los tipos de análisis y técnicas evaluadas, de sus ventajas y
-desventajas, soportadas no solamente en los resultados de evaluación sino
-también en la literatura científica, es posible decir que 
+%  que no solamente se sintetizan en implementar la versión anotada de
+% las clases de la API de Android, sino que también implican extender JIF para que
+% reconocozca características del lenguaje Java estandar, y en los casos en que
+% definitivamente no se pueda soportar características propias de la API de
+% Android mediante el sistema de anotaciones de Jif, es necesario recurrir a 
+% 
+% 
+% Sin embargo, 
+% implica una serie de retos técnicos, puesto que, extender el
+% setup de Jif para Android, implica no solamente implementar la versión anotada
+% de las clases de la API, sino que también implica extender un conj\newline
+% 
+% XXXXXXXXXXXX
+% en la labor del desarrollador de aplicaciones Android, de
+% modo que este pueda garantizar el cumplimiento de determinadas políticas de
+% seguridad, en el presente trabajo se exploró el análisis de flujo de información
+% en aplicaciones Android, mediante técnicas de lenguajes tipados de seguridad,
+% específicamente mediante el sistema de anotaciones de Jif.\newline 
+% Acorde a la literatura científica consultada, el análisis de aplicaciones
+% Android mediante el sistema de anotaciones de Jif, es una opción no antes
+% explorada.\newline
+% Habiendo superado una serie de limitaciones técnicas, se implementó un
+% prototipo de anotación, y se comparó con otras herramientas de
+% análisis(FlowDroid y JoDroid).
+% Partiendo de los tipos de análisis y técnicas evaluadas, de sus ventajas y
+% desventajas, soportadas no solamente en los resultados de evaluación sino
+% también en la literatura científica, es posible decir que 
 
 
 
