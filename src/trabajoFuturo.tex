@@ -12,7 +12,7 @@ Sin embargo, el esquema de anotación propuesto no permite evaluar políticas de
 integridad ni aplicar mecánismos Downgrading, características ofrecidas por el
 sistema de anotaciones de Jif.
 
-Por otro lado, están las limitaciones propias del lenguaje Jif, es decir, las
+Por otro lado, están las limitaciones propias del lenguaje Jif, es decir,
 características para el lenguaje Java estandar que aún no están soportadas por
 el compilador de Jif, y que por tanto, impiden analizar el flujo de información
 de aplicativos Android que requieran de tales caracteríticas del lenguaje Java.
@@ -91,22 +91,53 @@ que no son soportadas por Jif, se podría ampliar el setup de Jif para Android,
 de modo que se brinde soporte mediante el sistema de anotaciones de Jif a la
 mayor cantidad de clases posibles de la API. Esto permitiría hacer análisis de
 flujo de información a una mayor cantidad de aplicativos Android.\newline
-El esquema de anotación podría ser extendido para definir y evaluar políticas de
-integridad y mecanismos de downgrading, de manera tal que el desarrolador tenga
-un mayor rango de opciones para verificar si el aplicactivo que
-implementa, cumple con políticas de seguriad.\newline
+El esquema de anotación propuesto podría ser extendido para definir y analizar
+políticas de integridad y mecanismos adicionales como declasificación y
+endorsment, verificables mediante el modelo de anotaciones de JIF. De este modo,
+el desarrollador también podría garantizar el cumplimiento de políticas de
+integridad, y contaría con mecanismos que le permitan flexibilizar la definición
+de las políticas tanto de confidencialidad como de integridad.
 
-Tomado de la propuesta de solución:\newline
-Por último, cabe anotar que aunque la presente propuesta está centrada en
-verificar políticas de confidencialidad, en caso de contar con el tiempo
-prudente, sería interesante analizar políticas adicionales como por ejemplo,
-integridad y declasificación, pues estas son verificables mediante el modelo de
-evaluación de JIF, modelo del que parte la herramienta de evaluación planteada.
+
+% Tomado de la propuesta de solución:\newline
+% Por último, cabe anotar que aunque la presente propuesta está centrada en
+% verificar políticas de confidencialidad, en caso de contar con el tiempo
+% prudente, sería interesante analizar políticas adicionales como por ejemplo,
+% integridad y declasificación, pues estas son verificables mediante el modelo de
+% evaluación de JIF, modelo del que parte la herramienta de evaluación planteada.
 
 \section{ConclusionesXXXXXXXXX}
 Qué aprendimos con este trabajo.\newline
 
-Buscando contribuir en la labor del desarrollador de aplicaciones Android, de
+Durante el presente trabajo de investigación se ha abordado la problemática que
+enfrenta el desarrollador de aplicaciones Android, a la hora de definir políticas de
+seguridad que regulen el flujo de información de sus aplicaciones. Puesto que,
+aún cuando la API Android ofrece mecánismos de control de acceso y el
+desarrollador puede implementarlos en sus aplicaciones, estos se centran en
+regular acceso de los usuarios a determinados recursos del sistema, y no en
+veríficar qué sucede con la información una vez se accede a ella.
+
+Buscando contribuir con la solución de tal problemática, se propone una
+herramienta de análisis estático basada en el sistema de anotaciones de Jif, que
+permita analizar flujo de información en aplicativos Android. El diseño ideal
+para la propuesta de solución, implica extender el setup de Jif para la API de
+Android e incluir un clasificador de sources y sinks. Sin embargo, para efectos
+de la presente tesis se limíta el setup y el conjunto de sources y sinks, acorde
+a una política de confidencialidad específica.
+
+El diseño de solución en que se hace enfasis para la herramienta de análisis
+estático, es evaluado y los resultados obtenidos son comparados frente a otras
+herramientas de análisis estático: FlowDroid y Jodroid. Partiendo de los tipos
+de análisis y técnicas evaluadas, de sus ventajas y desventajas, 
+
+
+
+Partiendo del diseño de solución simplificado, se evalua un conjunto de
+aplicaciones
+
+
+
+en la labor del desarrollador de aplicaciones Android, de
 modo que este pueda garantizar el cumplimiento de determinadas políticas de
 seguridad, en el presente trabajo se exploró el análisis de flujo de información
 en aplicaciones Android, mediante técnicas de lenguajes tipados de seguridad,
