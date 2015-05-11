@@ -1,11 +1,13 @@
-\section{Contexto}
+\section{Técnicas de análisis de código}
 \label{sec:contexto}
 %-(Lina: falta actualizar contenido)\newline
+\subsection{Análisis estático y dinámico}
+
 Las soluciones propuestas para detectar fuga de información en aplicaciones
 Android, se enmarcan en el análisis estático o dinámico de la aplicación, en
 algunos casos, se combinan ambos tipos.\newline 
-En análisis estático, se estudia el código del programa para inferir todos
-los posibles caminos de ejecución. Esto se logra construyendo modelos de estado
+En análisis estático\cite{Static-dynamic}, se estudia el código del programa
+para inferir todos los posibles caminos de ejecución. Esto se logra construyendo modelos de estado
 del programa, y determinando los estados posibles que puede alcanzar el
 programa.
 No obstante, debido a que existen múltiples posibilidades de ejecución, se opta
@@ -29,7 +31,7 @@ implica su propio reto, así, mientras en el análisis estático la dificultad e
 en construir el modelo de abstracción adecuado, en el análisis dinámico, es
 complejo encontrar un conjunto de casos de prueba representativo, a analizar
 durante la ejecución del programa.\newline
-Por otra parte, dependiendo de la finalidad con qué se detecte la fuga de
+Por otra parte, dependiendo de la finalidad con que se detecte la fuga de
 información, un tipo de análisis puede ser más apropiado que otro. Si se busca
 contener la fuga de información a tiempo de ejecución, análisis dinámico es el
 camino apropiado. Por el contrario, si se busca garantizar que a tiempo de
@@ -43,6 +45,7 @@ confidencialidad en la aplicación que implementa, así, la aplicación se
 ejecutará exitosamente, si y sólo si, cumple con las políticas definidas, de lo
 contrario, el desarrollador puede revisar y corregir su código.\newline
  
+\subsection{Security Typed Languages} 
 En análisis estático, generalmente, se aplican técnicas de seguridad de
 tipado(Typed-Inference/Security-Typed Analysis) y técnicas de flujo de
 datos(Data/Control Flow Analysis). Con técnicas Security-Typed las propiedades
@@ -63,11 +66,10 @@ es un tipo especial de análisis de flujo de datos, que hace seguimiento al fluj
 de datos entre un conjunto de fuentes considerados privados y/o sensibles; y un
 conjunto de destinos considerados no confiables, sources y sinks,
 respectivamente.\newline 
-\textcolor{blue}
-{ Tales propuestas se enfocan en analizar aplicativos de terceros para detectar
+Tales propuestas se enfocan en analizar aplicativos de terceros para detectar
 flujos de datos indebidos en aplicaciones ya implementadas, y no: para
 garantizar el cumplimiento de determinadas políticas de seguridad desde la
-construcción de los mismos.}
+construcción de los mismos.
 % Tales propuestas se enfocan en analizar aplicativos de terceros para detectar
 % flujos de datos indebidos, y no: para garantizar el cumplimiento de determinadas
 % políticas de seguridad. 
@@ -87,11 +89,10 @@ podría tomar la aplicación en tiempo de ejecución.
 % control de flujo de información, no sólo es posible prevenir fugas por
 % under-tainting y flujos implícitos; sino que también, es posible ofrecer
 % garantías del cumplimiento de determinadas políticas de seguridad.\newline 
-\textcolor{blue}
-{Así, con análisis basado en
+Así, con análisis basado en
 control de flujo de información es posible garantizar el cumplimiento
 de determinadas políticas de seguridad, desde la construcción del
-aplicativo.}\newline 
+aplicativo.\newline 
 Ahora, las reglas para evaluar control de flujo de
 información pueden definirse mediante técnicas Security-Typed, por ejemplo como se definen con JIF \ref{JIF-Tool}, una herramienta basada en lenguajes tipados de seguridad
 para realizar control de flujo de información, el inconveniente es que está

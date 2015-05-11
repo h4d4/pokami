@@ -13,15 +13,16 @@ cantidad de aplicaciones Android invaden la privacidad del usuario, reuniendo
 información detallada de su desplazamiento, acciones en el dispositivo, y su
 vida personal.\newline
 Por otro lado, para controlar el acceso a información manipulada por sus
-aplicaciones, el desarrollador cuenta con los mecanismos de seguridad proveídos por la API de
-Android, sin embargo, al estar basados en políticas de control de acceso, se
-limitan a verificar el uso de los recursos del sistema acorde a los privilegios
-del usuario, lo qué suceda con la información una vez sea accedida, está fuera
-del alcance de este tipo de controles. Al no contar con herramientas de análisis
-de flujo de información en aplicaciones Android, para el desarrollador es
-difícil verificar el cumplimiento de políticas de confidencialidad e integridad
-en la aplicación próxima a liberar. Por consiguiente, el desarrollador no tiene como
-asegurar la ausencia de fugas de información en la aplicación.\newline
+aplicaciones, el desarrollador cuenta con los mecanismos de seguridad proveídos
+por la API de Android, sin embargo, al estar basados en políticas de control de
+acceso, se limitan a verificar el uso de los recursos del sistema acorde a los
+privilegios del usuario, lo que suceda con la información una vez sea accedida,
+está fuera del alcance de este tipo de controles. Al no contar con herramientas
+de análisis de flujo de información en aplicaciones Android, o al utilizar
+librerías de terceros, para el desarrollador es difícil verificar
+el cumplimiento de políticas de confidencialidad e integridad en la aplicación
+próxima a liberar. Por consiguiente, el desarrollador no tiene cómo asegurar la
+ausencia de fugas de información en la aplicación.\newline 
 Si bien, en el campo de aplicativos Android, existen diferentes propuestas para
 detectar fuga de información, en su mayoría están enfocadas a analizar
 aplicaciones de terceros, asumiendo que el atacante provee bytecode malicioso.
@@ -41,6 +42,6 @@ Ante esto, y con el fin de proveer una herramienta de apoyo al desarrollador, de
 modo que verifique el cumplimiento de políticas de seguridad en sus
 aplicaciones, el presente trabajo aborda el problema de fugas de información en
 aplicaciones Android, analizando flujos de información de la aplicación,
-mediante técnicas de lenguajes tipados de seguridad .\newline
+mediante técnicas de lenguajes tipados de seguridad.
 
 \input{contexto}
