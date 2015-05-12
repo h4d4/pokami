@@ -68,17 +68,17 @@ programa está centrado en datos marcados, datos no marcados quedan fuera del
 análisis;   flujos de datos a través de estructuras de control, por ejemplo, las
 sentencias if, permiten inferir valores de datos marcados como source, sin
 necesidad de generar flujos explícitos entre sources y sinks, los cuales si
-pueden ser detectados por las técnicas de análisis tainting.\newline Otra razón
-fundamental para no  analizar aplicaciones propias con tales propuestas es que
-están diseñadas para detectar flujos de datos indebidos, y no para garantizar el
-cumplimiento de políticas de seguridad en una aplicación.\newline 
-Los riesgos de seguridad tras el under-tainting de datos, y la ausencia de
-garantías en el cumplimiento de determinadas políticas de seguridad, pueden
+pueden ser detectados por las técnicas de análisis tainting.\newline 
+Otra razón fundamental para no  analizar aplicaciones propias con tales
+propuestas es que están diseñadas para detectar flujos indebidos de datos, en
+aplicaciones ya construidas, y no, para garantizar el cumplimiento de políticas
+de seguridad en una aplicación desde su construcción.\newline 
+Los riesgos de seguridad tras el under-tainting de datos, y la ausencia de garantías en el cumplimiento de determinadas políticas de seguridad, pueden
 superarse mediante control de flujo de información, Information Flow
 Control(IFC), puesto que, con esta técnica se analiza estáticamente la
 aplicación para identificar todos los posibles caminos que podrían tomar sus
 flujos de información, garantizando que a tiempo de ejecución, la
-aplicación respeta políticas de seguridad.\newline
+aplicación respeta políticas de seguridad.
 
 Finalmente, partiendo del contexto que se plantea, dónde se cuenta con el código
 fuente Android, porque es el propio desarrollador quien requiere evaluar
