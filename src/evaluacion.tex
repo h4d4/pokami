@@ -19,15 +19,15 @@ autores son los mismos creadores de FlowDroid. Se opta por utilizar DroidBench
 puesto que, en la literatura científica consultada al respecto, no se encuentran
 otros benchmarks diseñados específicamente para evaluar aplicaciones Android.\newline 
 De DroidBech se toma un grupo de testcases evaluables frente a la política de
-seguridad establecida\ref{subsection:politica}, este grupo está integrado por 20
-testcases. De los cuales, 14 presentan fugas de información.
+seguridad establecida \ref{subsection:politica}, este grupo está integrado por
+20 testcases. De los cuales, 14 presentan fugas de información.
 
 La tabla \ref{tab:descripApps0} describe parte del grupo de testcases a
 evaluar. En los casos en que se requiere, se precisan observaciones entre los
 resultados de evaluación esperados para la técnica de análisis utilizada por
 FlowDroid(análisis de flujo de datos) y la técnica de análisis propuesta en el
 presente trabajo(análisis de flujo de información).
-En la sección\ref{sec:testcases} de los anexos, se encuentra la
+En la sección \ref{sec:testcases} de los anexos, se encuentra la
 descripción del grupo de prueba completo.
 
 El conjunto de prueba es analizado con FlowDroid, JoDroid y con el Prototipo. Los
@@ -130,64 +130,64 @@ muestra de logs y canales creados durante el control de flujo del programa.\newl
 Del total de testcases(20), 14 presentan fugas de información mientras que 6 de
 ellos no. Los resultados de evaluación para FlowDroid y el Prototipo, son
 presentados en la tabla \ref{tb:resultados}. En esta, por cada caso de prueba
-se indica la cantidad de leaks que presenta, el resultado y el tiempo que tarda el
-análisis.
+se indica la cantidad de leaks que presenta, el resultado devuelto por la
+herramienta y el tiempo que tarda el análisis.
 
 \begin{table}[H]
 \begin{center}
 \small\addtolength{\tabcolsep}{-3pt}
-\begin{tabular}{|p{6cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
+\begin{tabular}{|p{1cm}|p{6cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
 	\hline
-	\textbf{Testcase} & \textbf{Leaks} & \textbf{F} &
+	\textbf{Item} & \textbf{Testcase} & \textbf{Leaks} & \textbf{F} &
 	\textbf{P} & \textbf{ tF} & 
 	\textbf{tP}\\
 	\hline
-	AndroidSpecific\_DirectLeak1 & 1 & TP & TP &5.371s &2.063s\\
+	1 & AndroidSpecific\_DirectLeak1 & 1 & TP & TP &5.371s &2.063s\\
 	\hline
-	AndroidSpecific\_InactiveActivity & 0 & TN & FP  &3.255s &2.469s\\
+	2 & AndroidSpecific\_InactiveActivity & 0 & TN & FP  &3.255s &2.469s\\
 	\hline
-	AndroidSpecific\_LogNoLeak & 0 & TN & TN &5.505s &2.946s\\
+	3 & AndroidSpecific\_LogNoLeak & 0 & TN & TN &5.505s &2.946s\\
 	\hline
-	AndroidSpecific\_Obfuscation1 & 1 & TP & TP &6.734s &2.706s\\
+	4 & AndroidSpecific\_Obfuscation1 & 1 & TP & TP &6.734s &2.706s\\
 	\hline
-	 AndroidSpecific\_PrivateDataLeak2 & 1 & TP & TP & 6.144s &2.644s\\
+	5 & AndroidSpecific\_PrivateDataLeak2 & 1 & TP & TP & 6.144s &2.644s\\
 	\hline
-	 ArraysAndLists\_ArrayAccess1 & 0 & FP & FP & 4.708s & 1.278s\\
+	6 & ArraysAndLists\_ArrayAccess1 & 0 & FP & FP & 4.708s & 1.278s\\
 	\hline
-	 ArraysAndLists\_ArrayAccess2 & 0 & FP & FP & 4.4s &1.361s\\
+	7 & ArraysAndLists\_ArrayAccess2 & 0 & FP & FP & 4.4s &1.361s\\
 	 \hline
-	 GeneralJava\_Exceptions1 & 1 & TP & TP &6.397s &2.755s\\
+	8 & GeneralJava\_Exceptions1 & 1 & TP & TP &6.397s &2.755s\\
 	\hline
-	 GeneralJava\_Exceptions2 & 1 & TP & TP &5.887s &1.980s\\
+	9 &  GeneralJava\_Exceptions2 & 1 & TP & TP &5.887s &1.980s\\
 	\hline
-	GeneralJava\_Exceptions3 & 0 & FP & FP &6.008s &2.032s\\
+	10 & GeneralJava\_Exceptions3 & 0 & FP & FP &6.008s &2.032s\\
 	\hline
-	GeneralJava\_Exceptions4 & 1 & TP & TP &5.731s &2.313s\\
+	11 & GeneralJava\_Exceptions4 & 1 & TP & TP &5.731s &2.313s\\
 	\hline
-	GeneralJava\_Loop1 & 1 & TP & TP &5.605s &2.800s\\
+	12 & GeneralJava\_Loop1 & 1 & TP & TP &5.605s &2.800s\\
 	\hline
-	GeneralJava\_Loop2 & 1 & TP & TP &4.719s &1.361s\\
+	13 & GeneralJava\_Loop2 & 1 & TP & TP &4.719s &1.361s\\
 	\hline
-	GeneralJava\_UnreachableCode & 0 & TN & FP &3.792s &1.197s\\
+	14 & GeneralJava\_UnreachableCode & 0 & TN & FP &3.792s &1.197s\\
 	\hline
-	ImplicitFlows\_ImplicitFlow1 & 1 & FN & TP &4.853s &1.331s\\
+	15 & ImplicitFlows\_ImplicitFlow1 & 1 & FN & TP &4.853s &1.331s\\
 	\hline
-	ImplicitFlows\_ImplicitFlow2 & 1 & FN & TP &4.496s &1.212s\\
+	16 & ImplicitFlows\_ImplicitFlow2 & 1 & FN & TP &4.496s &1.212s\\
 	\hline
-	ImplicitFlows\_ImplicitFlow4 & 1 & FN & TP &4.375s &1.224s\\
+	17 & ImplicitFlows\_ImplicitFlow4 & 1 & FN & TP &4.375s &1.224s\\
 	\hline
-	Lifecycle\_ActivityLifecycle3 & 1 & TP & TP &4.792s &1.222s\\
+	18 & Lifecycle\_ActivityLifecycle3 & 1 & TP & TP &4.792s &1.222s\\
 	\hline
-	Lifecycle\_BroadcastReceiverLifecycle1 & 1 & TP & TP &4.456s &1.061s\\
+	19 & Lifecycle\_BroadcastReceiverLifecycle1 & 1 & TP & TP &4.456s &1.061s\\
 	\hline
-	Lifecycle\_ServiceLifecycle1 & 1 & TP & TP &5.225s &1.180s\\
+	20 & Lifecycle\_ServiceLifecycle1 & 1 & TP & TP &5.225s &1.180s\\
 	\hline
 \end{tabular}
 \end{center}
 \caption{Resultados de evaluación para FlowDroid y Prototipo. Donde
-\textit{Testcase} especifica el nombre de la aplicación que se está evaluando;
-\textit{Leaks} indica si el testcase presenta fugas de información;
-\textit{F} y  \textit{P} muestran los resultados devueltos por FlowDroid y por
+\textit{Item} indica el testcase que se evalua, \textit{Testcase} especifica el
+nombre de la aplicación para el caso de prueba; \textit{Leaks} indica si el
+testcase presenta fugas de información; \textit{F} y  \textit{P} muestran los resultados devueltos por FlowDroid y por
 el Prototipo; \textit{tF} y \textit{tP}, señalan el tiempo(en segundos) que toma
 el análisis para Flowdroid y para el Prototipo, respectivamente.}
 \label{tb:resultados}
@@ -211,10 +211,10 @@ Prototipo para ejecutar el análisis.
 % de marcado de datos utilizada por FlowDroid.
 -\textit{Resultados de precisión}\newline
 En lo que respecta a los resultados del Prototipo, los FP correspondientes a
-AndroidSpecific\_InactiveActivity y GeneralJava\_UnreachableCode, surgen como
+los items 2 y 14, surgen como
 consecuencia de un análisis pesimista, donde se asume que el desarrollador
 utiliza lo que implementa, es decir, que los métodos serán invocados.\newline 
-Por otro lado, en el caso de ArraysAndLists: ArrayAccess1 y ArrayAccess2, no es
+Por otro lado, en el caso de ArraysAndLists: items 6 y 7, no es
 sencillo calificar los resultados como FP, puesto que, para lo que está
 analizando FlowDroid(verificar que su técnica de análisis diferencie entre los
 elementos marcados y no marcados de un array), efectivamente se presentan FP,
@@ -319,31 +319,30 @@ Prototipo, en base a los cuales, se calculan las métricas de precisión y recal
 \begin{table}[H]
 \begin{center}
 \small\addtolength{\tabcolsep}{-3pt}
-\begin{tabular}{|p{6cm}|p{1cm}|p{1cm}|p{1cm}|p{1,8cm}|p{1cm}|}
+\begin{tabular}{|p{0.8cm}|p{6cm}|p{1cm}|p{0.8cm}|p{0.8cm}|p{1,8cm}|p{1cm}|}
 	\hline
-	\textbf{Testcase} & \textbf{Leaks} & \textbf{J} &
-	\textbf{P} & \textbf{ tJ} & 
-	\textbf{tP}\\
+	\textbf{Item} & \textbf{Testcase} & \textbf{Leaks} & \textbf{J} &
+	\textbf{P} & \textbf{ tJ} & \textbf{tP}\\
 	\hline
-	AndroidSpecific\_DirectLeak1 & 1 & TP & TP & 22m11.991s &2.063s\\
+	1 & AndroidSpecific\_DirectLeak1 & 1 & TP & TP & 22m11.991s &2.063s\\
 	\hline
-	AndroidSpecific\_InactiveActivity & 0 & FP & FP  & 22m25.617s &2.469s\\
+	2 & AndroidSpecific\_InactiveActivity & 0 & FP & FP  & 22m25.617s &2.469s\\
 	\hline
-	AndroidSpecific\_LogNoLeak & 0 & TN & TN & 21m6.548s &2.946s\\
+	3 & AndroidSpecific\_LogNoLeak & 0 & TN & TN & 21m6.548s &2.946s\\
 	\hline
-	AndroidSpecific\_Obfuscation1 & 1 & TP & TP &22m46.541s&2.706s\\
+	4 & AndroidSpecific\_Obfuscation1 & 1 & TP & TP &22m46.541s&2.706s\\
 	\hline
-	 AndroidSpecific\_PrivateDataLeak2 & 1 & TP & TP &21m32.447s&2.644s\\
+	5 & AndroidSpecific\_PrivateDataLeak2 & 1 & TP & TP &21m32.447s&2.644s\\
 	\hline
-	 ArraysAndLists\_ArrayAccess1 & 0 & FP & FP &22m01.926s& 1.278s\\
+	6 & ArraysAndLists\_ArrayAccess1 & 0 & FP & FP &22m01.926s& 1.278s\\
 	\hline
-	 ArraysAndLists\_ArrayAccess2 & 0 & FP & FP &22m11.023s&1.361s\\
+	7 & ArraysAndLists\_ArrayAccess2 & 0 & FP & FP &22m11.023s&1.361s\\
 	 \hline
-	 GeneralJava\_Exceptions1 & 1 & FN & TP & 22m52.134s &2.755s\\
+	8 & GeneralJava\_Exceptions1 & 1 & FN & TP & 22m52.134s &2.755s\\
 	\hline
-	 GeneralJava\_Exceptions2 & 1 & FN & TP & 21m4.434s&1.980s\\
+	9 & GeneralJava\_Exceptions2 & 1 & FN & TP & 21m4.434s&1.980s\\
 	\hline
-	GeneralJava\_Exceptions3 & 0 & TN\tablefootnote{Al igual que en
+	10 & GeneralJava\_Exceptions3 & 0 & TN\tablefootnote{Al igual que en
 	los testcases GeneralJava\_Exceptions(1, 2 y 4), la herramienta no detecta
 	leaks, la diferencia para el presente caso, es que efectivamente no existe
 	leak. Por tanto se califica como TN.} & FP & 21m37.040s &2.032s\\
@@ -351,25 +350,25 @@ Prototipo, en base a los cuales, se calculan las métricas de precisión y recal
 % 	\hline
 % 	GeneralJava\_Exceptions3 & 0 & TN & FP & 21m37.040s &2.032s\\
 % 	\hline
-	GeneralJava\_Exceptions4 & 1 & FN  & TP & 21m10.240s &2.313s\\
+	11 & GeneralJava\_Exceptions4 & 1 & FN  & TP & 21m10.240s &2.313s\\
 	\hline
-	GeneralJava\_Loop1 & 1 & TP & TP &21m15.30s&2.800s\\
+	12 & GeneralJava\_Loop1 & 1 & TP & TP &21m15.30s&2.800s\\
 	\hline
-	GeneralJava\_Loop2 & 1 & TP & TP &21m41.224s&1.361s\\
+	13 & GeneralJava\_Loop2 & 1 & TP & TP &21m41.224s&1.361s\\
 	\hline
-	GeneralJava\_UnreachableCode & 0 & TN & FP &22m84.138s&1.197s\\
+	14 & GeneralJava\_UnreachableCode & 0 & TN & FP &22m84.138s&1.197s\\
 	\hline
-	ImplicitFlows\_ImplicitFlow1 & 1 & TP & TP &22m55.645s&1.331s\\
+	15 & ImplicitFlows\_ImplicitFlow1 & 1 & TP & TP &22m55.645s&1.331s\\
 	\hline
-	ImplicitFlows\_ImplicitFlow2 & 1 & TP & TP &22m32.231s&1.212s\\
+	16 & ImplicitFlows\_ImplicitFlow2 & 1 & TP & TP &22m32.231s&1.212s\\
 	\hline
-	ImplicitFlows\_ImplicitFlow4 & 1 & TP & TP &22m43.110s&1.224s\\
+	17 & ImplicitFlows\_ImplicitFlow4 & 1 & TP & TP &22m43.110s&1.224s\\
 	\hline
-	Lifecycle\_ActivityLifecycle3 & 1 & TP & TP &22m54.651s&1.222s\\
+	18 & Lifecycle\_ActivityLifecycle3 & 1 & TP & TP &22m54.651s&1.222s\\
 	\hline
-	Lifecycle\_BroadcastReceiverLifecycle1 & 1 & TP & TP &22m42.347s&1.061s\\
+	19 & Lifecycle\_BroadcastReceiverLifecycle1 & 1 & TP & TP &22m42.347s&1.061s\\
 	\hline
-	Lifecycle\_ServiceLifecycle1 & 1 & TP & TP &22m92.722s&1.180s\\
+	20 & Lifecycle\_ServiceLifecycle1 & 1 & TP & TP &22m92.722s&1.180s\\
 	\hline
 \end{tabular}
 \end{center}

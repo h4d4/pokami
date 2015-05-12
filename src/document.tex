@@ -12,8 +12,8 @@
 % Conservar division de palabras, listarlas
 \hyphenation{
 OnCreate 
-}  
- 
+}   
+
 \usepackage[pdftex]{graphicx}  
 %avoid put imagen in specific space 
 \usepackage{float}
@@ -107,7 +107,7 @@ OnCreate
 			{\large\bf UNIVERSIDAD DE LOS ANDES  \par}
 			{\large\bf FACULTAD DE INGENIERÍA \par}
 			{\large\bf DEPARTAMENTO DE INGENIERÍA DE SISTEMAS Y COMPUTACIÓN \par}
-			{\large\bf  BOGOTA 2015 \par}
+			{\large\bf  BOGOTÁ 2015 \par}
 		\end{center}
 	\end{titlepage}
 }
@@ -128,24 +128,24 @@ OnCreate
 			{\large\bf UNIVERSIDAD DE LOS ANDES  \par}
 			{\large\bf FACULTAD DE INGENIERÍAS \par}
 			{\large\bf DEPARTAMENTO DE INGENIERÍA DE SISTEMAS Y COMPUTACIÓN \par}
-			{\large\bf BOGOTA 2015 \par}
+			{\large\bf BOGOTÁ 2015 \par}
 		\end{center}
 	\end{titlepage}
 } 
 
 
 \begin{document} 
-
 \portada  
 \contraportada
 \tableofcontents
+%Cambiar el nombre Cuadro por tabla
+\renewcommand{\tablename}{Tabla}
 %Modificar el nombre: Índice de cuadros, por Índice de tablas
-\renewcommand{\listtablename}{ÍNDICE DE TABLAS}\listoftables
-%Modificar el nombre a mayúsculas
-\renewcommand{\listfigurename}{ÍNDICE DE GRÁFICAS}\listoffigures
-%hacer que el título del capitulo aparezca en mayuscula
+% \renewcommand{\listtablename}{ÍNDICE DE TABLAS}\listoftables
+% %Modificar el nombre a mayúsculas
+% \renewcommand{\listfigurename}{ÍNDICE DE GRÁFICAS}\listoffigures
+% %hacer que el título del capitulo aparezca en mayuscula
 \renewcommand\chaptername{CAPÍTULO} 
-
 
 \input{resumen}
 \input{introduccion}
@@ -157,5 +157,9 @@ OnCreate
 \input{anexos}
  \bibliographystyle{IEEEtran} 
  \bibliography{referencias}
-  
+
+\renewcommand{\listtablename}{ÍNDICE DE TABLAS}\listoftables
+%Modificar el nombre a mayúsculas
+\renewcommand{\listfigurename}{ÍNDICE DE GRÁFICAS}\listoffigures
+%hacer que el título del capitulo aparezca en mayuscula
 \end{document}
