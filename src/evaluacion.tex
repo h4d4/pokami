@@ -13,56 +13,21 @@ se comunican entre sí.
 
 \section{Conjunto de evaluación}
 \label{sec:evalSet}
-Para la evaluación se parte de DroidBech versión 1.0\cite{DroidBenchBenchmarks},
-benchmark integrado por 39 casos de prueba para aplicaciones Android, cuyos
-autores son los mismos creadores de FlowDroid. Se opta por utilizar DroidBench
-puesto que, en la literatura científica consultada al respecto, no se encuentran
-otros benchmarks diseñados específicamente para evaluar aplicaciones Android.\newline 
-De DroidBech se toma un grupo de testcases evaluables frente a la política de
-seguridad establecida \ref{subsection:politica}, este grupo está integrado por
-20 testcases. De los cuales, 14 presentan fugas de información.
 
-La tabla \ref{tab:descripApps0} describe parte del grupo de testcases a
-evaluar. En los casos en que se requiere, se precisan observaciones entre los
-resultados de evaluación esperados para la técnica de análisis utilizada por
-FlowDroid(análisis de flujo de datos) y la técnica de análisis propuesta en el
-presente trabajo(análisis de flujo de información).
-En la sección \ref{sec:testcases} de los anexos, se encuentra la
-descripción del grupo de prueba completo.
-
-El conjunto de prueba es analizado con FlowDroid, JoDroid y con el Prototipo. Los
-resultados del análisis que devuelve cada herramienta son calificados como:
-Falso Positivo(FP) cuando se detecta un leak que no existe; Falso Negativo(FN)
-cuando no se detecta un leak existente; Verdadero Positivo(TP) cuando se detecta
-un leak existente; Verdadero Negativo(TN) cuando no existe leak que detectar.
-
-En base a estos resultados se calcula la Precisión y el Recall, para cada una de
-las herramientas evaluadas. La Precisión mide la cantidad de verdaderos
-Positivos(TP) frente a la cantidad de Falsos positivos(FP), reportados por la
-herramienta. A mayor Precisión, la herramienta detecta menos falsos
-positivos(FP).\newline 
-El Recall(\textit{r}) mide la cantidad de verdaderos Positivos(TP) frente a la
-cantidad de Falsos negativos(FN), reportados por la herramienta. A mayor Recall,
-menos leaks deja pasar la herramienta, es decir menor reporte de falsos
-negativos. Las formulas \ref{p} y \ref{r}, permiten el calculo de ambas métricas
-de seguridad.\newline
-Adicionalmente, para medir el desempeño de cada herramienta se utiliza el
-comando \textit{time}\cite{time-man} de unix. 
-
-\begin{table}[H]
+\begin{table}[t]
 \small\addtolength{\tabcolsep}{-3pt}
 \begin{tabular}{|p{13cm}|p{1cm}|}
-	\hline
-	\multicolumn{2}{|>{\columncolor[gray]{0.8}}c|}{\textbf{AndroidSpecific\_DirectLeak1}}\\
-	\hline
-	\textbf{Descripción} & \textbf{Leaks}\\
-	\hline
-	La variable \textit{mrg} tiene un nivel de seguridad alto,
-	almacena información retornada por el método source \textit{getDeviceId}. Se
-	genera flujo de información directo entre información con nivel de seguridad alto e
-	información con nivel de seguridad bajo, al enviar como parámetro del método
-	\textit{sendTextMessage}, información de la variable \textit{mrg}. & 1 \\
-	\hline
+% 	\hline
+% 	\multicolumn{2}{|>{\columncolor[gray]{0.8}}c|}{\textbf{AndroidSpecific\_DirectLeak1}}\\
+% 	\hline
+% 	\textbf{Descripción} & \textbf{Leaks}\\
+% 	\hline
+% 	La variable \textit{mrg} tiene un nivel de seguridad alto,
+% 	almacena información retornada por el método source \textit{getDeviceId}. Se
+% 	genera flujo de información directo entre información con nivel de seguridad alto e
+% 	información con nivel de seguridad bajo, al enviar como parámetro del método
+% 	\textit{sendTextMessage}, información de la variable \textit{mrg}. & 1 \\
+% 	\hline
 	\multicolumn{2}{|>{\columncolor[gray]{0.8}}c|}{\textbf{AndroidSpecific\_LogNoLeak}}\\
 	\hline
 	\textbf{Descripción} & \textbf{Leaks}\\
@@ -87,23 +52,23 @@ comando \textit{time}\cite{time-man} de unix.
 	con nivel de seguridad alto, lo que implica que el array podrá almacenar
 	información tanto de nivel de seguridad alto como bajo, pero toda la
 	información quedará con nivel de seguridad alto. En consecuencia, al enviar
-	cualquier índice del array como parámetro del método 
+	cualquier índice del array como parámetro del método
 	\textit{sendTextMessage} se presenta un flujo de información no
 	permitido. & 0
 	\\
 	\hline
-	\multicolumn{2}{|>{\columncolor[gray]{0.8}}c|}{\textbf{GeneralJava\_Exceptions2}}\\
-	\hline
-	\textbf{Descripción} & \textbf{Leaks}\\
-	\hline
-	La variable \textit{imei} es de nivel de seguridad alto, almacena información
-	devuelta por el método \textit{getDeviceId}. El control de flujo del
-	programa conduce de manera implícita a la captura de una excepción tipo
-	RuntimeException, desde allí se utiliza información proveída por la variable
-	\textit{imei}, como parámetro para invocar el método \textit{sendTextMessage}.
-	Generando un flujo de información indebido. & 1
-	\\
-	\hline
+% 	\multicolumn{2}{|>{\columncolor[gray]{0.8}}c|}{\textbf{GeneralJava\_Exceptions2}}\\
+% 	\hline
+% 	\textbf{Descripción} & \textbf{Leaks}\\
+% 	\hline
+% 	La variable \textit{imei} es de nivel de seguridad alto, almacena información
+% 	devuelta por el método \textit{getDeviceId}. El control de flujo del
+% 	programa conduce de manera implícita a la captura de una excepción tipo
+% 	RuntimeException, desde allí se utiliza información proveída por la variable
+% 	\textit{imei}, como parámetro para invocar el método \textit{sendTextMessage}.
+% 	Generando un flujo de información indebido. & 1
+% 	\\
+% 	\hline
 	\multicolumn{2}{|>{\columncolor[gray]{0.8}}c|}{\textbf{ImplicitFlows\_ImplicitFlow2}}\\
 	\hline
 	\textbf{Descripción} & \textbf{Leaks}\\
@@ -117,13 +82,71 @@ comando \textit{time}\cite{time-man} de unix.
 	 que depende de tal comparación. & 1\\
 	\hline
 \end{tabular}
-\caption{Descripción aplicaciones de prueba.\newline
-Se considera con nivel de seguridad alto, variables y métodos que almacenan y
-modifican(respectivamente), información catalogada como privada(Sources).\newline 
-Se considera con nivel de seguridad bajo, canales para envío de mensajes,
-muestra de logs y canales creados durante el control de flujo del programa.\newline }
+\caption{Aplicaciones de prueba.\newline
+Describe parte del conjunto de aplicaciones de prueba. 
+% Se considera con nivel de seguridad alto, variables y métodos que almacenan y modifican(respectivamente), información catalogada como privada(Sources).\newline
+% Se considera con nivel de seguridad bajo, canales para envío de mensajes,
+% muestra de logs y canales creados durante el control de flujo del programa.\newline 
+}
 \label{tab:descripApps0}
 \end{table}
+
+Para la evaluación se parte de DroidBech versión 1.0\cite{DroidBenchBenchmarks},
+benchmark integrado por 39 casos de prueba para aplicaciones Android, cuyos
+autores son los mismos creadores de FlowDroid. Se opta por utilizar DroidBench
+puesto que, en la literatura científica consultada al respecto, no se encuentran
+otros benchmarks diseñados específicamente para evaluar aplicaciones Android.\newline 
+De DroidBech se toma un grupo de testcases evaluables frente a la política de
+seguridad establecida \ref{subsection:politica}, este grupo está integrado por
+20 testcases. De los cuales, 14 presentan fugas de información.
+
+La tabla \ref{tab:descripApps0} describe parte del grupo de testcases a
+evaluar. En los casos en que se requiere, se precisan observaciones entre los
+resultados de evaluación esperados para la técnica de análisis utilizada por
+FlowDroid(análisis de flujo de datos) y la técnica de análisis propuesta en el
+presente trabajo(análisis de flujo de información).
+En la sección \ref{sec:testcases} de los anexos, se encuentra la
+descripción del grupo de prueba completo.
+
+El conjunto de prueba es analizado con FlowDroid, JoDroid y con el Prototipo. Los
+resultados del análisis que retorna cada herramienta son calificados como:
+Falso Positivo(FP) cuando se detecta un leak que no existe; Falso Negativo(FN)
+cuando no se detecta un leak existente; Verdadero Positivo(TP) cuando se detecta
+un leak existente; Verdadero Negativo(TN) cuando no existe leak que
+detectar.
+
+\newpage
+En base a estos resultados del análisis, se calcula la Precisión y el Recall
+para cada una de las herramientas evaluadas. 
+La Precisión(\ref{pre}) mide la cantidad de respuestas válidas(TP), frente al
+total de respuestas, esto es, respuestas válidas(TP) y respuestas no válidas(FP).
+A mayor Precisión, la herramienta reporta más verdaderos positivos(TP) y menos
+falsos positivos(FP). En otras palabras, de los leaks existentes, la
+herramienta reporta una mayor cantidad.
+
+Con el Recall(\ref{rec}) se mide la cantidad de respuestas válidas(TP), frente
+al total de respuestas válidas (TP) y respuestas válidas no detectadas(FN). A
+mayor Recall, menor reporte de falsos negativos.\newline
+
+Las fórmulas para medir Precisión(p) y Recall(r), son:
+\begin{equation}
+\label{pre}
+	p = TP/(TP +FP) 
+\end{equation}
+\begin{equation}
+\label{rec}
+	r = TP/(TP+FN)
+\end{equation}
+Donde: \newline
+TP representa el total de verdaderos positivos; FP corresponde al total de
+falsos positivos y  FN representa el total de falsos
+negativos; reportados por la herramienta.
+
+% Las formulas \ref{p} y \ref{r}, permiten el calculo de ambas métricas
+% de seguridad.\newline
+Además de las fórmulas anteriormente descritas, se utiliza el comando
+\textit{time}\cite{time-man} de unix, para medir el desempeño de cada
+herramienta.
 
 \subsection{Evaluación FlowDroid y Prototipo } 
 \label{subsec:fvsp}
@@ -192,6 +215,7 @@ el Prototipo; \textit{tF} y \textit{tP}, señalan el tiempo(en segundos) que tom
 el análisis para Flowdroid y para el Prototipo, respectivamente.}
 \label{tb:resultados}
 \end{table}
+
 \subsubsection{Análisis de evaluación entre FlowDroid y Prototipo}
 -\textit{Resultados de desempeño}\newline
 Acorde a los datos señalados en los campos tF y tP de la tabla
@@ -218,7 +242,6 @@ consiguiente, todos los métodos son incluidos para el análisis del flujo de
 información. Así, si los métodos conllevan a flujos de datos indebidos,
 independientemente de si son invocados o no, son considerados como generadores
 de fugas de información.\newline 
-
 Por otro lado, en el caso de ArraysAndLists: items 6 y 7, no es sencillo
 calificar los resultados como FP, puesto que, para lo que está analizando
 FlowDroid(verificar que su técnica de análisis diferencie entre los elementos
@@ -258,7 +281,7 @@ implícitos.\newline
 Con esto presente, se definen dos escenarios de análisis: Precisión y Recall,
 incluyendo flujos implícitos; y  Precisión y Recall, excluyendo flujos
 implícitos, donde se incluyen u omiten los testcases para flujos
-implícitos(ImplicitFlows\_ImplicitFlow 1, 2 y 4).
+implícitos(ImplicitFlows\_ImplicitFlow 1, 2 y 4).\newline
 La tabla \ref{tb:FlowDroidPrototipoFI} muestra los resultados de evaluación para
 ambos casos.\newline
 %En el caso de TaintDroid, tampoco detecta flujos implícitos, porque entre las
@@ -266,8 +289,7 @@ ambos casos.\newline
 % flujo de datos y no al flujo de control, puesto que si incluyen seguimiento al
 % flujo de control, se adiciona sobrecarga a la herramienta, la cual es de tipo
 % dinámico.
-
-\begin{table}[t!]
+\begin{table}[H]
 \begin{center}
 \begin{tabular}{c|c|c|c|c|}
 \cline{2-5}
@@ -290,6 +312,7 @@ falsos positivos(FP), verdaderos positivos(TP), verdaderos negativos(TN) y falso
 negativos(FN); obtenidos tanto con FlowDroid como con el Prototipo.}
 \label{tb:FlowDroidPrototipoFI}
 \end{table}
+
 \textit{Precisión y Recall, incluyendo flujos implícitos}\newline
 Los resultados obtenidos en la tabla \ref{tb:FlowDroidPrototipoFI} señalan que
 de las 14 fugas existentes, el Prototipo las detecta todas, presenta 14
@@ -301,7 +324,7 @@ Así, en lo que respecta a Precisión, FlowDroid presenta un porcentaje del 78\%
 siendo más preciso frente al Prototipo, que presenta un porcentaje del
 73\%.\newline 
 Por otro lado, el Prototipo presenta un porcentaje en Recall del 100\%,
-mientras que FlowDroid presenta un porcentaje del 78\%.\newline
+mientras que FlowDroid presenta un porcentaje del 78\%.
 
 \textit{Precisión y Recall, excluyendo flujos implícitos}\newline
 Excluyendo los testcases para flujos implícitos, el conjunto de prueba se reduce
@@ -318,10 +341,10 @@ para FlowDroid y el Prototipo: 100\%.
 % GeneralJava\_Exceptions1 a GeneralJava\_Exceptions4, no son evaluados. 
 % No obstante, para calcular la precisión y el recall se consideran dos
 % escenarios, uno en que se incluyen y otra en que no.
-A continuación se ilustran los resultados de evaluación para JoDroid y el
+La tabla \ref{tab:JoDroid-Prototipo} ilustran los resultados de evaluación para JoDroid y el
 Prototipo, en base a los cuales, se calculan las métricas de precisión y recall. 
 \label{subsec:jvsp}
-\begin{table}[H]
+\begin{table}[t]
 \begin{center}
 \small\addtolength{\tabcolsep}{-3pt}
 \begin{tabular}{|p{0.8cm}|p{6cm}|p{1cm}|p{0.8cm}|p{0.8cm}|p{1,8cm}|p{1cm}|}
@@ -410,7 +433,7 @@ tabla \ref{tb:jodroidP2exce} se muestran dos escenarios para los resultados de
 evaluación: Con  excepciones y Sin excepciones. Con base en tales resultados se
 calcula la Precisión y Recall para cada uno de los escenarios.
 
-\begin{table}[t!]
+\begin{table}[t]
 \begin{center}
 \begin{tabular}{c|c|c|c|c|}
 \cline{2-5}
@@ -463,17 +486,7 @@ porcentaje esto es 100\%.\newline
 \label{subsec:fjp}
 %las tablas confirman lo que ya se sabia segun la literatura existe.
 
-En base a los resultados para el conjunto de
-evaluación(compuesto por 20 testcases, de los cuales 14 presentan leaks),
-obtenidos en los anteriores apartados, 
-% donde se presentó un análisis detallado para la evaluación entre FlowDroid vs
-% Prototipo, y, JoDroid vs Prototipo; 
-se comparan las tres herramientas(FlowDroid, JoDroid y Prototipo) frente a
-Precisión, Recall, y la detección de fugas de información mediante flujos
-implícitos. La tabla \ref{tb:porcentajes} ilustra todos los resultados y la
-tabla \ref{tb:comparacion} ilustra los respectivos porcentajes.
-
-\begin{table}[t!]
+\begin{table}[h]
 \begin{center}
 \begin{tabular}{c|c|c|c|}
 \cline{2-4}
@@ -492,7 +505,7 @@ falsos negativos(FN).}
 \label{tb:porcentajes}
 \end{table}
 
-\begin{table}[t!]
+\begin{table}[h]
 \begin{center}
 \begin{tabular}{cc|c|c|c}
 \cline{2-4}
@@ -514,6 +527,59 @@ porcentajes para Precisión, Recall, y la detección de leaks mediante
 flujos implícitos.\newline}
 \label{tb:comparacion}
 \end{table}
+
+
+En base a los resultados para el conjunto de
+evaluación(compuesto por 20 testcases, de los cuales 14 presentan leaks),
+obtenidos en los anteriores apartados, 
+% donde se presentó un análisis detallado para la evaluación entre FlowDroid vs
+% Prototipo, y, JoDroid vs Prototipo; 
+se comparan las tres herramientas(FlowDroid, JoDroid y Prototipo) frente a
+Precisión, Recall, y la detección de fugas de información mediante flujos
+implícitos. La tabla \ref{tb:porcentajes} ilustra todos los resultados y la
+tabla \ref{tb:comparacion} ilustra los respectivos porcentajes.
+
+% \begin{table}[b]
+% \begin{center}
+% \begin{tabular}{c|c|c|c|}
+% \cline{2-4}
+% & \cellcolor{gray!30}FlowDroid & \cellcolor{gray!30}JoDroid &
+% \cellcolor{gray!30}Prototipo \\
+% \cline{1-4}
+% \multicolumn{0}{ |c|  }{\multirow{0}{*}{FP} }  & 3 & 3 & 5\\ \cline{0-3}
+% \multicolumn{0}{ |c|  }{\multirow{0}{*}{FN} }  & 3 & 3 & 0\\ \cline{0-3}
+% \multicolumn{0}{ |c|  }{\multirow{0}{*}{TP} }  & 11 & 11 & 14\\\cline{0-3}
+% \multicolumn{0}{ |c|  }{\multirow{0}{*}{TN} }  & 3 & 3 &  1\\ \cline{0-3}
+% \end{tabular}
+% \end{center}
+% \caption{Resultados de precisión para FlowDroid y Prototipo. Resume el total de
+% falsos positivos(FP), verdaderos positivos(TP), verdaderos negativos(TN) y
+% falsos negativos(FN).}
+% \label{tb:porcentajes}
+% \end{table}
+% 
+% \begin{table}[b]
+% \begin{center}
+% \begin{tabular}{cc|c|c|c}
+% \cline{2-4}
+% & \multicolumn{0}{ |c|  }{\multirow{1}{*}{\cellcolor{gray!30} FlowDroid} } &
+% \cellcolor{gray!30}JoDroid & \cellcolor{gray!30}Prototipo \\
+% \cline{1-4}
+% \multicolumn{0}{ |c|  }{\multirow{0}{*}{Precisión} }  & 78\% & 78,57\% & 73,68\%
+% \\
+% \cline{0-3}
+% \multicolumn{0}{ |c|  }{\multirow{0}{*}{Recall} }  & 78\% & 78,57\% &  100\%\\
+% \cline{0-3}
+% \multicolumn{0}{ |c|  }{\multirow{0}{*}{Detección Flujos Implícitos} }  & No &
+% Si & Si\\
+% \cline{0-3}
+% \end{tabular}
+% \end{center}
+% \caption{Comparación entre FlowDroid, JoDroid y Prototipo. Ilustra los
+% porcentajes para Precisión, Recall, y la detección de leaks mediante
+% flujos implícitos.\newline}
+% \label{tb:comparacion}
+% \end{table}
 
 -\textit{Desempeño}\newline 
 Como muestran las tablas \ref{tb:resultados} y \ref{tab:JoDroid-Prototipo}, el
@@ -557,7 +623,7 @@ implícitos.
 Analizando los resultados para las métricas de desempeño, precisión y recall;
 descritas anteriormente, acorde al tipo de análisis y técnicas en que se basa
 cada herramienta, es posible anotar:\newline 
-- Desempeño: la técnica de lenguajes tipados se seguridad en que se basa el
+- Desempeño: la técnica de lenguajes tipados de seguridad en que se basa el
 prototipo aprovecha las ventajas de optimización con que se construyen los
 compiladores, permitiendo que el tiempo para ejecución del análisis sea
 despreciable.\newline 
@@ -571,7 +637,8 @@ ofrecen mayor Recall que FlowDroid, que se basa en flujo de datos.\newline
 Una ventaja de las técnicas basadas en control de flujo de información es la
 detección de fugas de información a través de flujos implícitos.\newline
 
-La tabla \ref{tab:comparacion} resume las ventajas, desventajas, similitudes y
+La tabla \ref{tab:resumen} resume 
+las ventajas, desventajas, similitudes y
 diferencias entre el Prototipo y las herramientas de comparación, FlowDroid y
 JoDroid, respectivamente. En esta se ilustra por ejemplo, como el prototipo
 detecta automáticamente los sources y sinks, mientras que JoDroid no.
@@ -620,7 +687,7 @@ detecta automáticamente los sources y sinks, mientras que JoDroid no.
 %\end{center}
 \caption{Síntesis ventajas, desventajas, similitudes y diferencias; del
 Prototipo frente a FlowDroid y JoDroid(respectivamente).\newline}
-\label{tab:comparacion}
+\label{tab:resumen}
 \end{table}
 
 \section{Tipos de análisis y técnicas evaluadas}
