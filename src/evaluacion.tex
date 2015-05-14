@@ -634,15 +634,18 @@ Analizando los resultados para las métricas de desempeño, precisión y recall;
 descritas anteriormente, acorde al tipo de análisis y técnicas en que se basa
 cada herramienta, es posible anotar:\newline 
 - Desempeño:\newline 
-la técnica de lenguajes tipados de seguridad en que se basa el
-prototipo aprovecha las ventajas de optimización con que se construyen los
-compiladores, permitiendo que el tiempo para ejecución del análisis sea
-despreciable.\newline 
--Precisión, Recall y detección de Flujos implícitos: \newline
+El prototipo presenta mejor desempeño, como resultado de analizar flujo de
+información mediante lenguajes tipados de seguridad, más específicamente a
+través de Jif. Dado que Jif recurre a técnicas de compilación(label checking) y
+no requiere la generación de grafos de dependencia, el análisis toma menos
+tiempo.
+
+-Precisión, Recall y detección de Flujos implícitos:\newline 
 el análisis pesimista en que se basa el Prototipo, donde se asume que todos los
 métodos implementados en la aplicación serán invocados, hace que los resultados
 del análisis sean menos precisos, generando más falsos positivos(FP). En
 consecuencia, se tiene un análisis unsound.\newline
+%%VERIFICAR SENSIBILIDAD AL CONTEXTO,,,,
 %(EL ANÁLISIS PESIMISTA O LA TECNICA DE LENGUAJES TIPADOS?)
 Para la evaluación realizada, el análisis de flujo de información mediante el
 sistema de anotaciones de Jif, ofrece un mejor recall, frente a: el análisis de
@@ -663,6 +666,8 @@ trabajo, según las cuales se esperaba que: al hacer análisis de flujo de
 información mediante lenguajes tipados de seguridad, los resultados del análisis
 fuesen más rápidos pero menos precisos, reportando más falsos positivos que
 JoDroid y FlowDroid.\newline
+Tal resultado refleja lo ilustrado por la teoría \cite{taghdiri-etal-2010} y
+\cite{hammer09ijis}.\newline
 
 La tabla \ref{tab:resumen} resume 
 las ventajas, desventajas, similitudes y

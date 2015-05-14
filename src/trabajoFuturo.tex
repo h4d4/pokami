@@ -136,13 +136,19 @@ de análisis y técnicas evaluadas, de sus ventajas y desventajas, es pertinente
 anotar que:
 
 Mediante el sistema de anotaciones de Jif es posible proveer una herramienta
-para que el desarrollador evalúe el cumplimiento de políticas de seguridad en
-los aplicativos que implementa.\\
+para que el desarrollador Android evalúe el cumplimiento de políticas de
+seguridad en los aplicativos que implementa.\\
+Sin embargo, el aplicativo a analizar debe ser implementado acorde al sistema de
+anotaciones de Jif, esto implica que el desarrollador adquiera un conocimiento
+previo de la implementación de aplicativos en Jif.\\
 Al estar basado en análisis de flujo de información, Jif ofrece la ventaja de
-detección de flujos implícitos. Adicionalmente, al tratarse de un lenguaje
-tipado de seguridad, ofrece las ventajas de desempeño con que se implementan los
-compiladores.\\
-No obstante, extender el setup de Jif para Android implica importantes retos
+detección de flujos implícitos. 
+Al tratarse de análisis de flujo de información mediante lenguajes tipados de
+seguridad, se tienen las ventajas de desempeño y completitud en el análisis(se
+presentan menos falsos negativos), pero al mismo tiempo, se obtiene baja
+precisión(reporte de falsos positivos).
+
+Extender el setup de Jif para Android implica importantes retos
 técnicos, porque además de requerirse la implementación de las clases de la API
 de Android, mediante el sistema de anotaciones de Jif, es necesario extender
 características del lenguaje Java estándar características como:\\
