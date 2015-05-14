@@ -9,13 +9,13 @@ Por un lado, se propone un esquema de anotación con niveles de seguridad alto y
 bajo, que permite definir y evaluar políticas de confidencialidad en aplicativos
 Android mediante el sistema de anotaciones de Jif.
 Sin embargo, el esquema de anotación propuesto no permite evaluar políticas de
-integridad ni aplicar mecánismos Downgrading, características ofrecidas por el
+integridad ni aplicar mecanismos Downgrading, características ofrecidas por el
 sistema de anotaciones de Jif.
 
 Por otro lado, están las limitaciones propias del lenguaje Jif, es decir,
-características para el lenguaje Java estandar que aún no están soportadas por
+características para el lenguaje Java estándar que aún no están soportadas por
 el compilador de Jif, y que por tanto, impiden analizar el flujo de información
-de aplicativos Android que requieran de tales caracteríticas del lenguaje Java.
+de aplicativos Android que requieran de tales características del lenguaje Java.
 Más específicamente, se hace referencia a las limitaciones descritas en
 \ref{subsec:limitaciones}: nested clases, initializer blocks, threads, etc.
 
@@ -116,27 +116,27 @@ Qué aprendimos con este trabajo.\newline
 Durante el presente trabajo de investigación se ha abordado la problemática que
 enfrenta el desarrollador de aplicaciones Android, a la hora de definir políticas de
 seguridad que regulen el flujo de información de sus aplicaciones. Puesto que,
-aún cuando la API Android ofrece mecánismos de control de acceso y el
+aún cuando la API Android ofrece mecanismos de control de acceso y el
 desarrollador puede implementarlos en sus aplicaciones, estos se centran en
 regular acceso de los usuarios a determinados recursos del sistema, y no en
-veríficar qué sucede con la información una vez se accede a ella.
+verificar qué sucede con la información una vez se accede a ella.
 
 Buscando contribuir con la solución de tal problemática, se propone una
 herramienta de análisis estático basada en el sistema de anotaciones de Jif, que
 permita analizar flujo de información en aplicativos Android. El diseño ideal
 para la propuesta de solución, implica extender el setup de Jif para la API de
 Android e incluir un clasificador de sources y sinks. Sin embargo, para efectos
-de la presente tesis se limíta el setup y el conjunto de sources y sinks, acorde
+de la presente tesis se limita el setup y el conjunto de sources y sinks, acorde
 a una política de confidencialidad específica.
 
-El diseño de solución en que se hace enfasis para la herramienta de análisis
+El diseño de solución en que se hace énfasis para la herramienta de análisis
 estático, es evaluado y los resultados obtenidos son comparados frente a otras
 herramientas de análisis estático: FlowDroid y Jodroid. Partiendo de los tipos
 de análisis y técnicas evaluadas, de sus ventajas y desventajas, es pertinente
 anotar que:
 
 Mediante el sistema de anotaciones de Jif es posible proveer una herramienta
-para que el desarrollador evalue el cumplimiento de políticas de seguridad en
+para que el desarrollador evalúe el cumplimiento de políticas de seguridad en
 los aplicativos que implementa.\\
 Al estar basado en análisis de flujo de información, Jif ofrece la ventaja de
 detección de flujos implícitos. Adicionalmente, al tratarse de un lenguaje
@@ -145,7 +145,7 @@ compiladores.\\
 No obstante, extender el setup de Jif para Android implica importantes retos
 técnicos, porque además de requerirse la implementación de las clases de la API
 de Android, mediante el sistema de anotaciones de Jif, es necesario extender
-características del lenguaje Java estandar características como:\\
+características del lenguaje Java estándar características como:\\
 Adicionalmente, para aspectos del código que definitivamente no puedan ser
 soportadas mediante el sistema de anotaciones de Jif, se debe optar por un
 mecanismo que permita soportarlas por ejemplo, como se menciona en
