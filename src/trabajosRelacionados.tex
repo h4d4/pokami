@@ -68,12 +68,12 @@ desarrollador de aplicaciones Android, ya que por el momento, JOANA sólo analiz
 aplicaciones en JAVA.
 
 \subsection{JoDroid}
-JoDroid\cite{JoDroid-Paper} es una extención a la herramienta de análisis JOANA
-para soportar analisis de aplicaciones Android.\newline 
+JoDroid\cite{JoDroid-Paper} es una extensión a la herramienta de análisis JOANA
+para soportar análisis de aplicaciones Android.\newline 
 El análisis de JOANA está basado en Program Dependence Graphs(PDG) y técnicas
 slicing. Con PDGs obtiene una representación del programa que
 analiza, donde los nodos representan statements y expresiones; y las aristas
-modelan las dependencias sintacticas entre los statements y expresiones:
+modelan las dependencias sintácticas entre los statements y expresiones:
 dependencias de datos y dependencias de control, por tanto el grafo está en
 capacidad de modelar, tanto flujos explícitos como flujos implícitos.\newline
 Con técnicas slicing provee sensibilidad al contexto, puesto que el PDG se
@@ -198,32 +198,52 @@ el análisis.\newline
 % característica de completitud en el análisis estático, es cable para garantizar
 % el cumplimiento de políticas de seguridad.\newline
 Adicional a la forma en que son aplicadas, estática o dinámicamente, las
-técnicas de análisis pueden enfocarse en hacer seguimiento al flujo de datos a
-través del programa, o en verificar flujos de información. Las técnicas basadas
-en tanting análisis, permiten hacer análisis de flujo de datos, marcando los
-datos de interés y verificando su flujo entre sources(fuentes del programa
-consideradas sensibles y/o confidenciales) y sinks(destinos considerados no
-confiables). Entre las desventajas de está técnica, esta el under-tainting, es
+técnicas de análisis pueden enfocarse en \textbf{analizar el flujo de
+datos}, o en \textbf{analizar flujo de información}.\\
+Las técnicas basadas en tanting análisis, permiten hacer análisis de flujo de
+datos, marcando los datos de interés y verificando su flujo entre
+sources(fuentes del programa consideradas sensibles y/o confidenciales) y
+sinks(destinos considerados no confiables). 
+Entre las desventajas de está técnica, esta el under-tainting, es
 decir, la posibilidad de fugas a través de datos no marcados para el
 análisis.\newline
-Las técnicas para aplicar análisis mediante control de flujo de información,
-generalmente permiten definir anotaciones de seguridad en el código fuente de la
-aplicación, para verificar sus flujos de información. Estas generalmente se 
-basan en técnicas de seguridad de tipado(Security-Typed Analyses), o en grafos
-que describen el comportamiento del programa, como Contol Dependence Graphs(PDG)
-y System Dependence Graphs(SDG).
-\textcolor{red}{
-Ambas técnicas recurren a etapas de análisis de compilación(se basan en
-técnicas de compilación), sin embargo, mientras las técnicas de Security-Typed
-sólo requieren llegar hasta el chequeo de tipos; las basadas en grafos de
-dependencia deben llegar hasta la representación de código intermedio para
-generar los respectivos grafos. Si bien, con grafos de dependencia se tiene
-mayor precisión en el análisis, su ejecución es costosa, ya que genera una
-complejidad de orden polinomial, O(N)3\cite[page 3]{FCO-PDG}.}
-Las motivaciones para guiar el análisis bajo una u otra perspectiva, implica
+Las \textbf{técnicas para hacer análisis de flujo de información}, se enmarcan
+en técnicas de seguridad de tipado(Security-Typed Analyses), o en técnicas de
+grafos de dependencia: System Dependence Graphs(SDG).\\
+Las técnicas de security Type, verifican el cumplimiento de políticas de
+seguridad mediante etapas de compilación(label checking), estás técnicas suelen
+ser más rápidas pero menos precisas porque generalmente no ofrecen
+característica de flow-sensitive, context-sensivite y object-sensitive, dando
+lugar a la generación de falsos positivos. Al mismo tiempo, estás técnicas
+tienen la ventaja de detectar mayor cantidad de fugas de información(presentan
+menos falsos negativos).\cite{taghdiri-etal-2010}\newline
+Las técnicas basadas en grafos de dependencia son flow-sensitive,
+context-sensivite y object-sensitive, dando mejor precisión en el análisis. Sin
+embargo, su ejecución es costosa, ya que genera una complejidad de orden
+polinomial, O(N)3\cite[page 3]{FCO-PDG}.
+
+Si bien, ambas técnicas utilizan anotaciones en el código del programa a
+analizar, el tipo de anotación es diferente. Por un lado, con lenguajes tipados
+de seguridad se provee todo un sistema de anotaciones mediante las cuales se
+implementa la versión del aplicativo a analizar. Por el otro, en grafos de
+dependencia las anotaciones son requeridas para señalar información con nivel de
+seguridad alto e información con nivel de seguridad bajo.
+Con lenguajes tipados de seguridad el desarrollador tiene mayor control sobre la
+anotación de sus aplicativos.
+
+% 
+% \textcolor{red}{
+% Ambas técnicas recurren a etapas de análisis de compilación(se basan en
+% técnicas de compilación), sin embargo, mientras las técnicas de Security-Typed
+% sólo requieren llegar hasta el chequeo de tipos; las basadas en grafos de
+% dependencia deben llegar hasta la representación de código intermedio para
+% generar los respectivos grafos. Si bien, con grafos de dependencia se tiene
+% mayor precisión en el análisis, su ejecución es costosa, ya que genera una
+% complejidad de orden polinomial, O(N)3\cite[page 3]{FCO-PDG}.}
+Las motivaciones para guiar el análisis bajo una u otra técnica, implica
 poner a consideración tanto el nivel de precisión requerido por las propiedades
 de seguridad a evaluar, como el costo de implementación y de ejecución del
-análisis. \newline
+análisis. 
 
 
  
