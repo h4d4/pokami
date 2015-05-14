@@ -11,23 +11,32 @@ El flujo de información es analizado al interior de una sola aplicación, no se
 consideran flujos de información vía interApp, es decir, varias aplicaciones que
 se comunican entre sí.
 
+Cabe anotar que los resultados de evaluación que se presentan a continuación son
+los obtenidos en el siguiente ambiente de pruebas: una máquina virtual con
+sistema operativo Linux; 2,7 GHz de procesador y 1GB de Memoria RAM. En esa
+misma máquina, se tiene instalada la versión 3.4.2 del compilador de Jif;
+el artefacto de prueba para FlowDroid y JoDroid, obtenidos desde,
+\cite{FlowDroid-artifact} y \cite{joDroidManual}, respectivamente.
+
+
+
 \section{Conjunto de evaluación}
 \label{sec:evalSet}
 
 \begin{table}[t]
 \small\addtolength{\tabcolsep}{-3pt}
 \begin{tabular}{|p{13cm}|p{1cm}|}
-% 	\hline
-% 	\multicolumn{2}{|>{\columncolor[gray]{0.8}}c|}{\textbf{AndroidSpecific\_DirectLeak1}}\\
-% 	\hline
-% 	\textbf{Descripción} & \textbf{Leaks}\\
-% 	\hline
-% 	La variable \textit{mrg} tiene un nivel de seguridad alto,
-% 	almacena información retornada por el método source \textit{getDeviceId}. Se
-% 	genera flujo de información directo entre información con nivel de seguridad alto e
-% 	información con nivel de seguridad bajo, al enviar como parámetro del método
-% 	\textit{sendTextMessage}, información de la variable \textit{mrg}. & 1 \\
-% 	\hline
+	\hline
+	\multicolumn{2}{|>{\columncolor[gray]{0.8}}c|}{\textbf{AndroidSpecific\_DirectLeak1}}\\
+	\hline
+	\textbf{Descripción} & \textbf{Leaks}\\
+	\hline
+	La variable \textit{mrg} tiene un nivel de seguridad alto,
+	almacena información retornada por el método source \textit{getDeviceId}. Se
+	genera flujo de información directo entre información con nivel de seguridad alto e
+	información con nivel de seguridad bajo, al enviar como parámetro del método
+	\textit{sendTextMessage}, información de la variable \textit{mrg}. & 1 \\
+	\hline
 	\multicolumn{2}{|>{\columncolor[gray]{0.8}}c|}{\textbf{AndroidSpecific\_LogNoLeak}}\\
 	\hline
 	\textbf{Descripción} & \textbf{Leaks}\\
@@ -92,7 +101,8 @@ Describe parte del conjunto de aplicaciones de prueba.
 \end{table}
 
 Para la evaluación se parte de DroidBech versión 1.0\cite{DroidBenchBenchmarks},
-benchmark integrado por 39 casos de prueba para aplicaciones Android, cuyos
+% benchmark integrado por 39 casos de prueba para aplicaciones Android, 
+benchmark integrado por casos de prueba para aplicaciones Android, cuyos
 autores son los mismos creadores de FlowDroid. Se opta por utilizar DroidBench
 puesto que, en la literatura científica consultada al respecto, no se encuentran
 otros benchmarks diseñados específicamente para evaluar aplicaciones Android.\newline 
@@ -115,7 +125,6 @@ cuando no se detecta un leak existente; Verdadero Positivo(TP) cuando se detecta
 un leak existente; Verdadero Negativo(TN) cuando no existe leak que
 detectar.
 
-\newpage
 En base a estos resultados del análisis, se calcula la Precisión y el Recall
 para cada una de las herramientas evaluadas. 
 La Precisión(\ref{pre}) mide la cantidad de respuestas válidas(TP), frente al
@@ -208,11 +217,12 @@ herramienta y el tiempo que tarda el análisis.
 \end{tabular}
 \end{center}
 \caption{Resultados de evaluación para FlowDroid y Prototipo. Donde
-\textit{Item} indica el testcase que se evalua, \textit{Testcase} especifica el
+\textit{Item} indica el testcase que se evalúa, \textit{Testcase} especifica el
 nombre de la aplicación para el caso de prueba; \textit{Leaks} indica si el
-testcase presenta fugas de información; \textit{F} y  \textit{P} muestran los resultados devueltos por FlowDroid y por
-el Prototipo; \textit{tF} y \textit{tP}, señalan el tiempo(en segundos) que toma
-el análisis para Flowdroid y para el Prototipo, respectivamente.}
+testcase presenta fugas de información; \textit{F} y  \textit{P} muestran los
+resultados devueltos por FlowDroid y por el Prototipo; \textit{tF} y
+\textit{tP}, señalan el tiempo(en segundos) que toma el análisis para Flowdroid
+y para el Prototipo, respectivamente.}
 \label{tb:resultados}
 \end{table}
 
@@ -320,11 +330,11 @@ TP(verdaderos positivos); mientras que, FlowDroid deja pasar 3.\newline
 Por otro lado, el Prototipo presenta más falsos positivos que FlowDroid, de los
 6 testcases que no presentan leaks, el prototipo reporta 5 como si fuesen
 fugas, mientras que FlowDroid reporta 3.\newline
-Así, en lo que respecta a Precisión, FlowDroid presenta un porcentaje del 78\%,
-siendo más preciso frente al Prototipo, que presenta un porcentaje del
-73\%.\newline 
+Así, en lo que respecta a Precisión, FlowDroid presenta un porcentaje del
+78,57\%, siendo más preciso frente al Prototipo, que presenta un porcentaje del
+73,68\%.\newline 
 Por otro lado, el Prototipo presenta un porcentaje en Recall del 100\%,
-mientras que FlowDroid presenta un porcentaje del 78\%.
+mientras que FlowDroid presenta un porcentaje del 78,75\%.
 
 \textit{Precisión y Recall, excluyendo flujos implícitos}\newline
 Excluyendo los testcases para flujos implícitos, el conjunto de prueba se reduce
@@ -416,7 +426,7 @@ se describen en el manual de referencia\cite{joDroidManual}, de estos,
 grafo de dependencia del programa(PDG), del cual parte el análisis. En general,
 el tiempo que tarda la generación del PDG para cada aplicación analizada, oscila
 entre 21 y 22 minutos. Cabe anotar que estos valores podrían cambiar con otras
-características de hardware, sin embargo, asignando 1048 MB de Ram a la máquina
+características de hardware, sin embargo, asignando 1 GB de Ram a la máquina
 virtual de Java, para la generación del PDG, es ese el rango de tiempo obtenido.
 En consecuencia, para los valores de tiempo que señala la presente evaluación,
 es posible decir que la herramienta es costosa en desempeño.
@@ -512,10 +522,10 @@ falsos negativos(FN).}
 & \multicolumn{0}{ |c|  }{\multirow{1}{*}{\cellcolor{gray!30} FlowDroid} } &
 \cellcolor{gray!30}JoDroid & \cellcolor{gray!30}Prototipo \\
 \cline{1-4}
-\multicolumn{0}{ |c|  }{\multirow{0}{*}{Precisión} }  & 78\% & 78,57\% & 73,68\%
+\multicolumn{0}{ |c|  }{\multirow{0}{*}{Precisión} }  & 78,57\% & 78,57\% & 73,68\%
 \\
 \cline{0-3}
-\multicolumn{0}{ |c|  }{\multirow{0}{*}{Recall} }  & 78\% & 78,57\% &  100\%\\
+\multicolumn{0}{ |c|  }{\multirow{0}{*}{Recall} }  & 78,57 & 78,57\% &  100\%\\
 \cline{0-3}
 \multicolumn{0}{ |c|  }{\multirow{0}{*}{Detección Flujos Implícitos} }  & No &
 Si & Si\\
@@ -623,19 +633,36 @@ implícitos.
 Analizando los resultados para las métricas de desempeño, precisión y recall;
 descritas anteriormente, acorde al tipo de análisis y técnicas en que se basa
 cada herramienta, es posible anotar:\newline 
-- Desempeño: la técnica de lenguajes tipados de seguridad en que se basa el
+- Desempeño:\newline 
+la técnica de lenguajes tipados de seguridad en que se basa el
 prototipo aprovecha las ventajas de optimización con que se construyen los
 compiladores, permitiendo que el tiempo para ejecución del análisis sea
 despreciable.\newline 
--Precisión, Recall y detección de Flujos implícitos: el análisis pesimista en
-que se basa el Prototipo, donde se asume que todos los métodos implementados en
-la aplicación serán invocados, hace que los resultados del análisis sean menos
-precisos.
+-Precisión, Recall y detección de Flujos implícitos: \newline
+el análisis pesimista en que se basa el Prototipo, donde se asume que todos los
+métodos implementados en la aplicación serán invocados, hace que los resultados
+del análisis sean menos precisos, generando más falsos positivos(FP). En
+consecuencia, se tiene un análisis unsound.\newline
 %(EL ANÁLISIS PESIMISTA O LA TECNICA DE LENGUAJES TIPADOS?)
-Al basar su técnica de análisis en flujo de información, el Prototipo y JoDroid
-ofrecen mayor Recall que FlowDroid, que se basa en flujo de datos.\newline
-Una ventaja de las técnicas basadas en control de flujo de información es la
-detección de fugas de información a través de flujos implícitos.\newline
+Para la evaluación realizada, el análisis de flujo de información mediante el
+sistema de anotaciones de Jif, ofrece un mejor recall, frente a: el análisis de
+flujo de datos en que se basa FlowDroid y el análisis de flujo de información
+mediante System Dependences Graphs  en que se basa JoDroid. Esto hace que para
+el experimento, la técnica de análisis del prototipo sea completa(completeness),
+puesto que, dentro de los leaks detectados están todos los leaks que
+efectivamente existen.\newline
+Una ventaja de las técnicas basadas en control de flujo de información es que al
+analizar tanto flujos explícitos como flujos implícitos, detectan la generación
+de leaks mediante flujos implícitos casi de forma natural, contrario a lo que
+sucede en las técnicas de análisis de flujos de datos, en la cuales, sino se
+propaga el marcado de datos a través de flujos implícitos, no es posible
+detectar fugas de datos a través de los mismos.\newline
+
+Los resultados de evaluación confirman las hipótesis iniciales del presente
+trabajo, según las cuales se esperaba que: al hacer análisis de flujo de
+información mediante lenguajes tipados de seguridad, los resultados del análisis
+fuesen más rápidos pero menos precisos, reportando más falsos positivos que
+JoDroid y FlowDroid.\newline
 
 La tabla \ref{tab:resumen} resume 
 las ventajas, desventajas, similitudes y
@@ -737,8 +764,8 @@ sources y sinks, y genera el respectivo análisis.\newline
 
 La propuesta está basada en análisis de flujo de información mediante lenguajes
 tipados de seguridad, más específicamente mediante Jif.\newline
-Para cada programa a analizar se debe implementar la versión Jif, es decir
-el programa debe estar implementado acorde al sistema de anotaciones de Jif. A
+Para cada programa a analizar se debe implementar la versión Jif, es decir,
+el programa implementado acorde al sistema de anotaciones de Jif. A
 partir de tales anotaciones el compilador verifica la generación de flujos de
 información que incumplan la política de seguridad establecida, para reportarlos
 como flujos de información indebidos. 
@@ -747,8 +774,12 @@ compilador, obtiene los beneficios de bajo costo computacional del mismo.\newlin
 La generación del análisis para verificar la política de seguridad
 definida, requiere dos pasos. Primero, se genera la versión Jif del aplicativo a
 analizar usando el prototipo de anotación, este recibe como entrada el
-código fuente del aplicativo a analizar. No requiere la especificación de sources
-y sinks.\\
+código fuente del aplicativo a analizar. No se requiere la específicación de
+sources y sinks**.\\
+% Para aspectos de evaluación del
+% prototipo no se requiere la especificación de sources y sinks, puesto que
+% estos ya están definidos en el anotador, de acuerdo a la política que se está
+% evaluando.\\
 Segundo, se compila el .jif, para obtener el reporte de análisis.
 
 En el cuadro \ref{tab:comparacion} se resumen los puntos comparados
