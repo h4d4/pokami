@@ -32,7 +32,7 @@ durante la compilación del aplicativo, allí el compilador Jif aplica chequeo d
 labels(label checking)\cite{jifRef},  verificando que los flujos de información
 generados cumplen con las restricciones establecidas. 
 
-\subsubsection{DML(Decentralized Label Model)}
+\subsection{DML(Decentralized Label Model)}
 Jif basa su sistema de anotaciones en el modelo de etiquetas DLM(Decentralized
 Label Model), donde se manejan tres elementos fundamentales: Principals,
 Políticas y Labels.\newline
@@ -52,7 +52,7 @@ anota(labels de seguridad), esto es métodos, variables, arrays, etc..\newline
 En síntesis, las políticas de seguridad definen que principals pueden leer o
 modificar la información, y esas políticas se expresan mediante labels.
 
-\subsubsection{Label Checking}
+\subsection{Label Checking}
 \label{subsec: pc}
 % Jif hace chequeo de labels para verificar si un programa cumple con las
 % políticas de seguridad indicadas en sus labels. Las reglas de chequeo se centran
@@ -84,7 +84,7 @@ incumplen.\newline
 % \subsubsection{Sintaxis de labels}
 % Como se representa leer y escribir
 
-\subsubsection{Sintaxis de Anotación en Jif}
+\subsection{Sintaxis de Anotación en Jif}
 \label{sssec:JifSintax} 
 
 % \begin{center}
@@ -96,8 +96,9 @@ incumplen.\newline
 %   \begin{lstlisting}
 %     printf("this should be centered!");
 %   \end{lstlisting}
-% \end{center}
--Definición de variables: \newline 
+% \end{center
+\subsubsection{Definición de variables}
+% -Definición de variables: \newline 
 En Java la sintaxis para definir una variable es:
 
 \begin{lstlisting}
@@ -111,7 +112,8 @@ Donde java-type especifica el tipo de dato Java que almacena la variable, \{L\}
 el label de seguridad  para especificar quien es el dueño de la variable, y
 varName, el respectivo nombre de la variable.
 
--Definición de arrays:\newline
+\subsubsection{Definición de arrays}
+% -Definición de arrays:\newline
 En Java un array se define de la forma:
 \begin{lstlisting}
 	modifier java-type [ ] nameArray
@@ -128,16 +130,16 @@ anotar el array es:
 \end{lstlisting}
 % \emph{java-type\{BL\} [ ]\{SL\} nameArray}
 
--Definición de métodos.\newline
+\subsubsection{Definición de métodos}
 En Java la definición de un método tiene la siguiente sintaxis:
 \begin{lstlisting}
 modifier java-type methodName(java-type arg1,,, java-type argn)
 {body method}
 \end{lstlisting}
-En Jif se debe asociar un label de seguridad al tipo de dato retornado, los
-argumentos que recibe y las excepciones declaradas.
-Adicionalmente, se declara un begin-label(BL) y un end-label(EL). La sintaxis es
-la siguiente:
+En Jif se debe asociar un label de seguridad al tipo de
+dato retornado, los argumentos que recibe y las excepciones declaradas.
+Adicionalmente, se declara un begin-label(BL) y un end-label(EL). 
+La sintaxis es la siguiente:
 \begin{lstlisting}
 modifier java-type{RTL} methodName{BL}(java-type arg1{AL},,,
 				java-type argn{AL}) :{EL}
@@ -161,7 +163,7 @@ definido el método.\newline
 método, y representa el máximo nivel de información que puede conocerse tras la
 finalización del método.
 
-\subsubsection{Labels de anotación que Jif asume por defecto}
+\subsection{Labels de anotación que Jif asume por defecto}
 \label{sssec:default-labels}
 Cuando en la declaración de variables o métodos no se especifica su respectivo
 label de seguridad, Jif lo infiere o genera automáticamente. De acuerdo al tipo
@@ -197,7 +199,7 @@ Labels para excepciones: el valor del EL.\newline
 % definido el método.\newline
 
 
-\subsubsection{Flujos implícitos y \underline{pc}}
+\subsection{Flujos implícitos y \underline{pc}}
 Los flujos implícitos son canales creados durante el control de flujo del
 programa. Buscando prevenir la fuga de información a través de estos canales,
 Jif asocia un \underline{pc} a cada statement y expresión del programa,

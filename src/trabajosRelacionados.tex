@@ -222,12 +222,12 @@ context-sensivite y object-sensitive, dando mejor precisión en el análisis. Si
 embargo, su ejecución es costosa, ya que genera una complejidad de orden
 polinomial, O(N)3\cite[page 3]{FCO-PDG}.
 
-Si bien, ambas técnicas utilizan anotaciones en el código del programa a
-analizar, el tipo de anotación es diferente. Por un lado, con lenguajes tipados
-de seguridad se provee todo un sistema de anotaciones mediante las cuales se
-implementa la versión del aplicativo a analizar. Por el otro, en grafos de
-dependencia las anotaciones son requeridas para señalar información con nivel de
-seguridad alto e información con nivel de seguridad bajo.
+Si bien, ambas técnicas utilizan anotaciones en el código del aplicativo de
+análisis, la forma de anotación es diferente. Por un lado, con lenguajes tipados
+de seguridad se provee todo un sistema de anotaciones para implementar
+aplicativos con determinadas políticas de seguridad.
+Por el otro, en grafos de dependencia sólo se anota el nivel de seguridad de la
+información a evaluar en aplicativos ya implementados.\\
 Con lenguajes tipados de seguridad el desarrollador tiene mayor control sobre la
 anotación de sus aplicativos.
 
