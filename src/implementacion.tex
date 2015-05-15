@@ -1,16 +1,17 @@
 \chapter{Descripción implementación}
 
 \section{Limitaciones técnicas}
-\label{subsec:limitaciones}
+\label{sec:limitaciones}
 Antes de iniciar con la implementación del esquema de anotación propuesto, tanto
-para las clases de la API como para los aplicativos a analizar, se
-identifican una serie de limitaciones del lenguaje Jif para anotar código de la
-API de Android. 
+para las clases de la API \ref{subsec:api}, como para los aplicativos a analizar
+\ref{subsec:apps}, se identifican una serie de limitaciones del lenguaje
+Jif para anotar código de la API de Android. 
 Tales limitaciones son adicionales a las características del lenguaje Java no
-reconocidas por Jif, a continuación se describen tanto las encontradas, como las
+soportadas por Jif, a continuación se describen tanto las encontradas, como las
 especificadas en el manual de referencia de Jif.
 
--\textit{Características del lenguaje Java no soportadas por jif}\newline
+\subsection{Características del lenguaje Java no soportadas por jif}
+% -\textit{Características del lenguaje Java no soportadas por jif}\newline
 Si bien, el sistema de anotaciones de Jif hace extensiones al lenguaje java,
 permitiendo la evaluación de políticas de confidencialidad e integridad para
 aplicativos implementados en dicho lenguaje, el manual de referencia de Jif
@@ -33,8 +34,9 @@ aplicaciones evaluables) mediante la herramienta propuesta.
 % lenguaje Java, tras experimentar la anotación manual de una serie de
 % aplicaciones Android, se identifican varias limitaciones técnicas para la
 % anotación de de las mismas. Entre las limitaciones identificadas están:\newline 
-
-- \textit{Soporte para sobreescritura de métodos}\newline 
+\subsection{Soporte para la clase java.lang.Override}
+\label{sub:override}
+% - \textit{Soporte para sobreescritura de métodos}\newline 
 En la construcción de aplicaciones Android, según el componente que se esté
 implementando(activities, content providers, receivers, services), se requiere
 sobreescribir métodos de la clase que extienda el componente. Así, cuando se
@@ -45,32 +47,37 @@ compilador de Java que el método es sobreescrito. No obstante, al implementar l
 versión Jif de aplicaciones Android con dicho statement, el compilador de Jif
 no lo reconoce. La dificultad que se presenta está en el reconocimiento del
 statement(carácter @ y clase Override), y no en la sobreescritura de métodos,
-puesto que Jif soporta tal característica. El soporte para la sobreescritura de
+puesto que Jif soporta tal característica.\newline 
+El soporte para la sobreescritura de
 métodos es confirmado con una sencilla prueba, anotando la clase Activity.java
 del framework Android (con un único método, el método Ocreate), e implementando
 la versión Jif de una aplicación Android que extiende de tal clase, en la cual
 se define una actividad y sobreescribe el método Oncreate.
 Cuando se comenta la sentencia @Override, el compilador de Jif identifica la
-sobreescritura del método y reporta comentarios para el flujo de información.\newline 
+sobreescritura del método y reporta comentarios para el flujo de información.
+
 Al investigar el por qué Jif no reconoce tal sentencia, se encuentra que dentro
-de las clases Java estándar soportadas por el compilador de Jif, no está
-contenida la clase java.lang.Override.\newline
+de las clases Java estándar soportadas por el compilador de Jif, no se incluye
+la clase java.lang.Override.\newline 
 Las clases Java estándar pertenecientes a los paquetes io, lang, math, net y
-sql; para las que el compilador Jif brinda soporte, vienen implementadas con
-anotaciones en el directorio sig-src, directorio que forma parte de la
-distribución del compilador de Jif con que se esté trabajando.\newline
-Una alternativa para permitir el análisis de flujo de información entre métodos
+sql; soportadas po el compilador Jif, vienen implementadas con anotaciones en el
+directorio sig-src, directorio que forma parte de la distribución del compilador
+de Jif con que se esté trabajando.
+
+Un mecanismo para permitir el análisis de flujo de información entre métodos
 que se sobreescriben, es comentar las líneas del programa que contengan la
 sentencia @Override, puesto que, al no ser reconocida por el compilador de Jif,
 es la generadora de errores de compilación.
 
-- \textit{Casting entre tipos EditText y View}\newline
+\subsection{Casting entre tipos EditText y View}
 El framework de Android cuenta con diferentes clases para manejar las interfaces
 gráficas que presenta al usuario, entre las cuales se encuentran EditText y
-View. View es la clase principal para la creación de widgets, necesarios para la
-implementación de componentes interactivos en las interfaces de usuario(UI).
-EditText permite adicionar campos de texto editables en UI. El casting entre los
-tipos de datos que representan ambas clases, se hace cuando la aplicación debe
+View.\newline
+View es la clase principal para la creación de widgets, necesarios para la
+implementación de componentes interactivos en las interfaces de
+usuario(UI).\newline 
+EditText permite adicionar campos de texto editables en UI.\newline
+El casting entre los tipos de datos que representan ambas clases, se hace cuando la aplicación debe
 procesar datos provenientes de campos en las interfaces del usuario, por ejemplo
 como se observa a continuación:
 \begin{lstlisting}
@@ -87,7 +94,7 @@ opta por ``simular'' estos casos, es decir, si el tipo de dato de una variable
 es de tipo EditText, se crea una variable tipo String con un valor determinado,
 así se omite el casting y se puede analizar el flujo de información.
 
-- \textit{Clase nested R}\newline
+\subsection{Clase nested R}
 El framework de Android utiliza identificadores para hacer referencia a recursos
 utilizados por la aplicación, recursos como strings, widgets y layouts, tales
 identificadores son autogenerados en la clase R.java, allí cada recurso es
@@ -108,7 +115,7 @@ una aplicación, definidos como variables y no como clases.
 % SuSi, partiendo de los sources y sinks que evalué la política de seguridad que
 % se defina.
 
-- \textit{Enhanced for loop} \newline
+\subsection{Enhanced for loop}
 Además de soportar la estructura de control for, el lenguaje Java permite el uso
 de enhanced for, que es utilizado para simplificar la iteración en arrays y
 colecciones, por ejemplo:
@@ -129,7 +136,7 @@ contengan dicha estructura de control, es generar el equivalente del programa
 haciendo uso del for, de este modo se cambia la sintaxis sin afectar la lógica
 del aplicativo a analizar.
 
-- \textit{Otras limitaciones} \newline
+\subsection{Otras limitaciones}
 Adicional a las limitaciones descritas anteriormente, para las cuales se propone
 una solución, se identifica que Jif no soporta la sintaxis utilizada para
 definir estructuras de datos HashMaps, LinkedList y Sets, que en Java se definen
@@ -160,27 +167,32 @@ su implementación las estructuras de datos descritas.\newline
 Como se describió anteriormente, la implementación del diseño requiere
 anotaciones a la API de Android y anotaciones en los aplicativos a
 analizar.\newline 
-En el caso de las anotaciones requeridas para la API, su
+En el caso de las anotaciones requeridas para la API \ref{subsec:api}, su
 implementación se hace manualmente.\newline
-En el caso de las anotaciones en el aplicativo a analizar, para lo
-cual se propuso un esquema de anotación automatizable, se implementa un
+En el caso de las anotaciones en el aplicativo a analizar \ref{subsec:apps},
+para las que se propuso un esquema de anotación automatizable, se implementa un
 prototipo de anotación en lenguaje Java. En la sección \ref{sec:diagramaClass}
-de los anexos, se incluye su respectivo diagrama de clases.\newline
-El anotador está implementado en lenguaje Java y consta de cinco clases: Main,
-Source, XmlExtract, Annotation y BufferWriter. 
-En la clase Main se coordinan todos los pasos de anotación, así, la clase
-Sources  identifica qué variables source contiene la aplicación que se está
-analizando; la clase Source  se apoya en la clase XmlExtract  para
-identificar el source EdidText cuando el campo UI al que referencia corresponde
-a un tipo textPassword. Como las interfaces UI se describen mediante XML, es
-necesario extraer los datos de la interfaz utilizando las librerías
-javax.xml.parsers y org.w3c.dom. Con javax.xml.parsers se obtiene el respectivo
-DOM del XML a analizar. Con org.w3c.dom se recorren los elementos del DOM,
-elementos como los campos EditText.\\
-Con la clase Annotation  se identifican y anotan los diferentes tipos de
+de los anexos, se incluye su respectivo diagrama de clases.\newline 
+El anotador está implementado en lenguaje Java y consta de cinco clases:
+\emph{Main}, \emph{Source}, \emph{XmlExtract}, \emph{Annotation} y
+\emph{BufferWriter}.\newline 
+Todos los pasos de anotación descritos en
+\ref{subsec:pasosSol}, son coordinados desde la clase \emph{Main}.\newline
+La clase \emph{Source} identifica qué variables source contiene la aplicación que se
+está analizando, esta clase se apoya en la clase \emph{XmlExtract} para identificar
+sources definidos en interfaces UI. En este caso particular, para la
+verificación de la política establecida, la clase \emph{XmlExtract} permite identificar
+el source EditText, cuando se trata de un campo UI que almacena
+contraseñas.\newline 
+Como las interfaces UI se describen mediante XML, es
+necesario extraer los elementos de la interfaz utilizando las librerías javax.xml.parsers y
+org.w3c.dom. Con javax.xml.parsers se obtiene el respectivo DOM del XML a
+analizar. Con org.w3c.dom se recorren los elementos del DOM, elementos como los
+campos EditText.\newline 
+Con la clase \emph{Annotation}  se identifican y anotan los diferentes tipos de
 métodos(métodos source, no source y métodos a sobreescribir).\\
-En la clase BufferWriter  se anotan las variables sources, y finalmente se
-retorna la versión .jif del aplicativo que se está analizando.\newline 
+En la clase \emph{BufferWriter} se anotan las variables sources, y finalmente
+se retorna la versión .jif del aplicativo que se está analizando.\newline 
 Para la anotación del código se utiliza la librería Java Parser 1.8  que permite
 generar y visitar el árbol de sintaxis para la estructura del código de cada
 programa, haciendo posible la adición de los labels de seguridad respectivos.\\
@@ -219,5 +231,6 @@ analizar, como las clases de que estos heredan como: Activity.jif, Service.jif,
 etc.
 
 \section{Compilación, integración y finalmente ejecución }
-En \ref{sec:ejecutarPrototipo} se describen las instrucciones paso a paso de cómo
-ejecutar el anotador, y cómo compilar los aplicativos a analizar mediante Jif.
+En la sección \ref{sec:ejecutarPrototipo} de los anexos, se describen las
+instrucciones paso a paso de cómo ejecutar el anotador, y cómo compilar los
+aplicativos a analizar mediante Jif.

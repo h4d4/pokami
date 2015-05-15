@@ -103,8 +103,8 @@ Describe parte del conjunto de aplicaciones de prueba.
 Para la evaluación se parte de DroidBech versión 1.0\cite{DroidBenchBenchmarks},
 % benchmark integrado por 39 casos de prueba para aplicaciones Android, 
 benchmark integrado por casos de prueba para aplicaciones Android, cuyos
-autores son los mismos creadores de FlowDroid. Se opta por utilizar DroidBench
-puesto que, en la literatura científica consultada al respecto, no se encuentran
+autores son los mismos creadores de FlowDroid. Se opta por
+utilizar DroidBench puesto que, en la literatura científica consultada al respecto, no se encuentran
 otros benchmarks diseñados específicamente para evaluar aplicaciones Android.\newline 
 De DroidBech se toma un grupo de testcases evaluables frente a la política de
 seguridad establecida \ref{subsection:politica}, este grupo está integrado por
@@ -134,7 +134,7 @@ falsos positivos(FP). En otras palabras, de los leaks existentes, la
 herramienta reporta una mayor cantidad.
 
 Con el Recall(\ref{rec}) se mide la cantidad de respuestas válidas(TP), frente
-al total de respuestas válidas (TP) y respuestas válidas no detectadas(FN). A
+al total de respuestas válidas(TP) y respuestas válidas no detectadas(FN). A
 mayor Recall, menor reporte de falsos negativos.\newline
 
 Las fórmulas para medir Precisión(p) y Recall(r), son:
@@ -157,7 +157,7 @@ Además de las fórmulas anteriormente descritas, se utiliza el comando
 \textit{time}\cite{time-man} de unix, para medir el desempeño de cada
 herramienta.
 
-\subsection{Evaluación FlowDroid y Prototipo } 
+\section{Evaluación FlowDroid y Prototipo } 
 \label{subsec:fvsp}
 Del total de testcases(20), 14 presentan fugas de información mientras que 6 de
 ellos no. Los resultados de evaluación para FlowDroid y el Prototipo, son
@@ -226,9 +226,10 @@ y para el Prototipo, respectivamente.}
 \label{tb:resultados}
 \end{table}
 
-\subsubsection{Análisis de evaluación entre FlowDroid y Prototipo}
--\textit{Resultados de desempeño}\newline
-Acorde a los datos señalados en los campos tF y tP de la tabla
+\subsection{Análisis de evaluación entre FlowDroid y Prototipo}
+\subsubsection{Resultados de desempeño}
+% -\textit{Resultados de desempeño}\newline
+Acorde a los tiempos señalados en los campos tF y tP de la tabla
 \ref{tb:resultados}, en promedio, FlowDroid tarda 3,3 segundos más que el
 Prototipo para ejecutar el análisis.
 
@@ -242,25 +243,40 @@ Prototipo para ejecutar el análisis.
 % O(ED)3\cite[page 3]{FCO-PDG}.\newline
 % Se podría destacar como positivo que el análisis de flujo de información
 % mediante técnicas de tipado de seguridad, requiere menos tiempo que la técnica
-% de marcado de datos utilizada por FlowDroid.
--\textit{Resultados de precisión}\newline
+% de marcado de datos utilizada por FlowDroid.x
+\subsubsection{Falsos positivos, precisiones}
+% -\textit{Resultados de precisión}\newline
 En lo que respecta a los resultados del Prototipo, los FP correspondientes a los
-items 2 y 14, surgen como consecuencia de un diseño de análisis
-pesimista (evaluación del flujo de información \ref{subsec:consVerPol}), en el
-que, se asume que todos los métodos definidos en la clase serán invocados. Por
-consiguiente, todos los métodos son incluidos para el análisis del flujo de
-información. Así, si los métodos conllevan a flujos de datos indebidos,
-independientemente de si son invocados o no, son considerados como generadores
-de fugas de información.\newline 
-Por otro lado, en el caso de ArraysAndLists: items 6 y 7, no es sencillo
-calificar los resultados como FP, puesto que, para lo que está analizando
-FlowDroid(verificar que su técnica de análisis diferencie entre los elementos
-marcados y no marcados de un array), efectivamente se presentan FP, sin embargo,
-para la forma en que se deben implementar los programas en Jif, donde se suele
-definir un nivel de seguridad para todo el array antes de almacenar los
-elementos en el mismo, podría decirse que no se trata de un FP, porque se revelo
-información que había sido catalogada con nivel de seguridad alto.
+items 2 y 14 de la tabla \ref{tb:resultados}, surgen como consecuencia de un
+diseño de análisis pesimista (evaluación del flujo de información
+\ref{subsec:consVerPol}), donde se asume que todos los métodos definidos en
+la clase serán invocados. Por consiguiente, todos los métodos son incluidos para
+el análisis del flujo de información. Así, si los métodos conllevan a flujos de
+datos indebidos, independientemente de si son invocados o no, son considerados
+como generadores de fugas de información.\newline 
+% En lo que respecta a los resultados del Prototipo, los FP correspondientes a los
+% items 2(AndroidSpecific\_InactiveActivity) y 14(GeneralJava\_UnreachableCode) de
+% la tabla \ref{tb:resultados}, los cuales presentan flujos de información
+% indebidos, pero en realidad nunca tendran lugar, porque se presentan en: una
+% actividad que no está activada en el Manifest, y un método que nunca es llamado.
+% Dan lugar al reporte de falsos positivos por parte del Prototipo, puesto que
+% al basarse en un análisis pesimista (evaluación del flujo de información
+% \ref{subsec:consVerPol}), donde se asume que todos los métodos definidos en la
+% clase serán invocados. Por consiguiente, todos los métodos son incluidos para el
+% análisis del flujo de información. Así, si los métodos conllevan a flujos
+% de datos indebidos, independientemente de si son invocados o no, son
+% considerados como generadores de fugas de información.\newline 
+Por otro lado, en el caso de ArraysAndLists: items 6 y 7, de la tabla
+\ref{tb:resultados}, no es sencillo calificar los resultados como FP, puesto
+que, para lo que está analizando FlowDroid(verificar que su técnica de análisis
+diferencie entre los elementos marcados y no marcados de un array),
+efectivamente se presentan FP, sin embargo, para la forma en que se deben
+implementar los programas en Jif, donde se suele definir un nivel de seguridad
+para todo el array antes de almacenar los elementos en el mismo, podría decirse
+que no se trata de un FP, porque se revelo información que había sido catalogada
+con nivel de seguridad alto.
 
+\subsubsection{Detección de flujos implícitos}
 A diferencia de FlowDroid, el Prototipo detecta fugas de información través de
 flujos implícitos. La no detección de Flujos implícitos por parte de FlowDroid,
 responde al tipo de análisis y las técnicas en que se fundamenta la herramienta:
@@ -291,7 +307,7 @@ implícitos.\newline
 Con esto presente, se definen dos escenarios de análisis: Precisión y Recall,
 incluyendo flujos implícitos; y  Precisión y Recall, excluyendo flujos
 implícitos, donde se incluyen u omiten los testcases para flujos
-implícitos(ImplicitFlows\_ImplicitFlow 1, 2 y 4).\newline
+implícitos(items 15 a 17, tabla \ref{tb:resultados}).\newline
 La tabla \ref{tb:FlowDroidPrototipoFI} muestra los resultados de evaluación para
 ambos casos.\newline
 %En el caso de TaintDroid, tampoco detecta flujos implícitos, porque entre las
@@ -323,7 +339,9 @@ negativos(FN); obtenidos tanto con FlowDroid como con el Prototipo.}
 \label{tb:FlowDroidPrototipoFI}
 \end{table}
 
-\textit{Precisión y Recall, incluyendo flujos implícitos}\newline
+
+\subsubsection{Precisión y Recall, incluyendo flujos implícitos}
+% \textit{Precisión y Recall, incluyendo flujos implícitos}\newline
 Los resultados obtenidos en la tabla \ref{tb:FlowDroidPrototipoFI} señalan que
 de las 14 fugas existentes, el Prototipo las detecta todas, presenta 14
 TP(verdaderos positivos); mientras que, FlowDroid deja pasar 3.\newline
@@ -336,7 +354,8 @@ Así, en lo que respecta a Precisión, FlowDroid presenta un porcentaje del
 Por otro lado, el Prototipo presenta un porcentaje en Recall del 100\%,
 mientras que FlowDroid presenta un porcentaje del 78,75\%.
 
-\textit{Precisión y Recall, excluyendo flujos implícitos}\newline
+\subsubsection{Precisión y Recall, excluyendo flujos implícitos}
+% \textit{Precisión y Recall, excluyendo flujos implícitos}\newline
 Excluyendo los testcases para flujos implícitos, el conjunto de prueba se reduce
 a 17 casos. De los cuales, 11 presentan leaks.\newline 
 En este contexto, el porcentaje de Precisión para FlowDroid es de 78,57\%,
@@ -344,14 +363,14 @@ mientras que para el Prototipo es del 68,75\%. El porcentaje de Recall es igual
 para FlowDroid y el Prototipo: 100\%.
 
 
-\subsection{Evaluación JoDroid y Prototipo}
+\section{Evaluación JoDroid y Prototipo}
 % Del conjunto de casos de prueba JoDroid ignora las excepciones, ya que su actual
 % implementación no soporta análisis del flujo de información a través de
 % tales sentencias[pag 93 \cite{JoDroid-Thesis}]. Por tanto, los testcases
 % GeneralJava\_Exceptions1 a GeneralJava\_Exceptions4, no son evaluados. 
 % No obstante, para calcular la precisión y el recall se consideran dos
 % escenarios, uno en que se incluyen y otra en que no.
-La tabla \ref{tab:JoDroid-Prototipo} ilustran los resultados de evaluación para JoDroid y el
+La tabla \ref{tab:JoDroid-Prototipo} ilustra los resultados de evaluación para JoDroid y el
 Prototipo, en base a los cuales, se calculan las métricas de precisión y recall. 
 \label{subsec:jvsp}
 \begin{table}[t]
@@ -418,11 +437,12 @@ y para el Prototipo, respectivamente.}
 \label{tab:JoDroid-Prototipo}
 \end{table}
 
-\subsubsection{Análisis de evaluación entre JoDroid y Prototipo}
--\textit{Resultados de desempeño}\newline
+\subsection{Análisis de evaluación entre JoDroid y Prototipo}
+\subsubsection{Resultados de desempeño}
+% -\textit{Resultados de desempeño}\newline
 Para el análisis mediante JoDroid se deben seguir una serie de pasos, tal como
 se describen en el manual de referencia\cite{joDroidManual}, de estos,
-únicamente se contabiliza el tiempo correspondiente al paso para generar el
+únicamente se toma el tiempo correspondiente al paso para generar el
 grafo de dependencia del programa(PDG), del cual parte el análisis. En general,
 el tiempo que tarda la generación del PDG para cada aplicación analizada, oscila
 entre 21 y 22 minutos. Cabe anotar que estos valores podrían cambiar con otras
@@ -431,17 +451,24 @@ virtual de Java, para la generación del PDG, es ese el rango de tiempo obtenido
 En consecuencia, para los valores de tiempo que señala la presente evaluación,
 es posible decir que la herramienta es costosa en desempeño.
 
--\textit{Resultados de Precisión}\newline
+\subsubsection{Detección de Flujos implícitos}
+% -\textit{Resultados de Precisión}\newline
 La tabla \ref{tab:JoDroid-Prototipo} muestra que al igual que el Prototipo,
-JoDroid detecta fugas de información presentes en flujos implícitos.\newline
-Por otro lado, es importante resaltar que del conjunto de casos de prueba,
-JoDroid ignora el control de flujo de información para
-excepciones(GeneralJava\_Exceptions1 a GeneralJava\_Exceptions4), puesto que, su
-actual implementación no soporta análisis del flujo de información a través de
-tales sentencias[pag 93 \cite{JoDroid-Thesis}]. En la
-tabla \ref{tb:jodroidP2exce} se muestran dos escenarios para los resultados de
-evaluación: Con  excepciones y Sin excepciones. Con base en tales resultados se
-calcula la Precisión y Recall para cada uno de los escenarios.
+JoDroid detecta fugas de información a través de flujos implícitos. Ya que,
+en los testcases correspondientes a flujos implícitos, items 15, 16 y 17, ambas
+herramientas detectan que efectivamente, se presentan fugas de
+información.\newline
+
+\subsubsection{Fugas a través de excepciones}
+Es importante resaltar que del conjunto de casos de prueba, JoDroid ignora el
+control de flujo de información para excepciones(items 8 a 11 de la tabla
+\ref{tab:JoDroid-Prototipo}), puesto que, su actual implementación no soporta
+análisis del flujo de información a través de tales sentencias[pag 93
+\cite{JoDroid-Thesis}].
+En la tabla \ref{tb:jodroidP2exce} se muestran dos escenarios para los
+resultados de evaluación: Con  excepciones y Sin excepciones. 
+Con base en tales resultados se calcula la Precisión y Recall para cada uno de
+los escenarios.
 
 \begin{table}[t]
 \begin{center}
@@ -468,31 +495,31 @@ con JoDroid como con el Prototipo.}
 \label{tb:jodroidP2exce}
 \end{table}
 
-\textit{Precisión y Recall incluyendo excepciones}\newline
+\subsubsection{Precisión y Recall incluyendo excepciones}
+% \textit{Precisión y Recall incluyendo excepciones}\newline
 Del total de testcases(20), 14 presentan fugas de información. 
 De los casos con fuga de información, 3 corresponden a las excepciones
-incluidas(GeneralJava\_Exceptions), y se califican como falsos negativos(FN)
-puesto que JoDroid no los detecta. La tabla \ref{tb:jodroidP2exce} ilustra los
-resultados de evaluación.\newline
+incluidas(items 8 a 11, tabla \ref{tab:JoDroid-Prototipo}), y se califican como
+falsos negativos(FN) porque JoDroid no los detecta. La tabla
+\ref{tb:jodroidP2exce} ilustra los resultados de evaluación.\newline 
 En cuanto a la Precisión(p), JoDroid presenta un porcentaje del 78,57\%,
 mientras que el Prototipo presenta un porcentaje del  73,68\%.\newline
 En cuanto a Recall(r), el Prototipo presenta un porcentaje del 100\%, frente a
 un porcentaje del 78,57\% presentado por JoDroid.
 
-
-\textit{Precisión y Recall excluyendo exceptions}\newline
-Omitiendo los casos de prueba de GeneralJava\_Exceptions1 a
-GeneralJava\_Exceptions4, el total de testcases(20) queda reducido a 16. De
-estos, 11 presentan fugas de información.\newline
-En lo que respecta a la métrica de Precisión, JoDroid
-presenta un porcentaje del 78,57\%; frente al Prototipo que presenta un
-porcentaje del 73,33\%.\newline 
+\subsubsection{Precisión y Recall excluyendo excepciones}
+% \textit{Precisión y Recall excluyendo exceptions}\newline
+Omitiendo los testcases para excepciones(items 8 a 11, tabla
+\ref{tab:JoDroid-Prototipo}), el total de testcases(20) queda reducido a 16. 
+De estos, 11 presentan fugas de información.\newline 
+En lo que respecta a la métrica de Precisión, JoDroid presenta un porcentaje del
+78,57\%; frente al Prototipo que presenta un porcentaje del 73,33\%.\newline 
 Para la métrica de Recall, tanto JoiDroid como el Prototipo, presentan el mismo
 porcentaje esto es 100\%.\newline
 
 
 
-\subsection{Análisis de evaluación FlowDroid, JoDroid, Prototipo}
+\section{Análisis de evaluación FlowDroid, JoDroid, Prototipo}
 \label{subsec:fjp}
 %las tablas confirman lo que ya se sabia segun la literatura existe.
 
@@ -544,10 +571,10 @@ evaluación(compuesto por 20 testcases, de los cuales 14 presentan leaks),
 obtenidos en los anteriores apartados, 
 % donde se presentó un análisis detallado para la evaluación entre FlowDroid vs
 % Prototipo, y, JoDroid vs Prototipo; 
-se comparan las tres herramientas(FlowDroid, JoDroid y Prototipo) frente a
+se comparan las tres herramientas: FlowDroid, JoDroid y Prototipo, frente a 
 Precisión, Recall, y la detección de fugas de información mediante flujos
 implícitos. La tabla \ref{tb:porcentajes} ilustra todos los resultados y la
-tabla \ref{tb:comparacion} ilustra los respectivos porcentajes.
+tabla \ref{tb:comparacion} ilustra los respectivos porcentajes.\newline
 
 % \begin{table}[b]
 % \begin{center}
@@ -591,13 +618,14 @@ tabla \ref{tb:comparacion} ilustra los respectivos porcentajes.
 % \label{tb:comparacion}
 % \end{table}
 
--\textit{Desempeño}\newline 
+\textbf{\textit{Desempeño}}\newline 
 Como muestran las tablas \ref{tb:resultados} y \ref{tab:JoDroid-Prototipo}, el
 Prototipo presenta mejor desempeño frente FlowDroid y JoDroid. En el caso de
 FlowDroid, en promedio tarda 3,3 segundos más que el Prototipo para ejecutar el
 análisis. En el caso de JoDroid, el tiempo de análisis es costoso en comparación
 a las otras herramientas, puesto que su tiempo de ejecución oscila entre 21 y 22
 minutos.\newline
+
 % EXPLICAR POR QUE, DE ACUERDO A LA TECNICA DE ANALISIS?\newline
 % Como muestran las tablas \ref{tb:resultados} y \ref{tab:JoDroid-Prototipo}, el
 % análisis de flujo de información basado en lenguajes tipados de seguridad(en que
@@ -605,7 +633,7 @@ minutos.\newline
 % las técnicas en que se basan FlowDroid y JoDroid, análisis de flujo de datos
 % mediante técnicas tainting y IFC(Information Flow Control) mediante PDG y
 % slicing, respectivamente.
--\textit{Precisión y Recall}\newline
+\textbf{\textit{Precisión y Recall}}\newline
 Tanto FlowDroid como JoDroid presentan mejor Precisión que el Prototipo, es
 decir que el Prototipo presenta más falsos positivos(FP).\newline 
 Por otro lado, el Prototipo presenta mayor Recall frente a FlowDroid y JoDroid,
@@ -617,7 +645,7 @@ cantidad de FP frente a FlowDroid y JoDroid, deja pasar menos fugas de
 información.\newline
 En lo que respecta a flujos implícitos, a diferencia de FlowDroid, tanto JoDroid
 como el Prototipo detectan fugas de información a través de Flujos
-implícitos.
+implícitos.\newline
 
 % EXPLICAR POR QUE DE ACUERDO A LAS TECNICAS DE ANALISIS?\newline
 % El análisis de flujo de información mediante lenguajes tipados de
@@ -630,9 +658,11 @@ implícitos.
 % El análisis de flujo de información mediante lenguajes tipados de seguridad,
 % ofrece igual Recall que la técnica de PDG utilizada por JoDroid, sin
 % embargo, JoDroid presenta mejor Precisión.\newline
+\textbf{\textit{Análisis métricas acorde al tipo de análisis}}\newline
 Analizando los resultados para las métricas de desempeño, precisión y recall;
 descritas anteriormente, acorde al tipo de análisis y técnicas en que se basa
 cada herramienta, es posible anotar:\newline 
+
 - Desempeño:\newline 
 El prototipo presenta mejor desempeño, como resultado de analizar flujo de
 información mediante lenguajes tipados de seguridad, más específicamente a
@@ -643,8 +673,8 @@ tiempo.
 -Precisión, Recall y detección de Flujos implícitos:\newline 
 el análisis pesimista en que se basa el Prototipo, donde se asume que todos los
 métodos implementados en la aplicación serán invocados, hace que los resultados
-del análisis sean menos precisos, generando más falsos positivos(FP). En
-consecuencia, se tiene un análisis unsound.\newline
+del análisis sean menos precisos, generando más falsos positivos(FP). 
+%En consecuencia, se tiene un análisis unsound?.\newline 
 %%VERIFICAR SENSIBILIDAD AL CONTEXTO,,,,
 %(EL ANÁLISIS PESIMISTA O LA TECNICA DE LENGUAJES TIPADOS?)
 Para la evaluación realizada, el análisis de flujo de información mediante el
@@ -659,7 +689,7 @@ analizar tanto flujos explícitos como flujos implícitos, detectan la generaci�
 de leaks mediante flujos implícitos casi de forma natural, contrario a lo que
 sucede en las técnicas de análisis de flujos de datos, en la cuales, sino se
 propaga el marcado de datos a través de flujos implícitos, no es posible
-detectar fugas de datos a través de los mismos.\newline
+detectar fugas de datos a través de los mismos.
 
 Los resultados de evaluación confirman las hipótesis iniciales del presente
 trabajo, según las cuales se esperaba que: al hacer análisis de flujo de
@@ -704,7 +734,7 @@ detecta automáticamente los sources y sinks, mientras que JoDroid no.
 	\hline
 	Detección de flujos implícitos & \checkmark& & & & & &\checkmark&\\
 	\hline
-	Detección automática de sources y sinks & & &\checkmark& &\checkmark& & & \\
+	No detección automática de sources y sinks & &\checkmark&& &&&\checkmark& \\
 	\hline
 	No soporte para Análisis interApp & &\checkmark& & & & &\checkmark&\\
 	\hline
@@ -728,8 +758,8 @@ Prototipo frente a FlowDroid y JoDroid(respectivamente).\newline}
 % sección, el análisis se basa en las herramientas previamente evaluadas, pero
 % haciendo enfásis en las técnicas utilizadas por las mismas.
 %tipo de analisis y técnica
-FlowDroid se fundamenta en análisis de flujo de datos, mediante técnicas
-tainting.\\
+\textbf{FlowDroid} se fundamenta en análisis de flujo de datos, mediante
+técnicas tainting.\\
 El código .dex a ser analizado es transformado a una representación
 intermedia(Jimple representation).\\
 El análisis parte de la construcción de un super-grafo del programa que se
@@ -748,8 +778,8 @@ La herramienta recibe como entrada el apk del aplicativo, detecta
 automáticamente los sources y sinks del programa mediante el uso de SuSi y
 genera un reporte del análisis.
 
-JoDroid se fundamenta en análisis de control de flujo de información, aplicando
-técnicas de grafos de dependencia(PDG) y técnicas slicing.\newline 
+\textbf{JoDroid} se fundamenta en análisis de control de flujo de información,
+aplicando técnicas de grafos de dependencia(PDG) y técnicas slicing.\newline 
 El código .dex es transformado a código de representación intermedio(SSA-form).
 Construye un grafo PDG, donde los nodos representan statements y expresiones, y
 las aristas modelan las dependencias sintácticas entre los statements y
@@ -765,10 +795,10 @@ recibe como entrada el apk y manifest del aplicativo para generar un archivo con
 el punto de entrada del análisis; luego, a partir del archivo devuelto
 anteriormente genera el PDG, finalmente, recibe como entrada el PDG, lista los
 statements y variables del aplicativo para que se indique manualmente los
-sources y sinks, y genera el respectivo análisis.\newline
+sources y sinks, y genera el respectivo análisis.
 
-La propuesta está basada en análisis de flujo de información mediante lenguajes
-tipados de seguridad, más específicamente mediante Jif.\newline
+\textbf{La propuesta} está basada en análisis de flujo de información mediante
+lenguajes tipados de seguridad, más específicamente mediante Jif.\newline
 Para cada programa a analizar se debe implementar la versión Jif, es decir,
 el programa implementado acorde al sistema de anotaciones de Jif. A
 partir de tales anotaciones el compilador verifica la generación de flujos de
@@ -778,14 +808,7 @@ Al ser evaluado directamente por un
 compilador, obtiene los beneficios de bajo costo computacional del mismo.\newline
 La generación del análisis para verificar la política de seguridad
 definida, requiere dos pasos. Primero, se genera la versión Jif del aplicativo a
-analizar usando el prototipo de anotación, este recibe como entrada el
-código fuente del aplicativo a analizar. No se requiere la específicación de
-sources y sinks**.\\
-% Para aspectos de evaluación del
-% prototipo no se requiere la especificación de sources y sinks, puesto que
-% estos ya están definidos en el anotador, de acuerdo a la política que se está
-% evaluando.\\
-Segundo, se compila el .jif, para obtener el reporte de análisis.
+analizar; Segundo, se compila el .jif, para obtener el reporte de análisis.
 
 En el cuadro \ref{tab:comparacion} se resumen los puntos comparados
 anteriormente.

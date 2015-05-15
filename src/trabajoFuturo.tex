@@ -17,7 +17,7 @@ características para el lenguaje Java estándar que aún no están soportadas p
 el compilador de Jif, y que por tanto, impiden analizar el flujo de información
 de aplicativos Android que requieran de tales características del lenguaje Java.
 Más específicamente, se hace referencia a las limitaciones descritas en
-\ref{subsec:limitaciones}: nested clases, initializer blocks, threads, etc.
+\ref{sec:limitaciones}: nested clases, initializer blocks, threads, etc.
 
 
 % \subsection{Analizar flujo de información de aplicaciones Android mediante Jif:}
@@ -34,8 +34,8 @@ Más específicamente, se hace referencia a las limitaciones descritas en
 \subsection{Qué tanto cambia el código original con las anotaciones}
 \label{subsec:cambios}
 En el diseño de la solución se describieron los retos
-técnicos\ref{sec:limitaciones} que implica anotar código Android, y cómo superar
-algunos de estos. Específicamente, las limitaciones para las que se propone un
+técnicos \ref{sec:limitaciones} que implica anotar código Android, y cómo
+superar algunos de estos. Específicamente, las limitaciones para las que se propone un
 mecanismo que permita soportarlas son: Statement @Override; Casting entre tipos
 EditText y View; Clase Nested R y Enhanced for loop.
 
@@ -133,38 +133,36 @@ El diseño de solución en que se hace énfasis para la herramienta de análisis
 estático, es evaluado y los resultados obtenidos son comparados frente a otras
 herramientas de análisis estático: FlowDroid y Jodroid. Partiendo de los tipos
 de análisis y técnicas evaluadas, de sus ventajas y desventajas, es pertinente
-anotar que:
-
-Mediante el sistema de anotaciones de Jif es posible proveer una herramienta
+anotar que:\newline
+- Con el sistema de anotaciones de Jif es posible proveer una herramienta
 para que el desarrollador Android evalúe el cumplimiento de políticas de
-seguridad en los aplicativos que implementa.\\
-Sin embargo, el aplicativo a analizar debe ser implementado acorde al sistema de
-anotaciones de Jif, esto implica que el desarrollador adquiera un conocimiento
-previo de la implementación de aplicativos en Jif.\\
-Al estar basado en análisis de flujo de información, Jif ofrece la ventaja de
-detección de flujos implícitos. 
-Al tratarse de análisis de flujo de información mediante lenguajes tipados de
+seguridad desde la construcción de sus aplicativos.\\
+No obstante, el desarrollador debe adquirir un conocimiento previo de la
+implementación de aplicativos en Jif.\\
+- Al estar basado en análisis de flujo de información, Jif ofrece la ventaja de
+detección de flujos implícitos.\\
+- Al tratarse de análisis de flujo de información mediante lenguajes tipados de
 seguridad, se tienen las ventajas de desempeño y completitud en el análisis(se
 presentan menos falsos negativos), pero al mismo tiempo, se obtiene baja
-precisión(reporte de falsos positivos).
+precisión(reporte de falsos positivos).\\
 
+\emph{Sistema de anotaciones de Jif y sus retos}\\
 Extender el setup de Jif para Android implica importantes retos
 técnicos, porque además de requerirse la implementación de las clases de la API
 de Android, mediante el sistema de anotaciones de Jif, es necesario extender
-características del lenguaje Java estándar características como:\\
+características del lenguaje Java estándar, por ejemplo, es necesario dar
+soporte a las clases java.lang.Override, tal como se describe
+en \ref{sub:override}.\\
 Adicionalmente, para aspectos del código que definitivamente no puedan ser
 soportadas mediante el sistema de anotaciones de Jif, se debe optar por un
 mecanismo que permita soportarlas por ejemplo, como se menciona en
 \ref{subsec:cambios}.
 
-También es importante anotar que, el análisis de flujo de información mediante
-el sistema de anotaciones de Jif no es ajeno al overtainting.\\
-
 Por último, aunque el análisis de aplicativos Android mediante el sistema de
 anotaciones de Jif es un tema de investigación con bastantes retos por superar,
 el presente trabajo evidencia que es posible anotar código de la API Android
-mediante JIF, de modo que el desarrollador pueda verificar el cumplimiento de
-políticas de seguridad en los aplicativos que implementa.
+mediante Jif, de modo que el desarrollador construya aplicativos que cumplan con
+determinadas propiedades de seguridad.
 
 %  que no solamente se sintetizan en implementar la versión anotada de
 % las clases de la API de Android, sino que también implican extender JIF para que
