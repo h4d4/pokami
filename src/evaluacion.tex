@@ -118,26 +118,46 @@ presente trabajo(análisis de flujo de información).
 En la sección \ref{sec:testcases} de los anexos, se encuentra la
 descripción del grupo de prueba completo.
 
-El conjunto de prueba es analizado con FlowDroid, JoDroid y con el Prototipo. Los
-resultados del análisis que retorna cada herramienta son calificados como:
-Falso Positivo(FP) cuando se detecta un leak que no existe; Falso Negativo(FN)
-cuando no se detecta un leak existente; Verdadero Positivo(TP) cuando se detecta
-un leak existente; Verdadero Negativo(TN) cuando no existe leak que
-detectar.
+El conjunto de prueba es analizado con FlowDroid, JoDroid y con el
+Prototipo.\newline 
+Los fundamentos\cite{Precision-Recall} para calificar los resultados del
+análisis son los siguientes:\newline 
+True Positive(TP) y False Positive(FP), para referenciar el número de Casos
+Positivos esperados que son correcta o incorrectatamente identificados.\newline 
+True Negatives(TN) y False Negatives(FN), para referenciar el número de 
+Casos Negativos esperados que son correcta o incorrectamente
+identificados.\newline
+Ahora, para el contexto del presente análisis, donde se evalúa la detección de
+fugas de información, los resultados del análisis reportados por cada
+herramienta son calificados como:\newline 
+True Positive(TP): cuando se reporta un leak que efectivamente existe.\newline
+False Positive(FP): cuando se reporta un leak que no existe.\newline 
+True Negative(TN): cuando no se reporta leak y efectivamente no existe.\newline
+False Negative(FN): cuando no se reporta un leak existente. 
 
-En base a estos resultados del análisis, se calcula la Precisión y el Recall
-para cada una de las herramientas evaluadas. 
-La Precisión(\ref{pre}) mide la cantidad de respuestas válidas(TP), frente al
-total de respuestas, esto es, respuestas válidas(TP) y respuestas no válidas(FP).
-A mayor Precisión, la herramienta reporta más verdaderos positivos(TP) y menos
-falsos positivos(FP). En otras palabras, de los leaks existentes, la
-herramienta reporta una mayor cantidad.
+Una vez se tienen los resultados de análisis reportados por cada herramienta, se
+calcula la Precisión y el Recall para cada una de ellas.
 
-Con el Recall(\ref{rec}) se mide la cantidad de respuestas válidas(TP), frente
-al total de respuestas válidas(TP) y respuestas válidas no detectadas(FN). A
-mayor Recall, menor reporte de falsos negativos.\newline
+La \textbf{Precisión} hace referencia a los Casos Positivos esperados(correctos
+e incorrectos: TP, FP), en contraste con la proporción de verdaderos Positivos(TP)
+detectados\cite{Precision-Recall}. Una alta Precisión indica que la herramienta
+reporta más correctos Positivos(TP) que incorrectos Positivos(FP). 
 
-Las fórmulas para medir Precisión(p) y Recall(r), son:
+El \textbf{Recall} indica la proporción de Casos Positivos detectados(TP),
+frente a los Casos Positivos esperados como correctos\cite{Precision-Recall}. Un
+alto Recall indica que la herramienta reporta más correctos Positivos(TP) que incorrectos
+Negativos(FN). Es decir, la herramienta deja pasar menos errores.\newline
+% La Precisión(\ref{pre}) mide la cantidad de respuestas válidas(TP), frente al
+% total de respuestas, esto es, respuestas válidas(TP) y respuestas no válidas(FP).
+% A mayor Precisión, la herramienta reporta más verdaderos positivos(TP) y menos
+% falsos positivos(FP). En otras palabras, de los leaks existentes, la
+% herramienta reporta una mayor cantidad.
+% 
+% Con el Recall(\ref{rec}) se mide la cantidad de respuestas válidas(TP), frente
+% al total de respuestas válidas(TP) y respuestas válidas no detectadas(FN). A
+% mayor Recall, menor reporte de falsos negativos.\newline
+
+Las fórmulas para calcular Precisión(p) y Recall(r), son:
 \begin{equation}
 \label{pre}
 	p = TP/(TP +FP) 
