@@ -111,10 +111,8 @@ de las políticas tanto de confidencialidad como de integridad.
 % evaluación de JIF, modelo del que parte la herramienta de evaluación planteada.
 
 \section{Conclusiones}
-Qué aprendimos con este trabajo.\newline
-
-Durante el presente trabajo de investigación se ha abordado la problemática que
-enfrenta el desarrollador de aplicaciones Android, a la hora de definir políticas de
+El presente trabajo de investigación ha abordado la problemática enfrentada por
+el desarrollador de aplicaciones Android, a la hora de definir políticas de
 seguridad que regulen el flujo de información de sus aplicaciones. Puesto que,
 aún cuando la API Android ofrece mecanismos de control de acceso y el
 desarrollador puede implementarlos en sus aplicaciones, estos se centran en
@@ -132,31 +130,51 @@ a una política de confidencialidad específica.
 El diseño de solución en que se hace énfasis para la herramienta de análisis
 estático, es evaluado y los resultados obtenidos son comparados frente a otras
 herramientas de análisis estático: FlowDroid y Jodroid. Partiendo de los tipos
-de análisis y técnicas evaluadas, de sus ventajas y desventajas, es pertinente
-anotar que:\newline
-- Con el sistema de anotaciones de Jif es posible proveer una herramienta
-para que el desarrollador Android evalúe el cumplimiento de políticas de
+de análisis y técnicas evaluadas, de sus ventajas y desventajas, se
+puede concluir:\newline 
+- Con el sistema de anotaciones de Jif es posible
+proveer una herramienta para que el desarrollador Android evalúe el cumplimiento de políticas de
 seguridad desde la construcción de sus aplicativos.\\
 No obstante, el desarrollador debe adquirir un conocimiento previo de la
 implementación de aplicativos en Jif.\\
 - Al estar basado en análisis de flujo de información, Jif ofrece la ventaja de
-detección de flujos implícitos.\\
+detección de fugas de información generadas mediante flujos implícitos.\\
 - Al tratarse de análisis de flujo de información mediante lenguajes tipados de
 seguridad, se tienen las ventajas de desempeño y completitud en el análisis(se
 presentan menos falsos negativos), pero al mismo tiempo, se obtiene baja
-precisión(reporte de falsos positivos).\\
+precisión(reporte de falsos positivos).
 
-\emph{Sistema de anotaciones de Jif y sus retos}\\
-Extender el setup de Jif para Android implica importantes retos
-técnicos, porque además de requerirse la implementación de las clases de la API
-de Android, mediante el sistema de anotaciones de Jif, es necesario extender
-características del lenguaje Java estándar, por ejemplo, es necesario dar
-soporte a las clases java.lang.Override, tal como se describe
-en \ref{sub:override}.\\
-Adicionalmente, para aspectos del código que definitivamente no puedan ser
-soportadas mediante el sistema de anotaciones de Jif, se debe optar por un
-mecanismo que permita soportarlas por ejemplo, como se menciona en
-\ref{subsec:cambios}.
+Adicional a lo anterior, extender el setup de Jif para Android como se
+propone en el diseño de solución ideal, implica una serie de retos importantes,
+entre ellos:\newline 
+- Implementar las clases de la API Android mediante el sistema de anotaciones de
+Jif no es tarea sencilla, porque se requiere experticia en el funcionamiento del
+sistema de anotaciones y el lenguaje de anotación Jif. Tal apreciación no es
+exclusiva del presente trabajo, puesto que, propuestas basadas en la
+implementación de aplicativos Java mediante Jif, como
+JPmail\cite{Hicks06fromlanguages}[page 10] coinciden en resaltar dicha
+dificultad.\newline
+- En algunos casos también se requiere extender el setup de Jif para clases del
+lenguaje Java estandar. Por ejemplo, es necesario dar soporte a las clases
+java.lang.Override, tal como se describe en \ref{sub:override}.\\
+- Código de la API de Android que no pueda definitivamente no pueda ser
+soportado. Para aspectos del código que definitivamente no puedan ser soportadas
+mediante el sistema de anotaciones de Jif, se debe optar por un mecanismo que
+permita soportarlas por ejemplo, como se menciona en \ref{subsec:cambios}.
+% 
+% 
+% 
+% 
+% 
+% porque además de requerirse la implementación de las clases de la
+% API de Android, mediante el sistema de anotaciones de Jif, se presentan casos
+% en que también es necesario extender características del lenguaje Java estándar,
+% por ejemplo, es necesario dar soporte a las clases java.lang.Override, tal como
+% se describe en \ref{sub:override}.\\
+% Adicionalmente, para aspectos del código que definitivamente no puedan ser
+% soportadas mediante el sistema de anotaciones de Jif, se debe optar por un
+% mecanismo que permita soportarlas por ejemplo, como se menciona en
+% \ref{subsec:cambios}.
 
 Por último, aunque el análisis de aplicativos Android mediante el sistema de
 anotaciones de Jif es un tema de investigación con bastantes retos por superar,

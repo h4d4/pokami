@@ -707,9 +707,10 @@ efectivamente existen.\newline
 Una ventaja de las técnicas basadas en control de flujo de información es que al
 analizar tanto flujos explícitos como flujos implícitos, detectan la generación
 de leaks mediante flujos implícitos casi de forma natural, contrario a lo que
-sucede en las técnicas de análisis de flujos de datos, en la cuales, sino se
-propaga el marcado de datos a través de flujos implícitos, no es posible
-detectar fugas de datos a través de los mismos.
+sucede en las técnicas de análisis de flujos de datos, en estas, si la
+construcción del análisis no define casos de propagación para el marcado de
+datos mediante flujos implícitos, el análisis carece de criterios para la
+detección de fugas a través de los mismos.
 
 Los resultados de evaluación confirman las hipótesis iniciales del presente
 trabajo, según las cuales se esperaba que: al hacer análisis de flujo de
@@ -722,8 +723,9 @@ Tal resultado refleja lo ilustrado por la teoría \cite{taghdiri-etal-2010} y
 La tabla \ref{tab:resumen} resume 
 las ventajas, desventajas, similitudes y
 diferencias entre el Prototipo y las herramientas de comparación, FlowDroid y
-JoDroid, respectivamente. En esta se ilustra por ejemplo, como el prototipo
-detecta automáticamente los sources y sinks, mientras que JoDroid no.
+JoDroid, respectivamente. En esta se ilustra por ejemplo, como el Prototipo
+detecta la fuga de información a través de flujos implícitos, mientras que
+FlowDroid no.
 
 \begin{table}[H]
 %\begin{center}
