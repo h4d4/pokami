@@ -38,7 +38,6 @@ técnicos \ref{sec:limitaciones} que implica anotar código Android, y cómo
 superar algunos de estos. Específicamente, las limitaciones para las que se propone un
 mecanismo que permita soportarlas son: Statement @Override; Casting entre tipos
 EditText y View; Clase Nested R y Enhanced for loop.
-
 % 
 % Dentro de las limitaciones técnicas \ref{sec:limitaciones} descritas en el
 % diseño de la solución, se describieron una serie de limitaciones para generar la
@@ -52,19 +51,20 @@ EditText y View; Clase Nested R y Enhanced for loop.
 % \end{itemize}
 Adicionalmente, se describió que el compilador de Jif exige la declaración del
 chequeo de excepciones tipo runtime, en programas que lo
-requieran\ref{subsec:consVerPol}. Ahora, cumplir con los requisitos del
+requieran \ref{subsec:consVerPol}. Ahora, cumplir con los requisitos del
 compilador de Jif y aplicar mecanismos que soporten tales limitaciones, implica
 una serie de transformaciones en el código fuente del programa Android a
 analizar, tanto en la etapa previa a la anotación como en la anotación
-misma.\newline
+misma, es decir, las anotaciones generadas mediante el prototipo de anotación 
+que se propone para aspectos de evaluación.\newline
 % para soportar tales limitaciones y
 % cumplir con los requisitos del compilador de Jif, el código fuente del programa
 % Android a analizar, pasa por una serie de transformaciones tanto en la etapa
 % previa a la anotación como en la anotación misma.\newline
-Previa a la anotación el desarrollador debe garantizar dos cosas, primero debe
-adicionar las runtime exceptions que su programa necesite, segundo cuando
-requiera el uso de bucles for, debe usar la versión sencilla y no la versión
-mejorada del mismo(Enhanced for loop).\newline 
+Previa a la anotación, se deben garantizar dos cosas: primero se deben adicionar
+las runtime exceptions necesarias en el programa, segundo, cuando se requiera el
+uso de bucles for, se debe usar la versión sencilla y no la versión mejorada del
+mismo(Enhanced for loop).\newline 
 Durante la anotación, además de aplicar los criterios de anotación definidos en
 el diseño de la solución \ref{subsec:pasosSol}, se aplican los mecanismos
 propuestos para soportar el Statement @Override, Casting entre tipos EditText y
@@ -72,15 +72,15 @@ View; y Clase Nested R. Así, en el caso de  la sentencia Statement @Override, s
 comenta la línea que lo contenga; para el casting entre tipos EditText y View,
 la información implicada en este tipo de casting es abstraída mediante un tipo
 de dato String; finalmente para la clase nested R se crea una clase que define
-los define los recursos utilizados por la aplicación a través de
-variables.\newline 
+los define los recursos utilizados por la aplicación a través de variables.\newline 
 Si bien, la idea que fundamenta el diseño de la solución consiste en generar la
 versión Jif del aplicativo Android a analizar, lo cual se traduce en adicionar
 las anotaciones correspondientes para evaluar determinada política de seguridad,
 de modo que el compilador de Jif entienda el programa y permita analizar el
 flujo de información en el mismo; no es suficiente con sólo anotar el código, en
 otras palabras, sin los ajustes previamente mencionados, el compilador genera
-error. Por otro lado, lo positivo es que tales ajustes no alteran la lógica del
+error.\newline
+Por otro lado, lo positivo es que tales ajustes no alteran la lógica del
 programa.
 
 
@@ -90,14 +90,14 @@ extensión\newline
 
 Exceptuando las características del lenguaje Java que no son soportadas por el
 compilador de Jif(nested clases, initializer blocks,
-threads)\ref{subsec:limitaciones}, se podría ampliar el setup de Jif para clases
+threads)\ref{sec:limitaciones}, se podría ampliar el setup de Jif para clases
 de la API de Android, de modo que se brinde soporte mediante el sistema de
 anotaciones de Jif a la mayor cantidad de clases posibles de la API.
 Esto permitiría hacer análisis de flujo de información a aplicaciones
 Android más robustas.\newline 
 El esquema de anotación propuesto podría ser extendido para definir y analizar
 políticas de integridad y mecanismos adicionales como declasificación y
-endorsment, verificables mediante el modelo de anotaciones de JIF. De este modo,
+endorsement, verificables mediante el modelo de anotaciones de Jif. De este modo,
 el desarrollador también podría garantizar el cumplimiento de políticas de
 integridad, y contaría con mecanismos que le permitan flexibilizar la definición
 de las políticas tanto de confidencialidad como de integridad.
@@ -132,21 +132,34 @@ estático, es evaluado y los resultados obtenidos son comparados frente a otras
 herramientas de análisis estático: FlowDroid y Jodroid. Partiendo de los tipos
 de análisis y técnicas evaluadas, de sus ventajas y desventajas, se
 puede concluir:\newline 
-- Con el sistema de anotaciones de Jif es posible
-proveer una herramienta para que el desarrollador Android evalúe el cumplimiento de políticas de
-seguridad desde la construcción de sus aplicativos.\\
+- Con el sistema de anotaciones de Jif es posible proveer una herramienta de
+apoyo al desarrollador de aplicaciones Android, de tal manera que evalúe el
+cumplimiento de políticas de seguridad desde la construcción de sus aplicativos.\\
 No obstante, el desarrollador debe adquirir un conocimiento previo de la
 implementación de aplicativos en Jif.\\
-- Al estar basado en análisis de flujo de información, Jif ofrece la ventaja de
-detección de fugas de información generadas mediante flujos implícitos.\\
+- Al estar basado en análisis de flujo de información, Jif analiza tanto flujos
+explícitos como flujos implícitos, ofreciendo la ventaja de detectar fugas de
+información a través de flujos implícitos, sin que se requiera trabajo adicional
+para que el análisis incluya tales flujos. Contrario a lo que sucede con las
+técnicas de análisis tainting, pues para incluir flujos implícitos en el
+análisis, se requiere especificar casos que propaguen el marcado de datos a
+través de dichos flujos.\\
 - Al tratarse de análisis de flujo de información mediante lenguajes tipados de
-seguridad, se tienen las ventajas de desempeño y completitud en el análisis(se
-presentan menos falsos negativos), pero al mismo tiempo, se obtiene baja
-precisión(reporte de falsos positivos).
+seguridad, se obtienen las ventajas de desempeño y completitud en el análisis,
+pero al mismo tiempo se obtiene como desventaja una baja precisión.\newline 
+Las ventajas de desempeño obedecen a que el análisis se centra en técnicas de
+chequeo de tipos(label checking), que corresponden a etapas de compilación
+implicando bajo costo en desempeño.\newline
+La completitud en el análisis se obtiene  haciendo seguimiento al flujo de
+información de inicio a fin del aplicativo\cite{LanguageIFS-2013}, incluyendo
+tanto flujos implícitos como flujos explícitos, reportando menos falsos negativos.\newline
+La baja precisión en el análisis obedece a un enfoque de análisis pesimista,
+en el que, al incluir todas las posibles ramas de ejecución, se generan más
+falsos positivos.\newline
 
-Adicional a lo anterior, extender el setup de Jif para Android como se
-propone en el diseño de solución ideal, implica una serie de retos importantes,
-entre ellos:\newline 
+Además de las ventajas y desventajas anteriormente mencionadas, extender el
+setup de Jif para Android como se propone en el diseño de solución ideal,
+implica una serie de retos importantes, entre ellos:\newline 
 - Implementar las clases de la API Android mediante el sistema de anotaciones de
 Jif no es tarea sencilla, porque se requiere experticia en el funcionamiento del
 sistema de anotaciones y el lenguaje de anotación Jif. Tal apreciación no es
@@ -155,10 +168,9 @@ implementación de aplicativos Java mediante Jif, como
 JPmail\cite{Hicks06fromlanguages}[page 10] coinciden en resaltar dicha
 dificultad.\newline
 - En algunos casos también se requiere extender el setup de Jif para clases del
-lenguaje Java estandar. Por ejemplo, es necesario dar soporte a las clases
+lenguaje Java estándar. Por ejemplo, es necesario dar soporte a las clases
 java.lang.Override, tal como se describe en \ref{sub:override}.\\
-- Código de la API de Android que no pueda definitivamente no pueda ser
-soportado. Para aspectos del código que definitivamente no puedan ser soportadas
+- Para aspectos del código que definitivamente no puedan ser soportadas
 mediante el sistema de anotaciones de Jif, se debe optar por un mecanismo que
 permita soportarlas por ejemplo, como se menciona en \ref{subsec:cambios}.
 % 
@@ -179,8 +191,8 @@ permita soportarlas por ejemplo, como se menciona en \ref{subsec:cambios}.
 Por último, aunque el análisis de aplicativos Android mediante el sistema de
 anotaciones de Jif es un tema de investigación con bastantes retos por superar,
 el presente trabajo evidencia que es posible anotar código de la API Android
-mediante Jif, de modo que el desarrollador construya aplicativos que cumplan con
-determinadas propiedades de seguridad.
+mediante Jif, de modo que, el desarrollador verifique el cumplimiento de
+determinadas políticas de seguridad, desde la construcción del aplicativo.
 
 %  que no solamente se sintetizan en implementar la versión anotada de
 % las clases de la API de Android, sino que también implican extender JIF para que
