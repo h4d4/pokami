@@ -56,19 +56,31 @@ DidFail\cite{DidFail}, DroidForce\cite{DroidForce}), indica que la mayoría de
 propuestas hacen data-flow analysis mediante técnicas de análisis 
 tainting, partiendo del bytecode. Una característica sobresaliente entre estos
 trabajos es el modelo de ataque, puesto que, se centran en analizar aplicaciones
-de terceros asumiendo que el atacante provee bytecode malicioso. Guiar el
-análisis de aplicaciones propias con el fin de verificar políticas de
-confidencialidad e integridad, bajo tales propuestas, puede implicar: mayor
-dificultad en el código a analizar, incompletitud en el análisis(under-tainting)
-y no detección de flujos implícitos. Esto debido a que, aún cuando el
-desarrollador conoce la funcionalidad de su propio código, las optimizaciones
-realizadas por el compilador pueden adicionar complejidad al
-mismo\cite[pag.~43]{SecureProgramming}; el seguimiento de los datos a través del
-programa está centrado en datos marcados, datos no marcados quedan fuera del
-análisis;   flujos de datos a través de estructuras de control, por ejemplo, las
-sentencias if, permiten inferir valores de datos marcados como source, sin
-necesidad de generar flujos explícitos entre sources y sinks, los cuales si
-pueden ser detectados por las técnicas de análisis tainting.\newline 
+de terceros asumiendo que el atacante provee bytecode malicioso.\newline
+Analizar aplicaciones propias para garantizar políticas de confidencialidad e
+integridad, bajo tales propuestas puede implicar:
+%mayor dificultad en el código a analizar, 
+incompletitud en el análisis(under-tainting)
+y no detección de flujos implícitos. Esto debido a que, 
+% aún cuando el
+% desarrollador conoce la funcionalidad de su propio código, las optimizaciones
+% realizadas por el compilador pueden adicionar complejidad al
+% mismo\cite[pag.~43]{SecureProgramming}; 
+por un lado, al realizar análisis tainting dinámicamente, la propagación del
+marcado de datos se centra únicamente en los caminos del programa actualmente
+ejecutados. Así, si existen datos que son influenciados por los datos marcados,
+pero no están dentro de los actuales caminos de ejecución, quedan sin la
+propagación de la marca, dando lugar al problema de
+undertainting\cite{dynamic-tainting}\cite{Bit-Level-Taint-Analysis}.\newline 
+Por el otro, aún cuando se hace análisis tainting estáticamente, y el marcado de
+datos puede ser propagado para todos los caminos posibles de ejecución  del
+programa, superando el inconveniente de under-tainting, la detección de flujos
+implícitos es posible si, en la construcción de la herramienta de análisis
+se propaga la marca para flujos implícitos\cite{taint-analysis}. Generalmente,
+las propuestas que basan su análisis data-flow estático, se concentran en propagar el marcado de
+datos a través de flujos explicitos, y las propuestas mencionadas anteriormente,
+no son ajenas a tal generalidad(DidFail\cite{DidFail}[page 33],
+FlowDroid\cite{FlowDroid-Thesis}[page 30]).\newline
 Otra razón fundamental para no  analizar aplicaciones propias con tales
 propuestas es que están diseñadas para detectar flujos indebidos de datos, en
 aplicaciones ya construidas, y no, para garantizar el cumplimiento de políticas
