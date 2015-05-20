@@ -6,22 +6,74 @@
 Breve resumen del trabajo : contexo, problema, solución propuesta, resultados
 alcanzados.
 
-La presente investigación plantea aplicar técnicas de análisis basadas en
-control de flujo de información, con el fin de verificar la ausencia de fugas de
-información en aplicaciones Android. Puesto que, controlar el acceso y uso de la
-información, representa una de las principales preocupaciones de seguridad en
-dichos aplicativos.\newline 
+El presente trabajo de investigación plantea aplicar técnicas de análisis
+basadas en control de flujo de información, con el fin de verificar la ausencia
+de fugas de información en aplicaciones Android, desde su construcción. Puesto
+que, controlar el acceso y uso de la información, representa una de las
+principales preocupaciones de seguridad en dichos aplicativos.\newline 
 Un estudio reciente de seguridad en dispositivos móviles, publicado por
 McAfee\cite{McAfeeReport}, revela que en el contexto de aplicativos Android:
 80\% reúnen información de la ubicación, 82\% hacen seguimiento de alguna acción
-en el dispositivo, 57\% registran la forma de uso del celular (mediante Wi-Fi o
+en el dispositivo, 57\% registran la forma de uso del celular(mediante Wi-Fi o
 mediante la red de telefonía), y 36\% conocen información de las cuentas de
 usuario.\newline
 Diferentes trabajos de investigación han abordado el problema de pérdida de
 información en aplicativos Android, sin embargo, la literatura científica
-existente al respecto, permite inferir que la mayoría de trabajos aplican
-técnicas para hacer data-flow análisis a partir del bytecode. De modo que, su
-finalidad es detectar fugas de información y no, verificar que el aplicativo
-respeta determinadas políticas de seguridad. Así, el desarrollador de la
-aplicación carece de herramientas de apoyo para verificar si la aplicación que
-implementa, cumple con determinadas políticas de seguridad.\newline
+existente al respecto, señala que la mayoría de trabajos aplican técnicas para
+hacer data-flow análisis a partir del bytecode. De modo que, su finalidad es
+detectar fugas de información en aplicativos ya implementados, y no,
+en garantizar el cumplimiento de determinadas políticas de seguridad desde la
+construcción del aplicativo. Así, el desarrollador de la aplicación carece de
+herramientas de apoyo para verificar si la aplicación que implementa, cumple con
+determinadas políticas de seguridad.\newline
+
+Para contribuir en la verificación de propiedades de seguridad desde la
+implementación de aplicativos Android, se propone una herramienta para análisis
+estático de flujo de información basada en el sistema de anotaciones de Jif.
+Del diseño de solución ideal que se plantea, el presente trabajo se centra en
+anotar un conjunto reducido de clases de la API Android mediante anotaciones de
+Jif, y en partir de un conjunto reducido de sources y sinks, acorde a una
+política de seguridad previamente establecida.\newline
+De este modo, el desarrollador define la propiedad de sedugirad en su
+aplicativo, mediante el sistema de anotaciones y compila la respectiva versión
+Jif para verificar el cumplimiento de la misma.\newline
+No obstante, para efectos de evalución, la anotación del desarrollador es
+automatizada mediante un generador de anotaciones, que anota la política de
+seguridad a evaluar en el aplicativo.\\ 
+La evaluación se centra en un conjunto de aplicaciones, estas son analizadas
+mediante la herramienta de análisis porpuesta(Prototipo) y los resultados del
+análisis son comparados frente FlowDroid y JoDroid, dos herramientas de
+análisis estático basadas en flujo de datos y flujo de información
+respectivamente.\newline
+Las políticas de seguridad evaluables, se centran en políticas de
+confidencialidad.\Newline
+
+Los resultados de evaluación para la solución propuesta coindiden con lo
+esperado, pues al estar basada en control de flujo de información, el anális es
+más rápido, menos preciso pero a la vez completo. Es decir, genera más falsos
+positivos pero reporta las fugas existentes.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
