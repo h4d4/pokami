@@ -3,6 +3,7 @@
 \begin{center}
 	Resumen
 \end{center} }
+
 % Breve resumen del trabajo: contexo, problema, solución propuesta, resultados
 % alcanzados.
 El presente trabajo de investigación plantea aplicar técnicas de análisis
@@ -28,7 +29,7 @@ desarrollador para que tal manipulación sea consentida.
 Diferentes trabajos de investigación han abordado el problema de pérdida de
 información en aplicativos Android, sin embargo, literatura científica existente
 al respecto señala que: la mayoría de propuestas aplican técnicas data-flow
-análisis a partir del bytecode. Enfocandose en detección de fugas de información
+análisis a partir del bytecode. Enfocándose en detección de fugas de información
 en aplicativos ya implementados, y no, en garantizar el cumplimiento de
 determinadas políticas de seguridad desde la construcción del aplicativo. Por
 lo tanto, el desarrollador de la aplicación carece de herramientas de apoyo para
@@ -42,13 +43,13 @@ De manera que, partiendo de las anotaciones de seguridad definidas por el
 desarrollador en el código de su aplicación, se verifique si esta cumple 
 con determinada política de seguridad.\newline
 El presente trabajo parte del diseño de solución ideal que se plantea
-\ref{sec:sol-desig}, centrandose en un conjunto reducido de clases de la API
+\ref{sec:sol-desig}, centrándose en un conjunto reducido de clases de la API
 Android y un conjunto específico de sources y sinks, acorde a una política de
 seguridad establecida.\newline 
-De este modo, el desarrollador define la propiedad de segurirad en su
+De este modo, el desarrollador define la propiedad de seguridad en su
 aplicativo mediante el sistema de anotaciones, y verifica el cumplimiento de la
 misma con el compilador de Jif.\newline 
-No obstante, para efectos de evalución, la anotación del desarrollador es
+No obstante, para efectos de evaluación, la anotación del desarrollador es
 automatizada mediante un generador de anotaciones, que anota el aplicativo
 acorde a la política de seguridad a evaluar.\\
 Adicionalmente para la evaluación, se especifica un conjunto de aplicaciones que
@@ -56,7 +57,7 @@ son analizadas con la la herramienta de análisis propuesta, los resultados
 obtenidos son comparados con FlowDroid y JoDroid, dos herramientas de análisis
 estático basadas en flujo de datos y flujo de información, respectivamente.
 
-Los resultados de evaluación para la solución propuesta coindiden con las
+Los resultados de evaluación para la solución propuesta coinciden con las
 hipótesis iniciales, puesto que, al estar basada en control de flujo de
 información, el análisis es más rápido, menos preciso pero a la vez completo. Es
 decir, se reportan más falsos positivos pero se identifican todas las fugas de
