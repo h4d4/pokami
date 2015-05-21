@@ -3,6 +3,7 @@
 \input{propuesta-sol}
 
 \section{Diseño de la solución}
+\label{sec:sol-desig}
 Como se describe en la propuesta de solución \ref{sec:propuesta-sol}, el
 diseño ideal para contribuir con la solución del problema es: una herramienta
 que contenga el setup de Jif para Android, e integre un clasificador de
@@ -16,10 +17,10 @@ conjunto reducido de clases de la API de Android(Anotaciones a la API), y en
 incluir un conjunto específico de sources y sinks; de acuerdo a una política de
 seguridad establecida. Ese conjunto de sources y sinks, se toma del listado de
 sources y sinks proveído por SuSi \ref{sec:susi}.\newline 
-Adicionalmente, para aspectos de evaluación se incluye el diseño de un anotador.
+Adicionalmente, para aspectos de evaluación, se incluye el diseño de un
+anotador que automatiza la anotación requerida por el desarrollador.
 De modo que, acorde a la política de seguridad establecida, se genere la
-versión anotada del aplicativo a analizar(la cual debería ser proveída por el
-desarrollador).\newline
+versión anotada del aplicativo a analizar.\newline
 La figura \ref{fig:desingReal} muestra el esquema del diseño, allí los componentes
 principales son el \emph{generador de anotaciones} y la \emph{herramienta de
 análisis estático}.\newline 
