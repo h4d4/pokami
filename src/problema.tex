@@ -33,13 +33,11 @@ Adicionalmente, el informe señala que una aplicación invasiva no necesariament
 contiene malware, y que su finalidad no siempre implica fraude; de las
 aplicaciones que más vulneran la privacidad del usuario, 35\% contienen
 malware.\newline 
-Si bien, aplicaciones invasivas no necesariamente implican
-malware y/o acciones delictivas, el cuestionamiento de fondo es la forma y
-finalidad con que están accediendo la información, es decir, si información
-de usuario manipulada por una determinada aplicación, realmente debería ser
-accedida por otros aplicativos del dispositivo, aún cuando sean considerados no
-maliciosos; y qué garantías puede ofrecer el desarrollador para que tal acceso,
-efectivamente sea consentido.\newline 
+Si bien, aplicaciones invasivas no necesariamente implican malware y/o acciones
+delictivas, el cuestionamiento de fondo es la forma y finalidad con que una
+aplicación manipula la información del usuario, y qué garantías puede ofrecer el
+desarrollador para que tal manipulación sea consentida.\newline
+
 La falta de control sobre los flujos de información de la aplicación puede
 ocasionar fugas de información, generando problemas de seguridad tanto para
 quien la implementa como para quien la usa.\newline
@@ -85,12 +83,13 @@ Otra razón fundamental para no  analizar aplicaciones propias con tales
 propuestas es que están diseñadas para detectar flujos indebidos de datos, en
 aplicaciones ya construidas, y no, para garantizar el cumplimiento de políticas
 de seguridad en una aplicación desde su construcción.\newline 
-Los riesgos de seguridad tras el under-tainting de datos, y la ausencia de garantías en el cumplimiento de determinadas políticas de seguridad, pueden
+Los riesgos de seguridad tras el under-tainting de datos, y la ausencia de
+garantías en el cumplimiento de determinadas políticas de seguridad, pueden
 superarse mediante control de flujo de información, Information Flow
 Control(IFC), puesto que, con esta técnica se analiza estáticamente la
 aplicación para identificar todos los posibles caminos que podrían tomar sus
-flujos de información, garantizando que a tiempo de ejecución, la
-aplicación respeta políticas de seguridad.
+flujos de información, garantizando que a tiempo de ejecución, la aplicación
+respeta políticas de seguridad.
 
 Finalmente, partiendo del contexto que se plantea, dónde se cuenta con el código
 fuente Android, porque es el propio desarrollador quien requiere evaluar

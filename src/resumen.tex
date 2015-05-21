@@ -3,13 +3,12 @@
 \begin{center}
 	Resumen
 \end{center} }
-Breve resumen del trabajo : contexo, problema, solución propuesta, resultados
-alcanzados.
-
+% Breve resumen del trabajo: contexo, problema, solución propuesta, resultados
+% alcanzados.
 El presente trabajo de investigación plantea aplicar técnicas de análisis
 basadas en control de flujo de información, con el fin de verificar la ausencia
-de fugas de información en aplicaciones Android, desde su construcción. Puesto
-que, controlar el acceso y uso de la información, representa una de las
+de fugas de información en aplicaciones Android, desde su construcción. 
+Puesto que, controlar el acceso y uso de la información, representa una de las
 principales preocupaciones de seguridad en dichos aplicativos.\newline 
 Un estudio reciente de seguridad en dispositivos móviles, publicado por
 McAfee\cite{McAfeeReport}, revela que en el contexto de aplicativos Android:
@@ -17,42 +16,51 @@ McAfee\cite{McAfeeReport}, revela que en el contexto de aplicativos Android:
 en el dispositivo, 57\% registran la forma de uso del celular(mediante Wi-Fi o
 mediante la red de telefonía), y 36\% conocen información de las cuentas de
 usuario.\newline
+Adicionalmente, el informe señala que una aplicación invasiva no necesariamente
+contiene malware, y que su finalidad no siempre implica fraude; de las
+aplicaciones que más vulneran la privacidad del usuario, 35\% contienen
+malware.\newline 
+Si bien, aplicaciones invasivas no necesariamente implican malware y/o acciones
+delictivas, el cuestionamiento de fondo es la forma y finalidad con que una
+aplicación manipula la información del usuario, y qué garantías puede ofrecer el
+desarrollador para que tal manipulación sea consentida.
+
 Diferentes trabajos de investigación han abordado el problema de pérdida de
 información en aplicativos Android, sin embargo, literatura científica existente
-al respecto señala que la mayoría de propuestas aplican técnicas data-flow
+al respecto señala que: la mayoría de propuestas aplican técnicas data-flow
 análisis a partir del bytecode. Enfocandose en detección de fugas de información
 en aplicativos ya implementados, y no, en garantizar el cumplimiento de
 determinadas políticas de seguridad desde la construcción del aplicativo. Por
 lo tanto, el desarrollador de la aplicación carece de herramientas de apoyo para
 verificar si la aplicación que implementa, cumple con determinadas políticas de
-seguridad.\newline
+seguridad.
 
 Para contribuir en la verificación de políticas de seguridad desde la
 implementación de aplicativos Android, se propone una herramienta para análisis
-estático de flujo de información basada en el sistema de anotaciones de Jif. De
-manera que, partiendo de las anotaciones de seguridad definidas por el
+estático de flujo de información, basada en el sistema de anotaciones de Jif.
+De manera que, partiendo de las anotaciones de seguridad definidas por el
 desarrollador en el código de su aplicación, se verifique si esta cumple 
-con determinada política de seguridad.
-
+con determinada política de seguridad.\newline
 El presente trabajo parte del diseño de solución ideal que se plantea
 \ref{sec:sol-desig}, centrandose en un conjunto reducido de clases de la API
 Android y un conjunto específico de sources y sinks, acorde a una política de
 seguridad establecida.\newline 
 De este modo, el desarrollador define la propiedad de segurirad en su
-aplicativo, mediante el sistema de anotaciones y compila la respectiva versión
-Jif para verificar el cumplimiento de la misma.\newline 
+aplicativo mediante el sistema de anotaciones, y verifica el cumplimiento de la
+misma con el compilador de Jif.\newline 
 No obstante, para efectos de evalución, la anotación del desarrollador es
 automatizada mediante un generador de anotaciones, que anota el aplicativo
 acorde a la política de seguridad a evaluar.\\
-Para la evaluación se especifica un conjunto de aplicaciones, estás son
-analizadas con la la herramienta de análisis propuesta, y los resultados
+Adicionalmente para la evaluación, se especifica un conjunto de aplicaciones que
+son analizadas con la la herramienta de análisis propuesta, los resultados
 obtenidos son comparados con FlowDroid y JoDroid, dos herramientas de análisis
-estático basadas en flujo de datos y flujo de información, respectivamente.\newline
+estático basadas en flujo de datos y flujo de información, respectivamente.
 
 Los resultados de evaluación para la solución propuesta coindiden con las
 hipótesis iniciales, puesto que, al estar basada en control de flujo de
 información, el análisis es más rápido, menos preciso pero a la vez completo. Es
-decir, reporta más falsos positivos pero identifica todas o la mayoría de fugas.
+decir, se reportan más falsos positivos pero se identifican todas las fugas de
+información.
 
 
 
