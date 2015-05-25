@@ -23,13 +23,13 @@ librerías de terceros, para el desarrollador es difícil verificar
 el cumplimiento de políticas de confidencialidad e integridad en la aplicación
 próxima a liberar. Por consiguiente, el desarrollador no tiene cómo asegurar la
 ausencia de fugas de información en la aplicación.\newline 
-Si bien, en el campo de aplicativos Android, existen diferentes propuestas para
-detectar fuga de información, en su mayoría están enfocadas a analizar
-aplicaciones de terceros, asumiendo que el atacante provee bytecode malicioso.
-Por tanto, aplican data-flow analysis partiendo del bytecode. Estas propuestas
+Si bien, en el campo de aplicativos Android existen diferentes propuestas para
+detectar fuga de información, en su mayoría  se enfocan en precisión y
+eficiencia del análisis para detectar fugas de datos en aplicaciones de terceros
+ya implementadas. Estas propuestas
 no abordan el problema del lado del desarrollador, analizando flujos de
 información de la aplicación para verificar el cumplimiento de políticas de
-confidencialidad.\newline
+confidencialidad e integridad.\newline
 %  hacen falta propuestas que aborden
 % el problema análizando flujo de información, 
 % mediante técnicas de lenguajes tipados de seguridad(NO ESTOY SEGURA DE ESTA
@@ -41,7 +41,7 @@ confidencialidad.\newline
 Ante esto, y con el fin de proveer una herramienta de apoyo al desarrollador, de
 modo que verifique el cumplimiento de políticas de seguridad en sus
 aplicaciones, el presente trabajo aborda el problema de fugas de información en
-aplicaciones Android, analizando flujos de información de la aplicación,
-mediante técnicas de lenguajes tipados de seguridad.
+aplicaciones Android, analizando flujos de información de la aplicación mediante
+técnicas de lenguajes tipados de seguridad.
 
 \input{contexto}

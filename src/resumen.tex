@@ -29,12 +29,17 @@ desarrollador para que tal manipulación sea consentida.
 Diferentes trabajos de investigación han abordado el problema de pérdida de
 información en aplicativos Android, sin embargo, literatura científica existente
 al respecto señala que: la mayoría de propuestas aplican técnicas data-flow
-análisis a partir del bytecode. Enfocándose en detección de fugas de información
-en aplicativos ya implementados, y no, en garantizar el cumplimiento de
-determinadas políticas de seguridad desde la construcción del aplicativo. Por
-lo tanto, el desarrollador de la aplicación carece de herramientas de apoyo para
-verificar si la aplicación que implementa, cumple con determinadas políticas de
-seguridad.
+análisis a partir del bytecode(TaintDroid\cite{TaintDroid},
+Flow-Droid\cite{FlowDroid-Thesis}, DidFail\cite{DidFail},
+DroidForce\cite{DroidForce}).
+Enfocandose en la precisión y eficiencia del
+análisis para detectar fugas de datos en aplicaciones de terceros ya
+implementadas. Por consiguiente, la finalidad del análisis no es garantizar el
+cumplimiento de políticas de confidencialidad e integridad desde la construcción
+del aplicativo.
+Asimismo, el desarrollador de la aplicación carece de herramientas de apoyo
+para verificar si la aplicación que implementa, cumple con determinadas
+políticas de seguridad.
 
 Para contribuir en la verificación de políticas de seguridad desde la
 implementación de aplicativos Android, se propone una herramienta para análisis
