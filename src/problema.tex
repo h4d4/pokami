@@ -73,7 +73,7 @@ ejecutados. Así, si existen datos que son influenciados por los datos marcados,
 pero no están dentro de los actuales caminos de ejecución, quedan sin la
 propagación de la marca, dando lugar al problema de
 undertainting\cite{dynamic-tainting}\cite{Bit-Level-Taint-Analysis}. Es
-dedir, se obtiene precisión en el análisis, pero se pierde completitud.\newline
+decir, se obtiene precisión en el análisis, pero se pierde completitud.\newline
 Por el otro, aún cuando se hace análisis tainting de forma estática, y el
 marcado de datos puede ser propagado para todos los caminos posibles de
 ejecución  del programa, superando el inconveniente de under-tainting, la
@@ -81,7 +81,7 @@ detección de flujos implícitos es posible si, en la construcción de la
 herramienta de análisis se propaga el marcado de datos para flujos
 implícitos\cite{taint-analysis}. 
 Sin embargo, las propuestas que basan su análisis en data-flow estático,
-suelen restringir la propagación del marcado de datos a flujos explicitos,
+suelen restringir la propagación del marcado de datos a flujos explícitos,
 ganando eficiencia en el análisis. Las propuestas mencionadas anteriormente, no
 son ajenas a tal generalidad(DidFail\cite{DidFail}[page 33],
 FlowDroid\cite{FlowDroid-Thesis}[page 30]).
