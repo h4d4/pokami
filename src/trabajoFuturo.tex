@@ -157,22 +157,158 @@ La baja precisión en el análisis obedece a un enfoque de análisis pesimista,
 en el que, al incluir todas las posibles ramas de ejecución, se generan más
 falsos positivos.\newline
 
+XXX\newline
+Además de las ventajas y desventajas anteriormente mencionadas, el análisis de
+flujo de información en aplicativos Android mediante el sistema de anotaciones
+de Jif, involucra una serie de retos como consecuencia de: limitaciones
+en el lenguaje Jif; y las diferencias existentes entre una aplicación Java
+convencional y una aplicación Android. Puesto que, aunque en esencia
+una aplicación Android es una aplicación Java con interfaces descritas en
+sintaxis XML, una aplicación Android no obtiene sus funcionalidades sin el
+framework Android, puesto que, este activa su ejecución, le provee interfaces
+para acceder a funcionalidades del sistema(dispositivo), y le proporciona clases
+necesarias para la implementación de funcionalidades.\newline
+Entre los retos que surgen están:\newline 
+\emph{Clases de la API del framework y su soporte para Jif}\newline 
+Anotar las clases de la API Android mediante el sistema de anotaciones de Jif no
+es una tarea trivial debido a (1)la cantidad y (2)características específicas
+del framework.\newline 
+(1)Cantidad de clases a anotar: para analizar flujo de información en
+aplicativos Android, lo ideal sería que todas las clases que conforman la API de
+Android estuviesen anotadas mediante el sistema de anotaciones de Jif, no
+obstante, como la cantidad de clases que conforman la API es bastante amplía, en
+la presente tesis, la cantidad de clases a anotar mediante el sistema de
+anotaciones de Jif, es reducida a las requeridas para verificar una política de
+seguridad específica.\newline 
+(2)Características específicas del framework: entre las funcionalidades del
+framework está proveer las clases necesarias para interactuar con las interfaces
+XML. No obstante, las clases involucradas para tales propósitos incluyen
+operaciones del framework no soportadas mediante el sistema de anotaciones de
+Jif, puesto que, implican características del lenguaje Java estandar que no son
+soportadas. Para las cuales, se adoptan mecanismos que permtitan analizar la
+información. Entre las características específicas del framework
+están:\newline 
+- Casting entre tipos EditText y View: como se describe en
+\ref{sec:casting}, para procesar información proveniente de campos de interfaces XML, se requiere
+hacer casting entre los tipos de datos representados por las clases EditText y
+View. Sin embargo, este tipo de casting no es reconocido por el compilador
+Jif.\newline 
+- Clase Nested R: como se describe en \ref{sec:nested}, para referenciar los
+recursos(strings, estilos, widgets, layouts, e interfaces xml) necesarios para
+una aplicación, el framework genera la clase R.java. Ahora bien, el
+inconveniente para anotar ese tipo clases con Jif, es que los identificadores
+son descritos mediante clases nested, y esa característica del lenguaje java
+está dentro de las limitaciones del lenguaje Jif \ref{sec:limitaciones}.\newline 
+- Sobreescritura de componentes: en la sección \ref{sub:override} se expone
+cómo para la implementación de aplicativos en Android es necesaria la
+sobreescritura de componentes específicos de la API Android, componentes como
+(activities, content providers, receivers, services), y cómo para indicar la
+sobreescritura de los respectivos métodos de un componente se requiere el
+Statement @Override cuya clase no es soportada por el sistema de anotaciones de
+Jif.\newline
+\emph{Características específicas del lenguaje Java estandar}\newline
+Otro reto importante para analizar aplicativos Android a través del sistema de
+anotación de Jif, es que la sintaxis del lenguaje java en la implementación del
+aplicativo se restringe a la sintaxis soportada por Jif, por ejemplo: Jif no
+soporta el enhanced for loop\ref{seubsec:enh}. En consecuencia, habría que
+extender el compilador de Jif para que efectivamente reconozca características
+adicionales del lenguaje Java.\newline
+
+En sintesis, los retos emergentes implican extenciones al sistema de
+anotaciones de Jif, tanto para soportar clases específicas del framework de
+Android, como para soportar características del lenguaje Java estandar no
+soportadas por Jif.\newline
+Adicionalmente, para las características del framwork Android que
+definitivamente no se puedan soportar mediante el sistema de anotaciones de Jif,
+es necesario adoptar mecanismos que permitan analizar el flujo de información en
+las aplicacicones que las requieran.\newline
+
+Por último, aunque el análisis de aplicativos Android mediante el sistema de
+anotaciones de Jif es un tema de investigación con bastantes retos por superar,
+el presente trabajo evidencia que es posible anotar código de la API Android
+mediante Jif, de modo que, el desarrollador verifique el cumplimiento de
+determinadas políticas de seguridad, desde la construcción del aplicativo.
+
+XXX\newline
+
+
+
+
+
+
+- Diferencias entre una aplicación Android y una aplicación Java convencional. 
+A diferencia de una aplicación Java convencional, una aplicación Android
+requiere describir las interfaces de usuario mediante interfaces XML, en
+consecuencia, mientras que para analizar una aplicación Java convecional
+mediante Jif, sólo es necesario hacer análisis  a las clases Java que la
+integran, en Aplicativos Android, es necesario incluir campos de las interfaces
+XML, por ejemplo XXX. En consecuencia, es necesario implementar 
+
+
+
+Mientras en una aplicación Java convencional, la descripción del aplicativo 
+
+
+Mientras una aplicación Java convencional cuenta con un único punto de entrada
+para iniciar su ejecución, esto es, la clase principal donde se implementa el
+método main; una aplicación Android puede tener más de un punto de entrada,
+generados a partir de los diferentes tipos de componentes que le
+integren(Activity, Service, Content Provider y Broadcast Receiver).
+Cuando se hace análisis de flujo de información a una aplicación Java mediante
+Jif, se tiene la certeza de que el punto de entrada a la aplicación es la clase
+que contenga el método Main, sin embargo, en una aplicación Android no se tiene
+dicha certeza porque la aplicación puede tener varios puntos de entrada. En
+consecuencia, cuando el aplicativo Android a analizar se compone de varias
+clases(correspondientes a diferentes tipos de componentes, actividades,
+servicios, Receivers) identificar el punto de entrada requiere modelar el cliclo
+de vida de la aplicación, sin embargo, mediante Jif no es posible obtener tal
+información, porque Jif hace un análisis plano del aplicativo.
+
+a la aplicación no es
+trivial. En ese sentido, se requiere un 
+que guie el análisis de flujo en Jif
+
+
+Cuando una aplicación Java a analizar contiene varias clases, 
+En consecuencia, cuando el aplicativo a analizar está compues
+
+Dificultad: 
+tener en cuenta los múltiples puntos de entrada que se pueden generar en una
+aplicación Android, para el análisis de flujo de información mediante Jif, 
+
+No es suficiente con hacer seguimiento al flujo de información mediante Jif para
+tener en cuenta todos los posibles puntos del aplicativo, puesto que, Jif se
+concentra en un único punto de entrada, como sucede en Java, 
+
+
+- Extención del setup de Jif para Android:\newline
 Además de las ventajas y desventajas anteriormente mencionadas, extender el
 setup de Jif para Android como se propone en el diseño de solución ideal,
 implica una serie de retos importantes, entre ellos:\newline 
 - Implementar las clases de la API Android mediante el sistema de anotaciones de
-Jif no es tarea sencilla, porque se requiere experticia en el funcionamiento del
-sistema de anotaciones y el lenguaje de anotación Jif. Tal apreciación no es
-exclusiva del presente trabajo, puesto que, propuestas basadas en la
-implementación de aplicativos Java mediante Jif, como
-JPmail\cite{Hicks06fromlanguages}[page 10] coinciden en resaltar dicha
-dificultad.\newline
+Jif no es tarea sencilla, porque:
+-se requiere experticia en el funcionamiento del sistema de anotaciones y el
+lenguaje de anotación Jif.\newline 
+% Tal apreciación no es exclusiva del presente trabajo, puesto que, propuestas basadas en la
+% implementación de aplicativos Java mediante Jif, como
+% JPmail\cite{Hicks06fromlanguages}[page 10] coinciden en resaltar dicha
+% dificultad.\newline
 - En algunos casos también se requiere extender el setup de Jif para clases del
 lenguaje Java estándar. Por ejemplo, es necesario dar soporte a las clases
 java.lang.Override, tal como se describe en \ref{sub:override}.\\
 - Para aspectos del código que definitivamente no puedan ser soportadas
 mediante el sistema de anotaciones de Jif, se debe optar por un mecanismo que
-permita soportarlas por ejemplo, como se menciona en \ref{subsec:cambios}.
+permita soportarlas por ejemplo, el casting entre tipos EditText y View, como se
+menciona en \ref{subsec:cambios}.
+
+XXX
+Otros dos retos importantes a la hora de analizar flujos de
+información en aplicativos Android mediante el sistema de anotaciones de Jif, es
+la diferencia existente entre una aplicación Java convencional y una aplicación
+Java\newline
+Los chequeos adicionales necesarios para excepciones\newline
+XXX
+
 % 
 % 
 % 
@@ -188,11 +324,7 @@ permita soportarlas por ejemplo, como se menciona en \ref{subsec:cambios}.
 % mecanismo que permita soportarlas por ejemplo, como se menciona en
 % \ref{subsec:cambios}.
 
-Por último, aunque el análisis de aplicativos Android mediante el sistema de
-anotaciones de Jif es un tema de investigación con bastantes retos por superar,
-el presente trabajo evidencia que es posible anotar código de la API Android
-mediante Jif, de modo que, el desarrollador verifique el cumplimiento de
-determinadas políticas de seguridad, desde la construcción del aplicativo.
+
 
 %  que no solamente se sintetizan en implementar la versión anotada de
 % las clases de la API de Android, sino que también implican extender JIF para que

@@ -70,6 +70,7 @@ sentencia @Override, puesto que, al no ser reconocida por el compilador de Jif,
 es la generadora de errores de compilación.
 
 \subsection{Casting entre tipos EditText y View}
+\label{sec:casting}
 El framework de Android cuenta con diferentes clases para manejar las interfaces
 gráficas que presenta al usuario, entre las cuales se encuentran EditText y
 View.\newline
@@ -95,13 +96,14 @@ es de tipo EditText, se crea una variable tipo String con un valor determinado,
 así se omite el casting y se puede analizar el flujo de información.
 
 \subsection{Clase nested R}
+\label{sec:nested}
 El framework de Android utiliza identificadores para hacer referencia a recursos
-utilizados por la aplicación, recursos como strings, widgets y layouts, tales
-identificadores son autogenerados en la clase R.java, allí cada recurso es
-descrito como una clase individual. Al tratarse de una clase nested, la clase R
-no puede ser anotada con jif. Esto puede solucionarse implementando una
-versión Jif generalizada de la clase R, que contenga los recursos utilizados en
-una aplicación, definidos como variables y no como clases. 
+utilizados por la aplicación, recursos como strings, stilos, widgets, layouts, e
+interfaces xml, tales identificadores son autogenerados en la clase R.java, allí
+cada recurso es descrito como una clase individual. Al tratarse de una clase
+nested, la clase R no puede ser anotada con jif. Esto puede solucionarse
+implementando una versión Jif generalizada de la clase R, que contenga los
+recursos utilizados en una aplicación, definidos como variables y no como clases.
 
 % - \textit{Sources y Sinks}\newline
 % En los preliminares para el diseño de la solución se propone utilizar SuSi
@@ -116,6 +118,7 @@ una aplicación, definidos como variables y no como clases.
 % se defina.
 
 \subsection{Enhanced for loop}
+\label{seubsec:enh}
 Además de soportar la estructura de control for, el lenguaje Java permite el uso
 de enhanced for, que es utilizado para simplificar la iteración en arrays y
 colecciones, por ejemplo:
