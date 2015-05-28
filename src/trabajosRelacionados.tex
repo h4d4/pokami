@@ -52,13 +52,13 @@ si existen caminos entre sentencias etiquetadas con nivel de seguridad
 alto y sentencias con nivel de seguridad bajo. Para esta etapa del análisis
 recurre a técnicas de slicing y chopping, reduciendo la cantidad de caminos
 posibles sólo a los válidos. Así obtiene como resultado, una mayor precisión y
-reducción de falsas alarmas en el análisis.\newline
+reducción de falsas alarmas en el análisis.
 
 Aunque JOANA provee sencillez a la hora de anotar el código a analizar, pues
 sólo es necesario anotar inputs y outputs del programa, porque la herramienta se
 encarga de propagar las anotaciones en el resto del programa; carece de
 características adicionales ofrecidas por sistemas de tipado de seguridad, por
-ejemplo, el mecanismo downgrading facilitado por JIF.\newline 
+ejemplo, el mecanismo downgrading facilitado por JIF.
 
 Si bien, al igual que JOANA, la herramienta propuesta a través del presente
 trabajo, aplica análisis de control de flujo de información, esta última busca
@@ -105,7 +105,7 @@ Los autores de esta propuesta, alcanzan precisión en la construcción del grafo
 de llamadas extendiendo Soot\cite{Soot}, un framework que genera código
 intermedio para código Java y código ejecutable Android(dex). Adicionalmente,
 con el framework Heros\cite{heros}, incluyen llamadas multihilos en el análisis
-de flujo de datos entre procedimientos.\newline
+de flujo de datos entre procedimientos.
 
 Entre las limitaciones de FlowDroid está el over-tainting y la no detección
 de flujos implícitos. Por tanto, la herramienta no distingue elementos marcados
@@ -117,7 +117,7 @@ puesto que, según los resultados de evaluación de
 DroidBench\cite{DroidBenchBenchmarks}, su benchmark; cuando Flowdroid analiza el
 conjunto de aplicaciones de prueba para la identificación de flujos implícitos, no
 detecta fuga de datos, generando falsos negativos en la detección de flujos
-implícitos\cite[pags 32-36]{FlowDroid-Thesis}.\newline
+implícitos\cite[pags 32-36]{FlowDroid-Thesis}.
 
 Aún cuando el problema a atacar es el mismo: fuga de información, la propuesta
 que se expone a través del presente trabajo difiere en el enfoque de análisis de
@@ -158,7 +158,7 @@ Si bien, TaintDroid supera el inconveniente de sobrecarga en la ejecución del
 análisis, un inconveniente característico en análisis dinámico, está limitado
 para detectar fuga de datos mediante flujos implícitos, puesto que se
 enfoca en hacer seguimiento a flujos de datos directos(flujos
-explícitos).\newline
+explícitos).
 
 Al ser una herramienta de análisis dinámico, TaintDroid sólo detecta fugas de
 información correspondiente a las ejecuciones presentadas por el programa, y
