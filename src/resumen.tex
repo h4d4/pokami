@@ -53,22 +53,27 @@ Android y un conjunto específico de sources y sinks, acorde a una política de
 seguridad establecida.\newline 
 De este modo, el desarrollador define la propiedad de seguridad en su
 aplicativo mediante el sistema de anotaciones, y verifica el cumplimiento de la
-misma con el compilador de Jif.\newline 
+misma con el compilador de Jif.\newline  
 No obstante, para efectos de evaluación, la anotación del desarrollador es
 automatizada mediante un generador de anotaciones, que anota el aplicativo
-acorde a la política de seguridad a evaluar.\\
-Adicionalmente para la evaluación, se especifica un conjunto de aplicaciones que
-son analizadas con la la herramienta de análisis propuesta, los resultados
-obtenidos son comparados con FlowDroid y JoDroid, dos herramientas de análisis
-estático basadas en flujo de datos y flujo de información, respectivamente.
+acorde a la política de seguridad a evaluar.\newline
+Adicionalmente para la evaluación, se parte del benchmark de aplicativos Android
+DroidBench \cite{DroidBenchBenchmarks}, se define un conjunto de aplicaciones
+evaluables, y se analizan con la la herramienta de análisis propuesta, los
+resultados obtenidos son comparados con FlowDroid \ref{FlowDroid-Tool} y
+JoDroid \ref{subsec:jod}, dos herramientas de análisis estático basadas en
+flujo de datos y flujo de información, respectivamente.
 
 Los resultados de evaluación para la solución propuesta coinciden con las
 hipótesis iniciales, puesto que, al estar basada en control de flujo de
 información, el análisis es más rápido, menos preciso pero a la vez completo. Es
-decir, se reportan más falsos positivos pero se identifican todas las fugas de
+decir, se reportan más falsos positivos pero a la vez, se pierden menos fugas de
 información.
 
-
+Finalmente, además de identificar ventajas y desventajas en la solución
+propuesta, se identifican una serie de retos, generados en gran medida por las
+diferencias existentes entre una aplicación Android y una aplicación Java
+convencional; y por las limitaciones propias del lenguaje de anotación Jif.
 
 
 
