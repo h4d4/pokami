@@ -3,11 +3,11 @@
 
 \subsection{Aplicaciones Android}
 En esencia una aplicación Android es una aplicación Java con interfaces
-descritas en sintasis XML, cuya ejecución es activada por el framework la API
+descritas en sintaxis XML, cuya ejecución es activada por el framework la API
 Android.\newline 
 El framework de Aplicación Android ofrece diferentes funcionalidades de
 operación del sistema, proporcionando información de los servicios ofrecidos por
-el telefóno. Por ejemplo, provee información de la ubicación del
+el teléfono. Por ejemplo, provee información de la ubicación del
 usuario.\newline 
 Así pues, una aplicación Android obtiene del framework, clases e interfaces
 necesarias para implementar sus funcionalidades.
@@ -16,7 +16,7 @@ Por otro lado, el SDK, Android Software Development Toolkit, permite compilar
 la aplicación a una versión ejecutable por dispositivos Android, esto es, código
 Dalvik bytecode(.dex). Adicionalmente, el SDK genera el APK, Android Application
 Package, donde empaqueta todo el código de la aplicación, incluyendo el
-bytecode. El APK es un archivo con extención .apk, y es el que finalmente se
+bytecode. El APK es un archivo con extensión .apk, y es el que finalmente se
 instala en el dispositivo para obtener las funcionalidades de la aplicación.
 
 En lo que respecta a su estructura, 
@@ -27,20 +27,20 @@ usuario se comunique con la aplicación.\\
 Los servicios son componentes de aplicación que ejecutan tareas en background.\\
 Los proveedores de contenido son componentes que permiten compartir datos entre
 diferentes aplicaciones Android.\\
-Los componentes Broadcast Receives reciben mensajes envíados por el sistema o
+Los componentes Broadcast Receivers reciben mensajes enviados por el sistema o
 por otras aplicaciones.
 
 Los componentes que integran una aplicación son especificados en el archivo
 manifiesto de la aplicación Manifest.xml\cite{App-Manifest}, donde
 adicionalmente se declaran: tanto los permisos requeridos por la aplicación para
-acceder a partes protejidas de la API\cite{Android-Permissions} e intereactuar
+acceder a partes protegidas de la API\cite{Android-Permissions} e interactuar
 con otras aplicaciones; como los permisos requeridos por aplicaciones
 externas para interactuar con los componentes de la aplicación.
 
 La comunicación entre varias aplicaciones Android(Comunicación interApp), tiene
 lugar a través de intents\cite{App-Intent}, métodos proveídos por la API Android
 para la activación de componentes tanto al interior de la aplicación como entre
-aplicaciones externas.
+aplicaciones externas. 
 
 \subsection{Sistema de anotaciones en Jif}
 Jif es un lenguaje tipado de seguridad que extiende al lenguaje Java con labels
