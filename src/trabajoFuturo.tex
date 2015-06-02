@@ -44,7 +44,7 @@ necesita anotar clases de la API Android mediante el sistema de anotaciones de J
 reconocidas para el análisis de flujo de información. 
 
 Por otro lado, la anotación de las clases de la API Android(que en el fondo
-están descritas en lenguaje Java), están limitadas a las características del
+están implementadas en lenguaje Java), están limitadas a las características del
 lenguaje Java estándar reconocidas por el compilador de Jif.
 
 Entre los retos que surgen están:\newline 
@@ -111,7 +111,7 @@ excepciones tipo Runtime \ref{subsec:consVerPol}, que en aplicaciones Java no
 son verificadas a tiempo de compilación, haciendo que su definición no sea requerida. 
 Por el contrario, en Jif si un programa requiere excepciones
 NullPointerException, ClassCastException y/o ArrayIndexOutOfBoundsException, el
-programador debe declararlas, de lo contrario, el compilador Jif genera
+desarrollador debe declararlas, de lo contrario, el compilador Jif genera
 error.
 En consecuencia, las aplicaciones Android a analizar deben tener definidas
 excepciones tipo runtime.
@@ -183,9 +183,10 @@ chequeo de tipos(label checking), que al corresponder a etapas de compilación
 dan como resultado bajo costo en desempeño.\newline
 La completitud en el análisis se obtiene  haciendo seguimiento al flujo de
 información de inicio a fin del aplicativo\cite{LanguageIFS-2013}, incluyendo
-tanto flujos implícitos como flujos explícitos, reportando menos falsos negativos.\newline
-La baja precisión en el análisis obedece a un enfoque de análisis pesimista,
-en el que, al incluir todas las posibles ramas de ejecución, se generan más
+tanto flujos implícitos como flujos explícitos, generando así, un menor
+rreporte de falsos negativos.\newline 
+La baja precisión en el análisis obedece a
+un enfoque de análisis pesimista, en el que, al incluir todas las posibles ramas de ejecución, se generan más
 falsos positivos.
 
 - Además de las ventajas y desventajas, el análisis de flujo de información en
