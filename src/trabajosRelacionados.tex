@@ -140,7 +140,7 @@ análisis dinámico. Está herramienta extiende la plataforma de dispositivos
 celulares Android, con el fin de verificar el uso dado por aplicaciones de
 terceros a datos sensibles del usuario. El análisis aplica técnicas de análisis
 tainting, marcando automáticamente como sources, datos provenientes de fuentes
-consideradas privadas y/o sensibles; y como sinks, canales que permiten salir
+consideradas privadas y/o sensibles; y como sinks, canales para la salida de
 datos de la aplicación, como por ejemplo internet.
 Cada vez que un dato marcado como source sale de la aplicación, se genera un log.\newline 
 Para reducir sobrecarga en el dispositivo, pues el análisis es ejecutado a nivel
@@ -151,11 +151,10 @@ confiables. Las marcas de mensaje siguen mensajes entre aplicaciones. Debido a
 que TaintDroid no hace seguimiento a la ejecución de código nativo, utiliza las
 marcas de métodos para hacer seguimiento a lo retornado luego de invocar métodos
 de librerías nativas. Las marcas de archivo son utilizadas para verificar la
-persistencia de los datos, acorde a las políticas de seguridad.\newline 
-Otra medida para reducir sobrecarga en la ejecución del análisis, consiste en no
-hacer seguimiento a flujos de control, generando no detección de flujos
-implícitos\cite[pag 12]{TaintDroid}.\newline
-Si bien, TaintDroid supera el inconveniente de sobrecarga en la ejecución del
+persistencia de los datos, acorde a las políticas de seguridad.\newline
+Otra medida para reducir sobrecarga en la ejecución del análisis, consiste en
+omitir flujos de control, generando no detección de flujos
+implícitos\cite[pag 12]{TaintDroid}.\newline Si bien, TaintDroid supera el inconveniente de sobrecarga en la ejecución del
 análisis, un inconveniente característico en análisis dinámico, está limitado
 para detectar fuga de datos mediante flujos implícitos, puesto que se
 enfoca en hacer seguimiento a flujos de datos directos(flujos

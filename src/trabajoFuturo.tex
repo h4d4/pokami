@@ -2,8 +2,9 @@
 \chapter{Trabajo Futuro y Conclusiones}
 \section{Discusión}
 \subsection{Límites de la solución propuesta}
-Las limitaciones de la solución propuesta se enmarcan en políticas de seguridad
-evaluables, tipos de aplicaciones evaluables y características del lenguaje Jif.
+Las limitaciones del diseño de solución en que se enfoca el presente trabajo, se
+enmarcan en políticas de seguridad evaluables, tipos de aplicaciones evaluables 
+y características del lenguaje Jif.
 
 \emph{Políticas de seguridad evaluables}\\
 Se propone un esquema de anotación con niveles de seguridad alto y
@@ -14,18 +15,22 @@ integridad ni aplicar mecanismos Downgrading, características ofrecidas por el
 sistema de anotaciones de Jif.
 
 \emph{Tipos de aplicaciones evaluables}\\
-El diseño de solución en que se hace énfasis \ref{sec:sol-desig}, para la
+El diseño de solución en que se hace enfásis \ref{sec:sol-desig}, para la
 herramienta de análisis propuesta, no permite hacer análisis de flujo de
-información vía interApp. 
+información vía interApp, es decir, no se hace seguimiento al flujo de
+información durante el envío de mensajes intents para activar componentes de
+aplicaciones externas.
 %\textcolor{red}{POR QUE???}
 
 \emph{Características del lenguaje Jif}\\
 Con limitaciones propias del lenguaje Jif se hace referencia a las
 características del lenguaje Java estándar que aún no están soportadas por el
 compilador de Jif, y que por tanto, impiden analizar el flujo de información de
-aplicativos Android que requieran de tales características del lenguaje Java.
+aplicativos Android que requieran de tales características del lenguaje Java, a
+menos que se encuentre sintaxis equivalente para soportar tales
+características.\newline 
 Más específicamente, se hace referencia a las limitaciones descritas en
-\ref{sec:limitaciones}: nested clases, initializer blocks, threads, etc.
+\ref{sec:limitaciones-tec}: nested clases, initializer blocks, threads, etc.
 
 \subsection{Retos para el análisis}
 El análisis de flujo de información en aplicativos Android mediante el sistema
@@ -66,7 +71,8 @@ XML. No obstante, las clases involucradas para tales propósitos incluyen
 operaciones específicas del framework no soportadas mediante el sistema de
 anotaciones de Jif, puesto que, implican características del lenguaje Java
 estándar que no son soportadas. Para las cuales, se adoptan mecanismos que
-permitan analizar la información. Tales características incluyen:\newline 
+permitan analizar la información, tal como se ilustra en las limitaciones
+técnicas \ref{sec:limitaciones-tec}. Tales características incluyen:\newline 
 - Casting entre tipos EditText y View: como se describe en
 \ref{sec:casting}, para procesar información proveniente de campos de interfaces XML, se requiere
 hacer casting entre los tipos de datos representados por las clases EditText y
@@ -77,7 +83,7 @@ recursos(strings, estilos, widgets, layouts, e interfaces xml) necesarios para
 una aplicación, el framework genera la clase R.java. Ahora bien, el
 inconveniente para anotar ese tipo de clases con Jif, es que los identificadores
 son descritos mediante clases nested, y esa característica del lenguaje Java
-está dentro de las limitaciones del lenguaje Jif \ref{sec:limitaciones}.\newline 
+está dentro de las limitaciones del lenguaje Jif.\newline 
 - Sobreescritura de componentes: en la sección \ref{sub:override} se expone
 cómo para la implementación de aplicativos en Android es necesaria la
 sobreescritura de componentes específicos de la API Android, componentes como
@@ -86,6 +92,7 @@ sobreescritura de los respectivos métodos de un componente se requiere el
 Statement @Override cuya clase no es soportada por el sistema de anotaciones de
 Jif.
 
+\newpage
 \emph{Características específicas del lenguaje Java estándar}\newline
 Otro reto importante para analizar aplicativos Android a través del sistema de
 anotación de Jif, es que la sintaxis del lenguaje java en la implementación del
@@ -122,22 +129,22 @@ excepciones tipo runtime.
 
 Exceptuando las características del lenguaje Java que no son soportadas por el
 compilador de Jif(nested clases, initializer blocks, threads, como se ilustra en
- \ref{sec:limitaciones}), se podría ampliar el setup de Jif para clases de la
- API de Android, de modo que se brinde soporte mediante el sistema de anotaciones de
+ \ref{sec:limitaciones-tec}), se podría ampliar el setup de Jif para clases de
+ la API de Android, de modo que se brinde soporte mediante el sistema de anotaciones de
 Jif a la mayor cantidad de clases posibles de la API.
 Esto permitiría hacer análisis de flujo de información a aplicaciones
 Android más robustas. Por ejemplo, si se anotan todas las clases
 correspondientes para el manejo de intents(mensajes utilizados principalmente
 para comunicar diferentes aplicaciones), sería posible incluir en el análisis de
-flujo de información, el análisis vía interApp(aplicaciones que se comunican
-entre sí). 
+flujo de información, el análisis vía interApp. 
 
 El esquema de anotación propuesto podría ser
-extendido para definir y analizar políticas de integridad y mecanismos adicionales como declasificación y
-endorsement, verificables mediante el modelo de anotaciones de Jif. De este modo,
-el desarrollador también podría garantizar el cumplimiento de políticas de
-integridad, y contaría con mecanismos que le permitan flexibilizar la definición
-de las políticas tanto de confidencialidad como de integridad.
+extendido para definir y analizar políticas de integridad y mecanismos
+adicionales como declasificación y endorsement, verificables mediante el modelo
+de anotaciones de Jif. De este modo, el desarrollador también podría garantizar
+el cumplimiento de políticas de integridad, y contaría con mecanismos que le
+permitan flexibilizar la definición de las políticas tanto de confidencialidad
+como de integridad.
 
 \section{Conclusiones}
 El presente trabajo de investigación ha abordado la problemática enfrentada por
@@ -183,8 +190,8 @@ chequeo de tipos(label checking), que al corresponder a etapas de compilación
 dan como resultado bajo costo en desempeño.\newline
 La completitud en el análisis se obtiene  haciendo seguimiento al flujo de
 información de inicio a fin del aplicativo\cite{LanguageIFS-2013}, incluyendo
-tanto flujos implícitos como flujos explícitos, generando así, un menor
-rreporte de falsos negativos.\newline 
+tanto flujos implícitos como flujos explícitos, generando así, un menor 
+reporte de falsos negativos.\newline 
 La baja precisión en el análisis obedece a
 un enfoque de análisis pesimista, en el que, al incluir todas las posibles ramas de ejecución, se generan más
 falsos positivos.
