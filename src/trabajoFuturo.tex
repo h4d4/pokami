@@ -116,8 +116,8 @@ En consecuencia, las aplicaciones Android a analizar deben tener definidas
 excepciones tipo runtime.
 
 \section{Trabajo Futuro}
-\textcolor{red}{Cómo puede ser extendido el trabajo y qué beneficios tendría esa
-extensión}
+% \textcolor{red}{Cómo puede ser extendido el trabajo y qué beneficios tendría esa
+% extensión}
 
 Exceptuando las características del lenguaje Java que no son soportadas por el
 compilador de Jif(nested clases, initializer blocks, threads, como se ilustra en
@@ -144,8 +144,8 @@ el desarrollador de aplicaciones Android, a la hora de definir políticas de
 seguridad que regulen el flujo de información de sus aplicaciones. Puesto que,
 aún cuando la API Android ofrece mecanismos de control de acceso y el
 desarrollador puede implementarlos en sus aplicaciones, estos se centran en
-regular acceso de los usuarios a determinados recursos del sistema, y no en
-verificar qué sucede con la información una vez se accede a ella.
+regular el acceso de los usuarios a determinados recursos del sistema, y no en
+verificar qué sucede con la información una vez es accedida.
 
 Buscando contribuir con la solución de tal problemática, se propone una
 herramienta de análisis estático basada en el sistema de anotaciones de Jif, que
@@ -153,7 +153,7 @@ permita analizar flujo de información en aplicativos Android. El diseño ideal
 para la propuesta de solución, implica extender el setup de Jif para la API de
 Android e incluir un clasificador de sources y sinks. Sin embargo, para efectos
 de la presente tesis se limita el setup y el conjunto de sources y sinks, acorde
-a una política de confidencialidad específica.
+a una política de seguridad específica.
 
 El diseño de solución en que se hace énfasis para la herramienta de análisis
 estático, es evaluado y los resultados obtenidos son comparados frente a otras
@@ -167,8 +167,8 @@ No obstante, el desarrollador debe adquirir un conocimiento previo de la
 implementación de aplicativos en Jif.
 
 - Al estar basado en análisis de flujo de información, Jif analiza tanto flujos
-explícitos como flujos implícitos, ofreciendo la ventaja de detectar fugas de
-información a través de flujos implícitos, sin que se requiera trabajo adicional
+explícitos como flujos implícitos, ofreciendo la ventaja de detección de fugas
+de información a través de flujos implícitos, sin requerirse trabajo adicional
 para que el análisis incluya tales flujos. Contrario a lo que sucede con las
 técnicas de análisis tainting, pues para incluir flujos implícitos en el
 análisis, se requiere especificar casos que propaguen el marcado de datos a
@@ -178,8 +178,8 @@ través de dichos flujos.
 seguridad, se obtienen las ventajas de desempeño y completitud en el análisis,
 pero al mismo tiempo se obtiene como desventaja una baja precisión.\newline 
 Las ventajas de desempeño obedecen a que el análisis se centra en técnicas de
-chequeo de tipos(label checking), que corresponden a etapas de compilación
-implicando bajo costo en desempeño.\newline
+chequeo de tipos(label checking), que al corresponder a etapas de compilación
+dan como resultado bajo costo en desempeño.\newline
 La completitud en el análisis se obtiene  haciendo seguimiento al flujo de
 información de inicio a fin del aplicativo\cite{LanguageIFS-2013}, incluyendo
 tanto flujos implícitos como flujos explícitos, reportando menos falsos negativos.\newline
