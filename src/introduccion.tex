@@ -4,36 +4,59 @@ En la introducción tratar de seguir una organización similar a la presentació
 contexto general, problema particular, contexto (propuestas previas y sus
 limitaciones), propuesta, y evaluación\newline
 
-En aplicativos Android, el manejo de la información del usuario, es una de las
+En aplicativos Android, el manejo de la información del usuario es una de las
 principales preocupaciones de seguridad. Según un estudio reciente de seguridad
-en dispositivos móviles, publicado por McAfee\cite{McAfeeReport}, una importante
-cantidad de aplicaciones Android invaden la privacidad del usuario, reuniendo
+en dispositivos móviles publicado por McAfee\cite{McAfeeReport}, una importante
+cantidad de aplicaciones Android invaden la privacidad del usuario, recolectando
 información detallada de su desplazamiento, acciones en el dispositivo, y su
-vida personal.\newline 
+vida personal, para luego envíarla hacia servidores de compañías publicitarias.\newline 
 Por otro lado, para controlar el acceso a información manipulada por sus
 aplicaciones, el desarrollador cuenta con los mecanismos de seguridad proveídos
 por la API de Android, sin embargo, al estar basados en políticas de control de
 acceso, se limitan a verificar el uso de los recursos del sistema acorde a los
 privilegios del usuario, lo que suceda con la información una vez sea accedida,
-está fuera del alcance de este tipo de controles. Al no contar con herramientas
+está fuera del alcance de este tipo de controles.\newline 
+Al no contar con herramientas
 de análisis de flujo de información en aplicaciones Android, o al utilizar
-librerías de terceros, para el desarrollador es difícil verificar
-el cumplimiento de políticas de confidencialidad e integridad en la aplicación
-próxima a liberar. Por consiguiente, el desarrollador no tiene cómo asegurar la
-ausencia de fugas de información en la aplicación.\newline 
-Si bien, en el campo de aplicativos Android existen diferentes propuestas para
-detectar fuga de información, en su mayoría  se enfocan en precisión y
-eficiencia del análisis para detectar fugas de datos en aplicaciones de terceros
-ya implementadas. Estas propuestas
-no abordan el problema del lado del desarrollador, analizando flujos de
-información de la aplicación para verificar el cumplimiento de políticas de
-confidencialidad e integridad.\newline
-
+librerías de terceros, para el desarrollador es difícil verificar el
+cumplimiento de políticas de confidencialidad e integridad en la aplicación
+próxima a liberar. Por consiguiente, el desarrollador no tiene cómo garantizarle
+al usuario que la aplicación que le provee no presenta fugas de información.\newline 
+Ahora bien, aunque en el campo de aplicativos Android existen diferentes
+propuestas para detectar fuga de información, en su mayoría  se enfocan en
+precisión y eficiencia del análisis para detectar fugas de datos en aplicaciones
+de terceros ya implementadas. Estas propuestas no abordan el problema del lado
+del desarrollador, analizando flujos de información de la aplicación para
+verificar el cumplimiento de políticas de seguridad.\newline
 Ante esto, y con el fin de proveer una herramienta de apoyo al desarrollador, de
-modo que verifique el cumplimiento de políticas de seguridad en sus
-aplicaciones, el presente trabajo aborda el problema de fugas de información en
-aplicaciones Android, analizando flujos de información de la aplicación mediante
-técnicas de lenguajes tipados de seguridad.
+modo que pueda verificar el cumplimiento de políticas de seguridad desde la
+construcción de sus aplicaciones, el presente trabajo aborda el problema de
+fugas de información en aplicaciones Android, analizando flujos de información
+de la aplicación, mediante técnicas de lenguajes tipados de seguridad.\newline
+Así pues, en el presente trabajo se propone una herramienta para análisis de
+flujo de información de aplicativos Android mediante el sistema de anotaciones
+de Jif.\newline
+El diseño ideal sugiere anotar todas las clases de la API Android,
+sin embargo, para efectos de la presente tesis se parte de un conjunto
+reducido de clases de la API Android y un conjunto específico de sources y
+sinks, acorde a una política de seguridad establecida. 
+De este modo, el desarrollador define la política de seguridad en su
+aplicativo mediante el sistema de anotaciones, y verifica el cumplimiento de la
+misma con el compilador de Jif.\newline  
+Los resultados de evaluar la propuesta, frente a un conjunto de pruba
+perteneciente al benchmark Droibench, coinciden con las hipótesis iniciales,
+puesto que, al estar basada en control de flujo de información, el análisis es
+más rápido, menos preciso pero a la vez completo. Es decir, se reportan más
+falsos positivos pero a la vez, se pierden menos fugas de información.
 
+Finalmente, dado que Jif permite
+anotar código Java pero no código Android, es decir, las anotaciones Jif son
+válidas para clases del lenguaje Java estándar, no para clases específicas de la
+API del framework Android, las cuales son indispensables para
+implementar las funcionalidades de aplicativos Android; la principal
+contribución de la propuesta consiste en: proveerle al desarrollador de
+aplicativos Android una herramienta que permite definir y verificar políticas de
+confidencialidad en sus aplicativos, con el sistema de anotaciones de
+Jif.\newline
 
 

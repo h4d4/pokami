@@ -4,51 +4,49 @@
 	Resumen
 \end{center} }
 
-% Breve resumen del trabajo: contexo, problema, solución propuesta, resultados
-% alcanzados.
 El presente trabajo de investigación plantea aplicar técnicas de análisis
 basadas en control de flujo de información, con el fin de verificar la ausencia
 de fugas de información en aplicaciones Android, desde su construcción. 
-Puesto que, controlar el acceso y uso de la información, representa una de las
-principales preocupaciones de seguridad en dichos aplicativos.\newline 
-Un estudio reciente de seguridad en dispositivos móviles, publicado por
-McAfee\cite{McAfeeReport}, revela que en el contexto de aplicativos Android:
-80\% reúnen información de la ubicación, 82\% hacen seguimiento de alguna acción
-en el dispositivo, 57\% registran la forma de uso del celular(mediante Wi-Fi o
-mediante la red de telefonía), y 36\% conocen información de las cuentas de
-usuario.\newline
-Adicionalmente, el informe señala que una aplicación invasiva no necesariamente
-contiene malware, y que su finalidad no siempre implica fraude; de las
-aplicaciones que más vulneran la privacidad del usuario, 35\% contienen
-malware.\newline 
-Si bien, aplicaciones invasivas no necesariamente implican malware y/o acciones
-delictivas, el cuestionamiento de fondo es la forma y finalidad con que una
-aplicación manipula la información del usuario, y qué garantías puede ofrecer el
-desarrollador para que tal manipulación sea consentida.
-
+Puesto que, el manejo de información del usuario es una de las principales
+preocupaciones de seguridad en aplicativos Android.\newline
+Precisamente, un estudio reciente de seguridad en dispositivos móviles,
+publicado por McAfee\cite{McAfeeReport}, señala que entre las aplicaciones que
+invaden la privacidad del usuario, existen aplicaciones(no consideradas malware)
+que comprometen información privada o sensible del usuario, puesto que, permiten
+que información como: su ubicación, acciones en el dispositivo y sus contactos
+telefónicos, sea enviada hacia servidores de compañías
+publicitarias\cite{McAfeeReport}(Pag 10).\newline 
+A lo anterior, se suma que en Android por defecto, el desarrollador no cuenta
+con mecanismos para definir políticas de seguridad que
+regulen el flujo de información de sus aplicaciones, careciendo de herramientas
+que le garanticen la ausencia de flujos indeseados. Así, para el
+desarrollador es complejo prevenir fugas de información del usuario. \newline 
 Diferentes trabajos de investigación han abordado el problema de pérdida de
 información en aplicativos Android, sin embargo, literatura científica existente
 al respecto señala que: la mayoría de propuestas aplican técnicas data-flow
 análisis a partir del bytecode(TaintDroid\cite{TaintDroid},
-Flow-Droid\cite{FlowDroid-Thesis}, DidFail\cite{DidFail},
-DroidForce\cite{DroidForce}).
+Flow-Droid\cite{FlowDroid-Thesis}, DidFail\cite{DidFail}, DroidForce\cite{DroidForce}).
 Enfocándose en la precisión y eficiencia del
 análisis para detectar fugas de datos en aplicaciones de terceros ya
 implementadas. Por consiguiente, la finalidad del análisis no es garantizar el
 cumplimiento de políticas de confidencialidad e integridad desde la construcción
-del aplicativo.
-Asimismo, el desarrollador de la aplicación carece de herramientas de apoyo
-para verificar si la aplicación que implementa, cumple con determinadas
-políticas de seguridad. 
-
-Para contribuir en la verificación de políticas de seguridad desde la
-implementación de aplicativos Android, se propone una herramienta para análisis
-estático de flujo de información, basada en el sistema de anotaciones de Jif.
+del aplicativo.\newline 
+Para contribuir en la solución de dicha problemática, en el presente trabajo de
+investigación se plantea aplicar técnicas de análisis basadas en control de
+flujo de información, con el fin de garantizar el cumplimiento de determinadas
+políticas de seguridad desde su construcción.
+Más específicamente, se propone una herramienta para análisis estático de flujo
+de información, basada en el sistema de anotaciones de Jif.
 De manera que, partiendo de las anotaciones de seguridad definidas por el
 desarrollador en el código de su aplicación, se verifique si esta cumple 
 con determinada política de seguridad.\newline
+A su vez, el usuario que adquiere la aplicación(siempre y cuando sea de
+código abierto), podría usar la herramienta para comprobar si la aplicación
+cumple con la política que el desarrollador dice garantizar, esto es,
+redefiniendo la política de seguridad en la versión que adquiere y verificando
+con la herramienta.\newline
 El presente trabajo parte del diseño de solución ideal que se plantea
-\ref{sec:sol-desig}, centrándose en un conjunto reducido de clases de la API
+\ref{sec:propuesta}, centrándose en un conjunto reducido de clases de la API
 Android y un conjunto específico de sources y sinks, acorde a una política de
 seguridad establecida.\newline 
 De este modo, el desarrollador define la política de seguridad en su
@@ -74,6 +72,8 @@ Finalmente, además de identificar ventajas y desventajas en la solución
 propuesta, se identifican una serie de retos, generados en gran medida por las
 diferencias existentes entre una aplicación Android y una aplicación Java
 convencional; y por las limitaciones propias del lenguaje de anotación Jif.
+
+
 
 
 
