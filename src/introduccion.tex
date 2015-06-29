@@ -5,7 +5,7 @@ principales preocupaciones de seguridad. Según un estudio reciente de seguridad
 en dispositivos móviles publicado por McAfee\cite{McAfeeReport}, una importante
 cantidad de aplicaciones Android invaden la privacidad del usuario, recolectando
 información detallada de su desplazamiento, acciones en el dispositivo, y su
-vida personal, con el fin de envíar tal información hacia servidores de
+vida personal, con el fin de enviar tal información hacia servidores de
 compañías publicitarias.\newline 
 Por otro lado, para controlar el acceso a información manipulada por sus
 aplicaciones, el desarrollador cuenta con los mecanismos de seguridad proveídos
@@ -18,7 +18,7 @@ aplicaciones Android, o al utilizar librerías de terceros, para el desarrollado
 es difícil verificar el cumplimiento de políticas de confidencialidad e
 integridad en la aplicación próxima a liberar. Por consiguiente, el
 desarrollador no tiene cómo garantizarle al usuario la ausencia de fugas de
-información en la apliación que le provee.\newline 
+información en la aplicación que le provee.\newline 
 Ahora bien, aunque en el campo de aplicativos Android se han propuesto
 diferentes trabajos para detectar fuga de información(propuestas como
 Flow-Droid\cite{FlowDroid-Thesis}, JoDroid\cite{JoDroid-Paper},
@@ -29,14 +29,13 @@ fugas de datos en aplicaciones de terceros ya implementadas.
 Estas propuestas no abordan el problema del lado del desarrollador, de
 manera tal que se analice el flujo de información de la aplicación verificando
 el cumplimiento de políticas de seguridad.\newline 
-\underline{Ante esto,} y con el fin de proveer una herramienta de apoyo al
-desarrollador que le facilite la verificación de políticas de seguridad desde la construcción
-de sus aplicativos, el presente trabajo aborda el problema de fugas de
-información en aplicaciones Android, analizando flujos de información de la
-aplicación mediante técnicas de lenguajes tipados de seguridad.\newline 
-Así pues, en el presente trabajo se propone una herramienta para análisis de
-flujo de información de aplicativos Android mediante el sistema de anotaciones
-de Jif.\newline 
+Ante esto, y con el fin de proveerle al desarrollador una
+herramienta para verificar políticas de seguridad desde la
+construcción de sus aplicativos, el presente trabajo aborda el problema de fugas
+de información en aplicaciones Android, analizando flujos de información de la
+aplicación con técnicas de lenguajes tipados de seguridad.\newline 
+Así pues, se propone una herramienta para análisis de flujo de información de
+aplicativos Android mediante el sistema de anotaciones de Jif.\newline 
 El diseño ideal para implementar la herramienta de análisis, sugiere anotar
 todas las clases de la API Android, sin embargo, para efectos de la presente
 tesis se parte de un conjunto reducido de clases de la API Android y un conjunto
@@ -44,14 +43,14 @@ específico de sources y sinks, acorde a una política de seguridad establecida.
 De este modo, el desarrollador define la política de seguridad en su aplicativo
 mediante el sistema de anotaciones, y verifica el cumplimiento de la misma con
 el compilador de Jif.\newline 
-Teniendo la respectiva implementación del diseño planteado, se parte de
-Droibench, un benchmark diseñado específicamente para verificar fugas de
-información en aplicativos Android. De este benchmark se define un conjunto para
-evaluar la solución propuesta. Los resultados de evaluación, coinciden con las
-hipótesis iniciales, puesto que, al estar basada en control de flujo de
-información, el análisis es más rápido, menos preciso pero a la vez completo. Es
-decir, se reportan más falsos positivos pero a la vez, se pierden menos fugas de
-información.
+Teniendo la respectiva implementación de la propuesta planteada, se parte de
+Droibench \cite{DroidBenchBenchmarks}, un benchmark diseñado específicamente
+para verificar fugas de información en aplicativos Android. De este benchmark se
+define un conjunto que permite evaluar la política de seguridad definida.\newline
+Los resultados de evaluación coinciden con las hipótesis iniciales, puesto que,
+al estar basada en control de flujo de información, el análisis es más rápido,
+menos preciso pero a la vez completo. Es decir, se reportan más falsos positivos
+pero a la vez, se pierden menos fugas de información.
 
 Finalmente, dado que Jif permite
 anotar código Java pero no código Android, es decir, las anotaciones Jif son
