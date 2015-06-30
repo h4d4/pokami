@@ -138,17 +138,30 @@ correspondientes para el manejo de intents(mensajes utilizados principalmente
 para comunicar diferentes aplicaciones), sería posible incluir en el análisis de
 flujo de información, el análisis vía interApp.\newline
 
-El esquema de anotación propuesto podría ser extendido, haciendo uso de
-diferentes principal que permitan definir politicas de confidencialidad más
-granulares, 
 
-El esquema de anotación propuesto podría ser
-extendido para definir y analizar políticas de integridad y mecanismos
-adicionales como declasificación y endorsement, verificables mediante el modelo
-de anotaciones de Jif. De este modo, el desarrollador también podría garantizar
-el cumplimiento de políticas de integridad, y contaría con mecanismos que le
-permitan flexibilizar la definición de las políticas tanto de confidencialidad
-como de integridad.
+Entre las extenciones que se podrían realizar al esquema de anotación propuesto,
+están:\newline 
+- Ampliar el conjunto de sources y sinks, de modo que se anoten políticas de
+confidencialidad adicionales, por ejemplo: incluyendo los métodos source
+\emph{loc.getCid} y \emph{loc.getLac}, que en combinación permiten conocer la
+ubicación del usuario, esto es, de acuerdo al area de red telefónica, se
+podría anotar una política de confidencialidad que busque garantizar que dicha
+información fluye hacia destinos apropiados.
+
+- Definir y analizar políticas de integridad y mecanismos adicionales como
+declasificación y endorsement, verificables mediante el modelo de anotaciones de
+Jif. De este modo, el desarrollador también podría garantizar el cumplimiento de
+políticas de integridad, y contaría con mecanismos que le permitan flexibilizar
+la definición de las políticas tanto de confidencialidad como de integridad.
+
+- Se podría definir un Principal por cada tipo de source, así por ejemplo, los
+sources que permiten obtener la ubicación del 
+
+ Incluir otros Principales, con el fin de anotar políticas de seguridad
+con niveles de seguridad más granulares, puesto que, al tener diferentes Principales
+es posible delegar un listado de Principales con autorización para leer o
+escribir la información de las aplicaciones, ampliando los niveles de seguridad
+alto y bajo, con que se anota la información hasta el momento.
 
 \section{Conclusiones}
 El presente trabajo de investigación ha abordado la problemática enfrentada por
