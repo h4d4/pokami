@@ -94,19 +94,17 @@ Detectar si una aplicación Android(perteneciente al conjunto evaluable) present
 flujos de información entre, información con nivel de seguridad alto e
 información con nivel de seguridad bajo.\newline
 Detectando fugas de información catalogada con nivel de seguridad alto, vía:
-canales creados durante el control de flujo del programa(flujos implícitos),
-mensajes de texto y mensajes de Log.\newline 
+mensajes de texto y mensajes de Log.\newline
 
 \section{Consideraciones para verificar el cumplimiento de la política
 mediante Jif}
 \label{subsec:consVerPol}
 Teniendo definida la política de seguridad a verificar se describe: cuál es la
-información considerada con nivel de seguridad alto; cuáles son los canales que
-muestran información con nivel de seguridad bajo; cuál es el punto de entrada
-para el análisis de la aplicación; qué se espera del desarrollador si la aplicación
-a analizar requiere excepciones tipo Runtime; qué se asume para evaluar el flujo
-de información; y cómo es el acceso a métodos que deben ser
-sobreescritos.\newline
+información considerada con nivel de seguridad alto; cuáles son los métodos con
+nivel de seguridad bajo; cuál es el punto de entrada para el análisis de la aplicación;
+qué se espera del desarrollador si la aplicación a analizar requiere excepciones
+tipo Runtime; qué se asume para evaluar el flujo de información; y cómo es el
+acceso a métodos que deben ser sobreescritos.\newline
 Todos, elementos relevantes para proponer un esquema de anotación.
 
 \textit{\textbf{Información considerada con nivel de seguridad alto}}\newline
@@ -120,16 +118,15 @@ campo tipo textPassword, campos destinados a almacenar contraseñas.\newline
 Este conjunto de sources es tomado del listado proveído por el clasificador SuSi
 \ref{sec:susi}.
 
-\textit{\textbf{Canales que muestran información con nivel de seguridad
-bajo}}\newline 
-La información enviada a través de mensajes de texto y la
-información conocida tanto a través de mensajes de Log, como a través de canales generados por el
-control de flujo del programa, tiene en común que debe poderse conocer por
-terceros.
-En consecuencia, se considera que estos canales deben dar a conocer información
-con nivel de seguridad bajo.\newline En el caso de mensajes de texto y mensajes
-de Log, se hace referencia específicamente a las clases Log y SmsManager de la
-API de Android.
+\textit{\textbf{Información con nivel de seguridad bajo}}\newline 
+Los métodos para enviar mensajes de texto y para mostrar mensajes de log, son
+métodos que permiten la salida  de información del dispositivo. 
+Estos métodos pertenecen al conjunto de sinks identificados en
+SuSi \ref{sec:susi}, por tanto, se debe asegurar que la información manipulada
+a través de tales métodos, tenga nivel de seguridad bajo, esto con el fin de
+garantizar que se trata de información publica. 
+En el caso de mensajes de texto y mensajes de Log, se hace referencia
+específicamente a las clases Log y SmsManager de la API de Android.\newline 
 
 \textit{\textbf{Diferencia entre una aplicación Android y una aplicación Java
 convencional}}\newline 
@@ -186,14 +183,14 @@ Los lineamientos de anotación definen los elementos básicos de anotación
 %\textbf{(a)Elementos básicos de anotación}\newline
 \subsection{Elementos básicos de anotación}
 \label{subsec:elements}
-En \ref{subsec:consVerPol} se definió qué \textit{Canales muestran
-información con nivel de seguridad bajo} y cuál es la \textit{Información
-considerada con nivel de seguridad alto}. Ahora, para anotar la información
-catalogada con uno u otro nivel de seguridad, de modo que, partiendo de tales
-anotaciones se evalúe la existencia de flujos de información entre información
-con nivel de seguridad alto e información con nivel de seguridad bajo, lo primero
-que se debe definir es quién es la autoridad de los programas y cuáles son los
-labels de seguridad.\newline 
+En \ref{subsec:consVerPol} se definió qué \textit{métodos tienen nivel de
+seguridad bajo} y cuál es la \textit{Información considerada con nivel de
+seguridad alto}. 
+Ahora, para anotar la información catalogada con uno u otro nivel de seguridad,
+de modo que, partiendo de tales anotaciones se evalúe la existencia de flujos de
+información entre información con nivel de seguridad alto e información con
+nivel de seguridad bajo, lo primero que se debe definir es quién es la autoridad
+de los programas y cuáles son los labels de seguridad.\newline 
 Conceptos y términos necesarios en la sintaxis de anotación Jif, se encuentran
 en la sección de background \ref{sec:back}.
 
@@ -234,13 +231,12 @@ información de conocimiento público.
 	\label{fig:annotationsMechanims}  
 \end{figure}
 
-\subsubsection{Anotaciones para  Canales que muestran información con nivel de
+\subsubsection{Anotaciones para  métodos que muestran información con nivel de
 seguridad bajo} 
-Para controlar el flujo de información que se envía hacia
-\textit{Canales que muestran información con nivel de seguridad bajo}, la
-definición de los métodos de las clases Log y SmsManager de la API Android,
-deben anotarse de tal manera que, se controle el nivel de seguridad de los
-argumentos con que se invocan.\newline 
+Para controlar el flujo de información que se envía mediante \textit{métodos con
+nivel de seguridad bajo}, la definición de los métodos de las clases Log y
+SmsManager de la API Android, deben anotarse de tal manera que, se controle el
+nivel de seguridad de los argumentos con que se invocan.\newline 
 Tomando como ejemplo el método sendTextMessage de la clase SmsManager, mediante
 el cual se envían mensajes de texto:
 \begin{lstlisting}
@@ -358,12 +354,11 @@ ilustrados en la figura \ref{fig:annotationsMechanims}.\newline
 % hacia: canales considerados con nivel de seguridad bajoXXX.
 Los elementos en que se fundamenta el esquema de anotación para el aplicativo a
 analizar, son los siguientes:\newline 
-Primero, como los \textit{Canales que muestran información con nivel de
-seguridad bajo} están anotados desde la definición en sus respectivas clases de
-la API, de modo que la información a mostrar(logs) o enviar(msn) debe tener
-nivel de seguridad bajo(debe ser pública), el esquema de anotación del
-aplicactivo debe proveer los labels de seguridad adecuados a la información con
-que se invocan tales canales.
+Primero, como los \textit{métodos con nivel de seguridad bajo} están anotados
+desde la definición en sus respectivas clases de la API, de modo que la
+información a mostrar(logs) o enviar(msn) debe tener nivel de seguridad
+bajo(debe ser pública), el esquema de anotación del aplicactivo debe proveer los
+labels de seguridad adecuados a la información con que se invocan tales métodos.
 
 Segundo, la anotación para la sobreescritura de métodos de la API, está definida
 en las respectivas clases de la API, el esquema de anotación para la invocación
@@ -396,8 +391,8 @@ esquema de anotación). Así:
 \textit{Objetivo de la anotación}\newline
 El esquema de anotación se centra en identificar si una clase contiene sources,
 y verificar si los métodos de la clase influencian esa información, de modo que,
-cuando la información sea enviada por canales con nivel de seguridad bajo, tenga
-el nivel de seguridad adecuado.
+cuando la información sea enviada a través de métodos con nivel de seguridad
+bajo(sinks), tenga el nivel de seguridad adecuado.
 
 \textit{Elementos del esquema}\newline
 Para referenciar los elementos que se anotan mediante este esquema, se
