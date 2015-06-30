@@ -193,14 +193,23 @@ catalogada con uno u otro nivel de seguridad, de modo que, partiendo de tales
 anotaciones se evalúe la existencia de flujos de información entre información
 con nivel de seguridad alto e información con nivel de seguridad bajo, lo primero
 que se debe definir es quién es la autoridad de los programas y cuáles son los
-labels de seguridad.\newline
-Conceptos y términos necesarios en la sintaxis de anotación Jif, se
-encuentran en la sección de background \ref{sec:back}.
+labels de seguridad.\newline 
+Conceptos y términos necesarios en la sintaxis de anotación Jif, se encuentran
+en la sección de background \ref{sec:back}.
 
 Principal \emph{Alice}\newline
-haciendo uso de los principals ya definidos en Jif, se establece al principal
-\emph{Alice} como la autoridad máxima. Este principal tendrá todo el poder para
-actuar sobre aspectos de los programas.
+el sistema de anotaciones de Jif tiene definidos una serie de Principales, en
+el caso de la versión 3.4.2 a utilizar en el presente trabajo, se tienen
+16 Principales definidos, entre los cuales están: Alice, Bob, Dolores, irs,
+broker, y client. Dichos principales pueden ser utilizados para la definición de
+políticas de seguridad, o si se prefiere, es posible definir otros.
+Para el presente caso se hace uso de los principales ya definidos en Jif, y se
+establece al principal \emph{Alice} como la autoridad máxima. Este principal
+tendrá todo el poder para actuar sobre aspectos de los programas,
+relacionados con información con nivel de seguridad alto.\newline 
+Debido a que se propone un esquema de anotación básico, con dos niveles de
+seguridad: alto y bajo, es suficiente con definir un Principal que permita
+anotar información con nivel de seguridad alto.
 
 Label de seguridad \emph{\{Alice:\}}\newline
 este label indica que la información tiene nivel seguridad alto, es decir, que

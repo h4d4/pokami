@@ -48,7 +48,7 @@ de seguridad, a través de los cuales se especifican restricciones de cómo
 debería ser utilizada la información. Jif está compuesto por un compilador y un
 sistema de anotaciones.\newline
 % El sistema de anotaciones está basado en un modelo de etiquetas
-% DLM(Decentralized Label Model), donde existen principals, políticas y
+% DLM(Decentralized Label Model), donde existen principales, políticas y
 % labels.\newline
 El análisis de flujo de información de aplicativos Java mediante Jif, requiere
 su implementación haciendo uso del sistema de anotaciones de Jif, de modo que se
@@ -64,22 +64,22 @@ generados cumplen con las restricciones establecidas.
 
 \subsection{DLM(Decentralized Label Model)}
 Jif basa su sistema de anotaciones en el modelo de etiquetas DLM(Decentralized
-Label Model), donde se manejan tres elementos fundamentales: Principals,
-Políticas y Labels.\newline
-Principals: un principal es una entidad con autoridad para observar y cambiar
+Label Model), donde se manejan tres elementos fundamentales: Principales,
+Políticas y Etiquetas.\newline
+Principaless: un principal es una entidad con autoridad para observar y cambiar
 aspectos del sistema. Un programa pertenece a un principal, quien determina el
-comportamiento que este debería tener. Jif cuenta con una serie de principals ya
-definidos, por ejemplo, Alice, Bob, Chunck, etc, que pueden ser
+comportamiento que este debería tener. Jif cuenta con una serie de principales ya
+definidos, por ejemplo, Alice, Bob, Chuck, etc, que pueden ser
 utilizados al momento de anotar.\newline 
 Políticas: mediante políticas de seguridad el dueño de la política, que es el
-principal que la define, determina qué otros principals pueden leer o
+principal que la define, determina qué otros principales pueden leer o
 influenciar la información. Así, una política puede ser de confidencialidad o de
 integridad, y se especifican de la forma: \{owner: reader list\} u
 \{owner: writer list\}.\newline 
-Labels: un label consiste en un conjunto de políticas de confidencialidad e
+Etiquetas: un label consiste en un conjunto de políticas de confidencialidad e
 integridad. Los labels se escriben en las expresiones del programa que se
 anota(labels de seguridad), esto es métodos, variables, arrays, etc..\newline 
-En síntesis, las políticas de seguridad definen que principals pueden leer o
+En síntesis, las políticas de seguridad definen que principales pueden leer o
 modificar la información, y esas políticas se expresan mediante labels.
 
 \subsection{Label Checking}
@@ -104,7 +104,7 @@ el flujo de información para llegar a un determinado punto de ejecución.\newli
 Adicionalmente, jif define labels que representan la información que podría
 conocerse tras la terminación normal, o terminación por excepción de las
 sentencias del programa. Y labels enviroments, que para cada punto del programa
-determinan la forma en que se relacionan labels y principals.\newline
+determinan la forma en que se relacionan labels y principales.\newline
 El valor de dichos labels es verificado durante la compilación del programa, si
 se detecta que no cumplen con las restricciones establecidas en la anotación del
 mismo, el compilador genera error, indicando los puntos del programa que las

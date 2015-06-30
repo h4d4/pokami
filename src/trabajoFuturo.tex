@@ -136,7 +136,11 @@ Esto permitiría hacer análisis de flujo de información a aplicaciones
 Android más robustas. Por ejemplo, si se anotan todas las clases
 correspondientes para el manejo de intents(mensajes utilizados principalmente
 para comunicar diferentes aplicaciones), sería posible incluir en el análisis de
-flujo de información, el análisis vía interApp. 
+flujo de información, el análisis vía interApp.\newline
+
+El esquema de anotación propuesto podría ser extendido, haciendo uso de
+diferentes principal que permitan definir politicas de confidencialidad más
+granulares, 
 
 El esquema de anotación propuesto podría ser
 extendido para definir y analizar políticas de integridad y mecanismos
@@ -212,12 +216,14 @@ anotaciones de Jif, porque Jif permite anotar código Java pero no código
 Android, es decir, las anotaciones Jif son válidas para clases del lenguaje Java
 estándar, no para clases específicas de la API del framework Android, las cuales
 son indispensables para implementar las funcionalidades de aplicativos Android.
+En consecuencia, anotando clases del framework se posibilita el análisis de
+flujo de información en aplicativos Android con el sistema de anotaciones de Jif.
 
 - Finalmente, la presente tesis hace un aporte importante al brindar una
 herramienta para análisis de flujo de información de aplicativos Android
 mediante el sistema de anotaciones de Jif, la cual permite que el desarrollador
-analice flujos de información de la aplicación que implementa, para verificar el
-cumplimiento de políticas de confidencialidad.
+analice flujos de información en los aplicativos que implementa, para verificar
+el cumplimiento de políticas de confidencialidad.
 
 % la sirve como apoyo en las labores de verificación de las
 % 
