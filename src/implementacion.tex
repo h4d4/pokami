@@ -1,4 +1,10 @@
 \chapter{Descripción implementación}
+En el presente capítulo se describen detalles de implementación para el diseño
+de solución propuesto, limitaciones encontradas, herramientas y lenguajes
+utilizados. De este modo, se inicia describiendo cuáles son las limitaciones
+técnicas para implementar la solución \ref{sec:limitaciones-tec}, qué parte del
+diseño se implementa \ref{sec:detallesImp} y bajo qué ambiente se lleva a cabo
+la implementación \ref{sec:ambiente} y \ref{sec:compilacion}.
 
 \section{Limitaciones técnicas}
 \label{sec:limitaciones-tec}
@@ -167,6 +173,7 @@ su implementación las estructuras de datos descritas.\newline
 %- \textit{Paso de statements dentro de los argumentos de un método
 %(\{\}):}\newline
 \section{Detalles de implementación}
+\label{sec:detallesImp}
 Como se describió anteriormente, la implementación del diseño requiere
 anotaciones a la API de Android y anotaciones en los aplicativos a
 analizar.\newline 
@@ -212,6 +219,7 @@ programa, haciendo posible la adición de los labels de seguridad respectivos.\\
 \end{figure}
 
 \section{Ambiente y herramientas}
+\label{sec:ambiente}
 \textit{Versión de la API de Android}\newline
 Las anotaciones a las clases de la API Android y las aplicaciones a anotar
 mediante el prototipo, corresponden a la versión Android 4.2.2(API Level 17).
@@ -234,6 +242,7 @@ analizar, como las clases de que estos heredan como: Activity.jif, Service.jif,
 etc.
 
 \section{Compilación, integración y finalmente ejecución }
+\label{sec:compilacion}
 Las instrucciones para ejecutar la herramienta de análisis que se propone son
 descritas en la sección \ref{sec:ejecutarPrototipo} de los anexos, allí se
 ilustra paso a paso cómo ejecutar el anotador, y cómo compilar los aplicativos
