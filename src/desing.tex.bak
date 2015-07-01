@@ -1,49 +1,71 @@
 \label{ch:desing}
-\chapter{Diseño e Implementación}
+\chapter{Diseño y Especificaciones}
+
+Este capitulo presenta la propusta de solución para el problema previamente
+descrito, a partir de esta propuesta se define el diseño de solución en que se
+hace enfásis durante el presente trabajo. Teniendo definido el diseño de
+solución, se describen elementos específicos para concretar tal diseño, así, se
+parte estableciendo una política de seguridad específica, se mencionan los
+elementos a considerar para evaluación de la misma, y finalmente se describe
+de forma detallada un esquema que permite materializar el diseño
+propuesto.\newline
+El capitulo está compuesto por tres secciones: la sección
+\ref{sec:propuesta-sol} describe la propuesta de solución, la sección
+\ref{sec:sol-desig} describe el diseño para la propuesta planteada, y las
+secciones: \ref{subsection:politica}, \ref{subsec:consVerPol} y
+\ref{sec:lineamientos},  presentan detalles necesarios para concretar el diseño
+de solución propuesto.
+
 \input{propuesta-sol}
 
 \section{Diseño de la solución}
+\label{sec:sol-desig}
 Como se describe en la propuesta de solución \ref{sec:propuesta-sol}, el
 diseño ideal para contribuir con la solución del problema es: una herramienta
 que contenga el setup de Jif para Android, e integre un clasificador de
-sources y sinks, de tal manera que la herramienta permita evaluar el control de
-flujo de información en aplicativos Android. Así, mediante anotaciones Jif en el
-código de su aplicación, el desarrollador define la política de seguridad a evaluar.
-
+sources y sinks. De manera que, la herramienta evalúe flujos de información en
+aplicativos Android, para verificar el cumplimiento de las políticas de
+seguridad que el desarrollador define en el código, mediante el sistema de
+anotaciones de Jif.\newline
 Sin embargo, para efectos de esta tesis se limita el Setup de Jif, partiendo de
-una política de seguridad específica. De este modo, el diseño se centra en
-soportar un conjunto reducido de clases de la API de Android(Anotaciones a la
-API), y en incluir un conjunto específico de sources y sinks de acuerdo a una
-política de seguridad establecida. Ese conjunto de sources y sinks, se toma del
-listado de sources y sinks proveído por SuSi \ref{sec:susi}.\newline 
-Adicionalmente para aspectos de evaluación, se incluye el diseño de un anotador
-que genera automáticamente la versión anotada del aplicativo a analizar, acorde
-a la política de seguridad que se evalúa.\newline 
-La figura \ref{fig:desingReal} muestra el esquema del diseño, allí  los
-componentes principales son el generador de anotaciones y la herramienta de
-análisis estático. Para retornar la versión Jif del aplicativo, el generador de
-anotaciones parte del código fuente de la aplicación Android a analizar, la
-política de seguridad a evaluar, y los sources y sinks requeridos para
-verificar tal política.\newline
-Luego esa versión Jif del aplicativo se pasa como entrada a la herramienta de
-análisis estático, la cual retorna el análisis de flujo de información.\newline
-La herramienta de análisis estático, está integrada por el compilador de
-Jif(verificador de políticas) y las anotaciones a la API de Android, que son
-clases de la API que deben ser reconocidas por el compilador de Jif, para lograr
-verificar el cumplimiento de la política de segurodad. Cabe anotar que el diseño
-no implica modificar el código fuente del compilador de Jif.
+una política de seguridad específica. Así, el diseño se centra en soportar un
+conjunto reducido de clases de la API de Android(Anotaciones a la API), y en
+incluir un conjunto específico de sources y sinks; de acuerdo a una política de
+seguridad establecida. Ese conjunto de sources y sinks, se toma del listado de
+sources y sinks proveído por SuSi \ref{sec:susi}.\newline 
+Adicionalmente, para aspectos de evaluación, se incluye el diseño de un
+anotador que automatiza la anotación requerida por el desarrollador.
+De modo que, acorde a la política de seguridad establecida, se genere la
+versión anotada del aplicativo a analizar.\newline
+La figura \ref{fig:desingReal} muestra el esquema del diseño, allí los componentes
+principales son el \emph{generador de anotaciones} y la \emph{herramienta de
+análisis estático}.\newline 
+Para retornar la versión Jif del aplicativo, el \emph{generador de anotaciones}
+parte del código fuente de la aplicación Android a analizar, la política de
+seguridad a evaluar, y los sources y sinks requeridos para verificar tal
+política.\newline 
+Luego esa versión Jif del aplicativo se debe pasar como entrada a la herramienta
+de análisis estático, la cual retorna el análisis de flujo de
+información.\newline 
+La \emph{herramienta de análisis estático}, está integrada
+por el compilador de Jif(verificador de políticas) y las anotaciones a la API de Android. Con
+anotaciones a la API se hace referencia a clases de la API android que deben ser
+reconocidas por el compilador de Jif, para verificar el cumplimiento de la
+política de seguridad establecida. Cabe anotar que, tal reconocimiento no
+implica modificaciones al compilador de Jif.
+
 \begin{figure}[t!]
 	\begin{center} 
 	\includegraphics[width=11cm]{desing3Real-2-2.jpg} 
 	\end{center}
-	\caption{Diseño herramienta de análisis estático\newline
+	\caption{Diseño herramienta de análisis estático. 
 	El generador de anotaciones retorna la versión anotada del aplicativo a
 	analizar, partiendo del código fuente del aplicativo Android, la
 	política de seguridad a evaluar, más los sources y sinks requeridos para
 	verificar la política. La herramienta de análisis estático está integrada por
-	el compilador de Jif, más anotaciones a la API de Android(requeridas para que
-	el compilador las reconozca). Esta recibe el aplicativo android debidamente
-	anotado y retorna el análisis de flujo de información.}
+	el compilador de Jif, más anotaciones a la API de Android. Esta recibe el
+	aplicativo Android debidamente anotado y retorna el análisis de flujo de
+	información.}
 	\label{fig:desingReal}
 \end{figure}
 
@@ -73,61 +95,57 @@ no implica modificar el código fuente del compilador de Jif.
 % Ambos elementos son complementarios, puesto que, por más que se genere la
 % versión Jif del aplicativo a analizar, si el compilador no reconoce clases
 % específicas de la API que allí se usan, .jif no puede ser compilado.
+Siguiendo el esquema de diseño anteriormente descrito: primero, se define la
+política de seguridad a evaluar \ref{subsection:politica}; segundo, se toman a
+consideración elementos influyentes para verificar el cumplimiento de la
+política mediante Jif \ref{subsec:consVerPol}; y tercero, teniendo en cuenta
+\ref{subsection:politica} y \ref{subsec:consVerPol}, se definen los lineamientos
+de anotación \ref{sec:lineamientos}. Tales lineamientos establecen el esquema
+para anotaciones a la API Android y anotaciones a los aplicativos a
+analizar(lineamientos del anotador).
 
-Así, (1) se parte definiendo la política de seguridad a evaluar
-\ref{subsection:politica}, (2) se toman a consideración elementos influyentes
-para verificar el cumplimiento de la política mediante Jif
-\ref{subsec:consVerPol}, y finalmente, teniendo en cuenta (1) y (2), se definen
-los lineamientos de anotación \ref{subsec:linemientos}, donde se establece el
-esquema tanto para las anotaciones requeridas en la API como para las
-anotaciones de los aplicativos a analizar(lineamientos del anotador).
-
-\subsection{Definición de la política de seguridad}
+\section{Definición de la política de seguridad}
 \label{subsection:politica}
 Detectar si una aplicación Android(perteneciente al conjunto evaluable) presenta
 flujos de información entre, información con nivel de seguridad alto e
 información con nivel de seguridad bajo.\newline
 Detectando fugas de información catalogada con nivel de seguridad alto, vía:
-canales creados durante el control de flujo del programa(flujos implícitos),
-mensajes de texto y mensajes de Log.\newline 
+mensajes de texto y mensajes de Log.\newline
 
-\subsection{Consideraciones para verificar el cumplimiento de la política
-mediante Jif} 
+\section{Consideraciones para verificar el cumplimiento de la política
+mediante Jif}
 \label{subsec:consVerPol}
 Teniendo definida la política de seguridad a verificar se describe: cuál es la
-información considerada con nivel de seguridad alto; cuáles son los canales que
-muestran información con nivel de seguridad bajo; cuál es el punto de entrada
-para el análisis de la aplicación(diferencia entre una aplicación Android y una
-aplicación Java convencional); qué se espera del desarrollador si la aplicación
-a analizar requiere excepciones tipo Runtime; qué se asume para evaluar el flujo
-de información; y cómo es el acceso a métodos que deben ser
-sobreescritos.\newline
+información considerada con nivel de seguridad alto; cuáles son los métodos con
+nivel de seguridad bajo; cuál es el punto de entrada para el análisis de la aplicación;
+qué se espera del desarrollador si la aplicación a analizar requiere excepciones
+tipo Runtime; qué se asume para evaluar el flujo de información; y cómo es el
+acceso a métodos que deben ser sobreescritos.\newline
 Todos, elementos relevantes para proponer un esquema de anotación.
 
-\textit{Información considerada con nivel de seguridad alto}\newline
+\textit{\textbf{Información considerada con nivel de seguridad alto}}\newline
 Para verificar el cumplimiento de la política de seguridad a evaluar se parte de
-un conjunto de sources, caracterizados por dar a conocer
-información del usuario, considerada como privada o sensible. Los métodos que integran
-el conjunto de sources son: getDeviceId, getSimSerialNumber, findViewById,
-getLatitude, getLongitude y getSubscriberId. Adicional a estos métodos, se
-incluye el tipo de dato EditText, si y sólo si, el campo UI al que referencia
-corresponde a un campo tipo textPassword, es decir, un campo que almacena
-contraseñas.\newline 
+un conjunto de sources, caracterizados por dar a conocer información del
+usuario, considerada como privada o sensible. Los métodos que integran el
+conjunto de sources son: getDeviceId, getSimSerialNumber, getLatitude,
+getLongitude y getSubscriberId. Adicional a estos métodos, se incluye el tipo de
+dato EditText, si y sólo si, el campo UI al que referencia corresponde a un
+campo tipo textPassword, campos destinados a almacenar contraseñas.\newline 
 Este conjunto de sources es tomado del listado proveído por el clasificador SuSi
 \ref{sec:susi}.
 
-\textit{Canales que muestran información con nivel de seguridad bajo}\newline
-La información enviada a través de mensajes de texto y la información conocida
-tanto a través de mensajes de Log, como a través de canales generados por el
-control de flujo del programa, tiene en común que debe poderse conocer por
-terceros.
-En consecuencia, se considera que estos canales deben dar a conocer información
-con nivel de seguridad bajo.\newline En el caso de mensajes de texto y mensajes
-de Log, se hace referencia específicamente a las clases Log y SmsManager de la
-API de Android.
+\textit{\textbf{Información con nivel de seguridad bajo}}\newline 
+Los métodos para enviar mensajes de texto y para mostrar mensajes de log, son
+métodos que permiten la salida  de información del dispositivo. 
+Estos métodos pertenecen al conjunto de sinks identificados en
+SuSi \ref{sec:susi}, por tanto, se debe asegurar que la información manipulada
+a través de tales métodos, tenga nivel de seguridad bajo, esto con el fin de
+garantizar que se trata de información publica. 
+En el caso de mensajes de texto y mensajes de Log, se hace referencia
+específicamente a las clases Log y SmsManager de la API de Android.\newline 
 
-\textit{Diferencia entre una aplicación Android y una aplicación Java
-convencional}\newline 
+\textit{\textbf{Diferencia entre una aplicación Android y una aplicación Java
+convencional}}\newline 
 En esencia, una aplicación Android es una aplicación Java con interfaces
 descritas en XML, que para ser ejecutada necesita del framework de Android,
 porque este le provee acceso al hardware del dispositivo y funcionalidades del
@@ -151,7 +169,7 @@ respectivamente, sin necesidad de interacción del usuario.\newline
 evaluar tiene un único punto de entrada, que depende del tipo de componente que
 implemente.} }
 
-\textit{Chequeo de excepciones tipo Runtime}\newline
+\textit{\textbf{Chequeo de excepciones tipo Runtime}}\newline
 En lenguaje Java las excepciones tipo Runtime tales como NullPointerException, no
 son verificadas a tiempo de compilación, sin embargo, buscando evitar la
 generación de canales encubiertos mediante las mismas, Jif si las verifica. 
@@ -161,43 +179,50 @@ declararlas en el programa, de lo contrario, el compilador de Jif genera error.
 Para las aplicaciones a analizar, se espera que el desarrollador haya
 especificado las excepciones necesarias.
 
-\textit{Evaluación del flujo de información}\newline
-Para evaluar el flujo de información, se asume que todos los métodos definidos
+\textit{\textbf{Evaluación del flujo de información}}\newline
+Para evaluar el flujo de información, se asume que todos los métodos definidos 
 en la clase serán invocados, y por tanto, todos son incluidos en el análisis.\newline 
 Esta decisión de análisis busca evitar el paso inadvertido de flujos de
 información, generados por omisión.
 
-\textit{Acceso a métodos de sobreescritura.}\newline
+\textit{\textbf{Acceso a métodos de sobreescritura.}}\newline
 Los métodos de las clases Activity, Service y BroadcastReceiver, son métodos
 que se pueden sobreescribir, todo programa Android que extienda de tales clases
 debe poder utilizarlos.
 
-\subsection{Lineamientos de anotación}
-\label{subsec:linemientos}
-Para verificar el cumplimiento de la política de seguridad
-establecida \ref{subsection:politica} mediante el sistema de anotaciones de Jif,
-se requiere: (a) definir los elementos básicos de anotación, (b) definir
-las anotaciones necesarias para la API de Android y (c) definir los
-criterios de anotación para los aplicativos a analizar, tales 
-criterios se sintetizan en un anotador.
+\section{Lineamientos de anotación}
+\label{sec:lineamientos}
+Los lineamientos de anotación definen los elementos básicos de anotación
+\ref{subsec:elements}, anotaciones necesarias para la API de Android
+\ref{subsec:api} y anotaciones en los aplicativos a analizar \ref{subsec:anotador}.
 
 %\textbf{(a)Elementos básicos de anotación}\newline
-\subsubsection{(a) Elementos básicos de anotación}
-En \ref{subsec:consVerPol} se definió qué \textit{Canales muestran
-información con nivel de seguridad bajo} y cuál es la \textit{Información
-considerada con nivel de seguridad alto}. Ahora, para anotar la información
-catalogada con uno u otro nivel de seguridad, de modo que, partiendo de tales
-anotaciones se evalué la existencia de flujos de información entre información
-con nivel de seguridad alto e información con nivel de seguridad bajo, lo primero
-que se debe definir es quién es la autoridad de los programas y cuáles son los
-labels de seguridad.\newline
-Conceptos y términos implicados en la sintaxis de anotación Jif, se
-encuentran en la sección de background \ref{sssec:JifSintax}.
+\subsection{Elementos básicos de anotación}
+\label{subsec:elements}
+En \ref{subsec:consVerPol} se definió qué \textit{métodos tienen nivel de
+seguridad bajo} y cuál es la \textit{Información considerada con nivel de
+seguridad alto}. 
+Ahora, para anotar la información catalogada con uno u otro nivel de seguridad,
+de modo que, partiendo de tales anotaciones se evalúe la existencia de flujos de
+información entre información con nivel de seguridad alto e información con
+nivel de seguridad bajo, lo primero que se debe definir es quién es la autoridad
+de los programas y cuáles son los labels de seguridad.\newline 
+Conceptos y términos necesarios en la sintaxis de anotación Jif, se encuentran
+en la sección de background \ref{sec:back}.
 
 Principal \emph{Alice}\newline
-aprovechando que Jif ya trae una serie de principales establecidos, se define que
-la autoridad máxima es el principal Alice. Este principal tendrá todo el poder
-para actuar sobre aspectos de los programas.
+el sistema de anotaciones de Jif tiene definidos una serie de Principales, en
+el caso de la versión 3.4.2\cite{Jif-compiler} a utilizar en el presente
+trabajo, se tienen 16 Principales definidos, entre los cuales están: Alice, Bob, Dolores, irs,
+broker, y client. Dichos principales pueden ser utilizados para la definición de
+políticas de seguridad, o si se prefiere, es posible definir otros.
+Para el presente caso se hace uso de los principales ya definidos en Jif, y se
+establece al principal \emph{Alice} como la autoridad máxima. Este principal
+tendrá todo el poder para actuar sobre aspectos de los programas,
+relacionados con información con nivel de seguridad alto.\newline 
+Debido a que se propone un esquema de anotación básico, con dos niveles de
+seguridad: alto y bajo, es suficiente con definir un Principal que permita
+anotar información con nivel de seguridad alto.
 
 Label de seguridad \emph{\{Alice:\}}\newline
 este label indica que la información tiene nivel seguridad alto, es decir, que
@@ -210,7 +235,8 @@ Label de seguridad \emph{\{\}}\newline
 este label indica que la información tiene nivel de seguridad bajo, es decir,
 información de conocimiento público.
 
-\subsubsection{(b) Anotaciones a la API de Android}
+\subsection{Anotaciones a la API de Android}
+\label{subsec:api}
 %\textbf{(b)Anotaciones a la API de Android}\newline
 
 \begin{figure}[h!]
@@ -221,12 +247,12 @@ información de conocimiento público.
 	\label{fig:annotationsMechanims}  
 \end{figure}
 
-- Anotaciones para \textit{Canales que muestran información con nivel de
-seguridad bajo}: para controlar el flujo de información que se envía hacia
-\textit{Canales que muestran información con nivel de seguridad bajo}, es
-necesario anotar la definición de los métodos de las clases Log y SmsManager de
-la API Android, de manera tal que se controle el nivel de seguridad de los
-argumentos con que se invocan.\newline
+\subsubsection{Anotaciones para  métodos que muestran información con nivel de
+seguridad bajo} 
+Para controlar el flujo de información que se envía mediante \textit{métodos con
+nivel de seguridad bajo}, la definición de los métodos de las clases Log y
+SmsManager de la API Android, deben anotarse de tal manera que, se controle el
+nivel de seguridad de los argumentos con que se invocan.\newline 
 Tomando como ejemplo el método sendTextMessage de la clase SmsManager, mediante
 el cual se envían mensajes de texto:
 \begin{lstlisting}
@@ -239,7 +265,7 @@ y por tanto esa información debe ser pública.\newline
 Por consiguiente, en la definición del método el label de seguridad del
 argumento(AL) correspondiente a la información a mostrar(logs) o la información
 a enviar(sms), se anota con el label de seguridad bajo(label público\{\}). Con
-esto se garantiza que la información se muestra o envía, si y sólo si el nivel
+esto se garantiza que la información se muestra o envía, si y sólo si, el nivel
 de seguridad del argumento con que se invoca el método es público. Por ejemplo,
 si el método se invoca con información anotada con label de seguridad alto, se
 genera error en la compilación del programa que le llama.\newline 
@@ -263,28 +289,31 @@ sendTextMessage{Alice:}(String{Alice:} destinationAddress,
 	PendingIntent{Alice:} deliveryIntent) { }
 \end{lstlisting}
 
-- Anotaciones para métodos de sobreescritura: en \ref{subsec:consVerPol},
+\subsubsection{Anotaciones para métodos de sobreescritura}
+En \ref{subsec:consVerPol},
 también se definieron las clases de la API para las que se debe soportar el
 \textit{Acceso a métodos de sobreescritura}(Activity, Service y
 BroadcastReceiver). La anotación para la definición de tales métodos se basa en:
 (1)reglas de Jif para la sobreescritura de métodos y (2)desde dónde pueden ser
 invocados. (1)Jif exige que el nivel de seguridad del BL del método desde donde
 se invoca el método a sobreescribir, no debe ser menos restrictivo que el BL de
-la definición de tal método(privado es más restrictivo que público). (2) la
-sobreescritura de métodos se debe poder utilizar desde aplicativos que extiendan
-de las clases Activity, Service y BroadcastReceiver.\newline 
+la definición de tal método(privado es más restrictivo que público).
+(2)los métodos a sobreescribir deben poder invocarse desde aplicativos que
+extiendan de las clases Activity, Service y BroadcastReceiver.\newline 
 Para cumplir con (1) y (2), los métodos que requieren ser sobreescritos se
 definen con BL público(\{\}). De este modo los aplicativos desde dónde se
-invocan los métodos a sobreescribir deben tener igual BL.\newline
+invocan los métodos a sobreescribir deben tener igual BL.\newline 
 Por ejemplo, el método OnCreate de la clase Activity, se define de la forma:
 \begin{lstlisting}
 protected native void onCreate{}(Bundle savedInstanceState);
 \end{lstlisting}
 
-- Anotaciones a librerias de la API: 
+
+\subsubsection{Anotaciones a librerías de la API}
 adicional a las clases Log, SmsManager, Activity, Service y
 BroadcastReceiver, es necesario soportar las librerías requeridas por estas,
-para lo cual se utilizan signaturas nativas de anotación. Tales librerías son:
+para lo cual se utilizan signaturas nativas de anotación. Tales librerías
+son:\newline 
 android.app.PendingIntent\\
 android.telephony.TelephonyManager\\
 android.content.Context\\
@@ -307,24 +336,28 @@ android.view.View
 % Ahora, para incluir clases Java ya existentes es posible recurrir a signaturas
 % nativas, con las cuales se implementa la versión Jif de las clases fuentes, esto
 % es, declarando constructores y cuerpo de los métodos a utilizar.
-- Integración de clases de la API de Android a las clases reconocidas por el
-compilador de Jif:\newline
+\subsubsection{Integración de clases de la API de Android a las clases
+reconocidas por el compilador de Jif}
 Definidos los criterios de anotación para las clases de la API, a las cuales se
 debe implementar su respectiva versión Jif, se definen los mecanismos a utilizar
 para implementar tal versión. Además del mecanismo de anotación completa en que
-se basa la implementación de aplicativos en Jif(mecanismo de anotación), el
-compilador provee un mecanismo que permite reutilizar código de clases Java ya
-existentes, para esto, se recurre a signaturas nativas. Así, se implementa una
-versión Jif de una clase Java ya existente, en la que se declaran signaturas
-nativas proveídas por Jif, constructor y métodos necesarios de la
-clase(mecanismo de signaturas nativas).
+se basa la implementación de aplicativos en Jif(mecanismo de
+anotación\footnote{Para hacer referencia a los mecanismos con que se da soporte
+a las diferentes clases de la API, se adoptan los nombres: mecanismo de anotación,
+mecanismo de signaturas nativas y mecanismo de signaturas nativas más labels
+de seguridad.}), el compilador provee un mecanismo que permite interactuar con
+código de clases Java ya existentes\cite{annotations-Jif}, para esto, se recurre
+a signaturas nativas. Así, se implementa una versión Jif de una clase Java ya existente, en
+la que se declaran signaturas nativas proveídas por Jif, constructor y métodos
+necesarios de la clase(mecanismo de signaturas nativas).
 Al mecanismo de signaturas nativas también se puede  adicionar labels de
 seguridad(mecanismo de signaturas nativas más labels de seguridad).\newline
 Para el presente caso y de acuerdo a los criterios de anotación previamente
 establecidos las clases a implementar mediante uno u otro mecanismo, son
 ilustrados en la figura \ref{fig:annotationsMechanims}.\newline
 
-\subsubsection{(c) Anotaciones en los aplicativos a analizar}
+\subsection{Anotaciones en los aplicativos a analizar}
+\label{subsec:apps}
 %\subsubsection{Criterios de anotación para los aplicativos a analizar}
 %\textbf{(c)Criterios de anotación para los aplicativos a analizar}\newline
 % XXXPara evaluar los flujos de información de una aplicación Android, de modo que
@@ -337,14 +370,11 @@ ilustrados en la figura \ref{fig:annotationsMechanims}.\newline
 % hacia: canales considerados con nivel de seguridad bajoXXX.
 Los elementos en que se fundamenta el esquema de anotación para el aplicativo a
 analizar, son los siguientes:\newline 
-Primero, como los \textit{Canales que muestran
-información con nivel de seguridad bajo} están anotados desde la definición en
-sus respectivas clases de la API, de modo que la información a mostrar(logs) o
-enviar(msn) debe tener nivel de seguridad bajo(debe ser pública), en el esquema
-de anotación del aplicativo no es necesario identificar tales canales, pues
-estos ya están definidos desde la API. Lo que si se debe hacer desde el esquema
-de anotación del aplicativo, es proveer los labels de seguridad adecuados a la
-información con que se invocan tales canales.
+Primero, como los \textit{métodos con nivel de seguridad bajo} están anotados
+desde la definición en sus respectivas clases de la API, de modo que la
+información a mostrar(logs) o enviar(msn) debe tener nivel de seguridad
+bajo(debe ser pública), el esquema de anotación del aplicactivo debe proveer los
+labels de seguridad adecuados a la información con que se invocan tales métodos.
 
 Segundo, la anotación para la sobreescritura de métodos de la API, está definida
 en las respectivas clases de la API, el esquema de anotación para la invocación
@@ -366,7 +396,8 @@ principal \emph{Alice}, y los labels de seguridad para anotar información con
 nivel de seguridad alto y nivel de seguridad bajo son: \emph{\{Alice:\}} y
 \emph{\{\}}, respectivamente.
 
-\textbf{\textit{Estructuración del esquema de anotación}}\newline 
+\subsubsection{Estructuración del esquema de anotación}
+% \textbf{\textit{Estructuración del esquema de anotación}}\newline 
 Para concretar el esquema con que se anotan los aplicativos a analizar, se
 establece la finalidad(Objetivo de la anotación), qué se va a anotar(Elementos
 del esquema), cómo se van a anotar tales elementos(Anotación de los elementos) y
@@ -376,8 +407,8 @@ esquema de anotación). Así:
 \textit{Objetivo de la anotación}\newline
 El esquema de anotación se centra en identificar si una clase contiene sources,
 y verificar si los métodos de la clase influencian esa información, de modo que,
-cuando la información sea enviada por canales con nivel de seguridad bajo, tenga
-el nivel de seguridad adecuado.
+cuando la información sea enviada a través de métodos con nivel de seguridad
+bajo(sinks), tenga el nivel de seguridad adecuado.
 
 \textit{Elementos del esquema}\newline
 Para referenciar los elementos que se anotan mediante este esquema, se
@@ -434,7 +465,7 @@ java-type argn\{Alice:\})}
 Como un método source influencia información con nivel de seguridad alto(variable
 source), se debe garantizar que sólo sentencias del programa que tengan nivel de
 seguridad alto, puedan ser actualizadas con información proporcionada por el método.\\
-Buscando hacer cumplir lo anterior, se anota con label de
+Buscando cumplir con lo anterior, se anota con label de
 seguridad \{Alice:\} el RTL y el BL del método.
 Retomando la sintaxis jif para anotación de métodos:\newline 
 \emph{java-type \{RTL\} methodName \{BL\} (java-type arg1\{AL\},,, java-type argn\{AL\}):\{EL\} }\newline
@@ -471,15 +502,17 @@ o menor de restrictivos que los AL con que se define el método. Anotando los AL
 de la definición del método con label \{Alice:\}, se cumple tal restricción ya
 que el método es invocado con parámetros cuyo nivel de seguridad es bajo.
 
+% \newpage
 \textit{Pasos para aplicar el esquema de anotación}\newline
+\label{subsec:pasosSol}
 Partiendo de las anteriores definiciones, los pasos para la anotación son los
 siguientes:\newline
 (1) Identificar variables source de la clase. Si se encuentran variables sources
 continuar con los pasos (2) a (11), sino, continuar con pasos: (3), (6), (9) y
 Aplicar Definición E a los métodos que no se sobreescriben\footnote{Como no se
 identifican sources, la anotación de método no source(Definición E) es
-aplicable para los métodos que no se sobreescriben.}.
-(2) Identificar arrays sources de la clase.
+aplicable para los métodos que no se sobreescriben.}\newline
+(2) Identificar arrays sources de la clase.\newline
 (3) Identificar el total de métodos de la clase.\newline
 (4) Del total de métodos listar los métodos source.\newline
 (5) Del total de métodos listar los métodos no source.\newline
@@ -490,13 +523,25 @@ aplicable para los métodos que no se sobreescriben.}.
 (10) Aplicar Definición B a listado del paso (2).\newline
 (11) Aplicar Definición A a listado del paso (1).
 
+\begin{figure}[t]
+	\begin{center}
+	\includegraphics[width=8cm]{desingSolution2-2.jpg}
+	\end{center}
+	\caption{Entradas y salidas para el generador de anotaciones.\newline
+	Para generar la versión anotada del aplicativo a analizar, el anotador parte
+	del código fuente del aplicativo, la política de seguridad definida en
+	\ref{subsection:politica} y el conjunto de sources y sinks implicados en la misma.}
+	\label{fig:desingSolution}
+\end{figure}
+
 Para automatizar estos pasos, se debe implementar un generador de
-anotaciones(prototipo de anotación). Que reciba como entrada el código fuente de
-la aplicación Android(perteneciente al conjunto evaluable), y retorne su
-respectiva implementación en Jif, versión que contiene las anotaciones para
-evaluar la política de seguridad definida.\newline
-La figura \ref{fig:desingSolution}, ilustra las entradas y salidas
-esperadas.\newline
+anotaciones(prototipo de anotación). Que partiendo del código fuente de la
+aplicación Android(perteneciente al conjunto evaluable), la política de
+seguridad previamente definida y el conjunto de sources y sinks; retorne
+la implementación en Jif del aplicativo a analizar, versión que contiene las
+anotaciones para evaluar la política de seguridad definida.\newline 
+La figura \ref{fig:desingSolution}, ilustra las entradas y salidas 
+esperadas.\newline 
 Luego la versión obtenida se evalúa con el compilador de Jif.
 % \textit{Entradas y salidas del anotador}.
 % Las definiciones y pasos para la anotación del aplicativo a analizar, descritas
@@ -506,15 +551,8 @@ Luego la versión obtenida se evalúa con el compilador de Jif.
 % anotaciones para evaluar la política de seguridad definida. Tal como se ilustra
 % en la figura \ref{fig:desingSolution}\newline 
 % Luego la versión obtenida se evalúa con el compilador de Jif.
-\label{subsec:anotador}
-\label{subsec:pasosSol}
-\begin{figure}[t!]
-	\begin{center}
-	\includegraphics[width=8cm]{desingSolution2-2.jpg}
-	\end{center}
-	\caption{Entradas y salidas para el generador de anotaciones. }
-	\label{fig:desingSolution} 
-\end{figure}
+
+
 
 % \subsection{Anotaciones a la API de Android}
 % \label{subsec:apiAnnotations}
@@ -555,227 +593,6 @@ Luego la versión obtenida se evalúa con el compilador de Jif.
 % En la figura \ref{fig:desingSol-details} se
 % especifican clases de la API Android a anotar.\newline
 
-\section{Descripción implementación}
-
-\subsection{Limitaciones técnicas}
-\label{subsec:limitaciones}
-Antes de iniciar con la implementación del esquema de anotación propuesto, tanto
-para las clases de la API como para los aplicactivos a analizar, se
-identifican una serie de limitaciones del lenguaje Jif para anotar código de la
-API de Android. 
-Tales limitaciones son adicionales a las características del lenguaje Java no
-reconocidas por Jif, a continuación se describen tanto las encontradas, como las
-especificadas en el manual de referencia de Jif.
-
--\textit{Características del lenguaje Java no soportadas por jif}\newline
-Si bien, el sistema de anotaciones de Jif hace extensiones al lenguaje java,
-permitiendo la evaluación de políticas de confidencialidad e integridad para
-aplicativos implementados en dicho lenguaje, el manual de referencia de Jif
-precisa las características del lenguaje Java no soportadas\cite{jifRef}. Estas
-son:
-\begin{itemize}
-  \item nested classes: clases que son definidas dentro de otras clases.
-  \item initializer blocks: bloques de código declarados dentro de la clase pero
-  sin pertenecer a ningún método, dependiendo de si se trata de static
-  initialization blocks, su código es el primero en ejecutarse, una vez se
-  carga la clase; o si se trata de instance initialization blocks, su código se
-  ejecutan cada vez que se crea una instancia de la clase.
-\item threads.
-\end{itemize} 
-Partiendo de estas precisiones, aplicaciones Android que presenten tales
-características son excluidas del grupo de aplicaciones a analizar(conjunto de
-aplicaciones evaluables) mediante la herramienta propuesta.
-
-% Adicional a las limitaciones de jif frente a características propias del
-% lenguaje Java, tras experimentar la anotación manual de una serie de
-% aplicaciones Android, se identifican varias limitaciones técnicas para la
-% anotación de de las mismas. Entre las limitaciones identificadas están:\newline 
-
-- \textit{Soporte para sobreescritura de métodos}\newline 
-En la construcción de aplicaciones Android, según el componente que se esté
-implementando(activities, content providers, receivers, services), se requiere
-sobreescribir métodos de la clase que extienda el componente. Así, cuando se
-define un componente tipo Activity, que debe extender de la clase Activiy.java, 
-se sobreescriben métodos como Oncreate. Cada que se sobreescribe
-un método se utiliza el statement @Override, con el cual se informa al
-compilador de Java que el método es sobreescrito. No obstante, al implementar la
-versión Jif de aplicaciones Android con dicho statement, el compilador de Jif
-no lo reconoce. La dificultad que se presenta está en el reconocimiento del
-statement(carácter @ y clase Override), y no en la sobreescritura de métodos,
-puesto que Jif soporta tal característica. El soporte para la sobreescritura de
-métodos es confirmado con una sencilla prueba, anotando la clase Activity.java
-del framework Android (con un único método, el método Ocreate), e implementando
-la versión Jif de una aplicación Android que extiende de tal clase, en la cual
-se define una actividad y sobreescribe el método Oncreate.
-Cuando se comenta la sentencia @Override, el compilador de Jif identifica la
-sobreescritura del método y reporta comentarios para el flujo de información.\newline 
-Al investigar el por qué Jif no reconoce tal sentencia, se encuentra que dentro
-de las clases Java estándar soportadas por el compilador de Jif, no está
-contenida la clase java.lang.Override.\newline
-Las clases Java estándar pertenecientes a los paquetes io, lang, math, net y
-sql; para las que el compilador Jif brinda soporte, vienen implementadas con
-anotaciones en el directorio sig-src, directorio que forma parte de la
-distribución del compilador de Jif con que se esté trabajando.\newline
-Una alternativa para permitir el análisis de flujo de información entre métodos
-que se sobreescriben, es comentar las líneas del programa que contengan la
-sentencia @Override, puesto que, al no ser reconocida por el compilador de Jif,
-es la generadora de errores de compilación.
-
-- \textit{Casting entre tipos EditText y View}\newline
-El framework de Android cuenta con diferentes clases para manejar las interfaces
-gráficas que presenta al usuario, entre las cuales se encuentran EditText y
-View. View es la clase principal para la creación de widgets, necesarios para la
-implementación de componentes interactivos en las interfaces de usuario(UI).
-EditText permite adicionar campos de texto editables en UI. El casting entre los
-tipos de datos que representan ambas clases, se hace cuando la aplicación debe
-procesar datos provenientes de campos en las interfaces del usuario, por ejemplo
-como se observa a continuación:
-\begin{lstlisting}
-EditText editPassword = (EditText)findViewById(R.id.password);
-String password = editPassword.getText().toString();
-\end{lstlisting}
-la interfaz de usuario(que es de tipo View) contiene un campo R.id.password, y
-para manipular la información que almacena, debe ser de tipo EditText, siendo
-necesario un casting de tipo View a tipo EditText. La dificultad que se presenta
-con este tipo de casting es que para el sistema de anotaciones de jif no es
-válido. Luego de probar con la anotación manual de ambas clases, tratando de
-dar soporte a este tipo de casting, sin obtener resultados satisfactorios, se
-opta por ``simular'' estos casos, es decir, si el tipo de dato de una variable
-es de tipo EditText, se crea una variable tipo String con un valor determinado,
-así se omite el casting y se puede analizar el flujo de información.
-
-- \textit{Clase nested R}\newline
-El framework de Android utiliza identificadores para hacer referencia a recursos
-utilizados por la aplicación, recursos como strings, widgets y layouts, tales
-identificadores son autogenerados en la clase R.java, allí cada recurso es
-descrito como una clase individual. Al tratarse de una clase nested, la clase R
-no puede ser anotada con jif. Esto puede solucionarse implementando una
-versión Jif generalizada de la clase R, que contenga los recursos utilizados en
-una aplicación, definidos como variables y no como clases.
-
-% - \textit{Sources y Sinks}\newline
-% En los preliminares para el diseño de la solución se propone utilizar SuSi
-% para clasificar los sources y sinks en las aplicaciones a analizar, sin embargo, partir del
-% extenso conjunto de sources y sinks, clasificados por SuSi para la API de
-% Android, implica una mayor complejidad en el análisis, puesto que, en un
-% aplicativo todo el código que le conforma puede hacer parte de sources o de
-% sinks. Adicional a lo complejo que se puede tornar el análisis, los sources y
-% sinks a considerar deben depender de la política de seguridad a evaluar. En ese
-% orden de ideas, resulta más viable tomar un subconjunto del listado proveído por
-% SuSi, partiendo de los sources y sinks que evalué la política de seguridad que
-% se defina.
-
-- \textit{Enhanced for loop} \newline
-Además de soportar la estructura de control for, el lenguaje Java permite el uso
-de enhanced for, que es utilizado para simplificar la iteración en arrays y
-colecciones, por ejemplo:
-% \begin{lstlisting}
-% char c[] = imei.toCharArray();
-% for (int i = 0; i < c.length; i++) {
-% 	obfuscated += c[i] + "_";
-% }          
-% \end{lstlisting}  
-\begin{lstlisting}
-for(char c : imei.toCharArray())
-obfuscated += c + "_";
-\end{lstlisting}
-A diferencia de Java, Jif no soporta el enhanced for.\newline
-Debido a que ambas sentencias de control son equivalentes, la solución que se
-propone para poder analizar flujo de información en los aplicativos Android que
-contengan dicha estructura de control, es generar el equivalente del programa
-haciendo uso del for, de este modo se cambia la sintaxis sin afectar la lógica
-del aplicativo a analizar.
-
-- \textit{Otras limitaciones} \newline
-Adicional a las limitaciones descritas anteriormente, para las cuales se propone
-una solución, se identifica que Jif no soporta la sintaxis utilizada para
-definir estructuras de datos HashMaps, LinkedList y Sets, que en Java se definen
-de la siguiente manera:
-\begin{lstlisting}
-Map<String,String> hashMap = new HashMap<String, String>();
-List<String> listData;
-Set<String> phoneNumbers = new HashSet<String>();
-\end{lstlisting}
-Jif tampoco permite la definición de interfaces como argumentos de un método. El
-siguiente fragmento de código  en una aplicación Android, muestra la definición
-de una interfaz pasada como parámetro al método setOnClickListener.
-\begin{lstlisting}
-   Button button1= (Button) findViewById(R.id.button1);
-   button1.setOnClickListener(new View.OnClickListener() {
-   ...
-   .....}  });
-\end{lstlisting}
-En estos casos, la dificultad está en encontrar una sintaxis que permita obtener
-la versión equivalente del programa que las contenga. A lo que se suma, la falta
-de documentación disponible para solventar los mismos. En consecuencia, se omite
-del conjunto de aplicaciones evaluables, aplicaciones Android que requieran en
-su implementación las estructuras de datos descritas.\newline
-
-%- \textit{Paso de statements dentro de los argumentos de un método
-%(\{\}):}\newline
-\subsection{Detalles de implementación}
-Como se describió anteriormente, la implementación del diseño requiere
-anotaciones a la API de Android y anotaciones en los aplicativos a
-analizar.\newline 
-En el caso de las anotaciones requeridas para la API, su
-implementación se hace manualmente.\newline
-En el caso de las anotaciones en el aplicativo a analizar, para lo
-cual se propuso un esquema de anotación automatizable, se implementa un
-prototipo de anotación en lenguaje Java. En la sección \ref{sec:diagramaClass}
-de los anexos, se incluye su respectivo diagrama de clases.\newline
-El anotador está implementado en lenguaje Java y consta de cinco clases: Main,
-Source, XmlExtract, Annotation y BufferWriter. 
-En la clase Main se coordinan todos los pasos de anotación, así, la clase
-Sources  identifica qué variables source contiene la aplicación que se está
-analizando; la clase Source  se apoya en la clase XmlExtract  para
-identificar el source EdidText cuando el campo UI al que referencia corresponde
-a un tipo textPassword. Como las interfaces UI se describen mediante XML, es
-necesario extraer los datos de la interfaz utilizando las librerías
-javax.xml.parsers y org.w3c.dom. Con javax.xml.parsers se obtiene el respectivo
-DOM del XML a analizar. Con org.w3c.dom se recorren los elementos del DOM,
-elementos como los campos EditText.\\
-Con la clase Annotation  se identifican y anotan los diferentes tipos de
-métodos(métodos source, no source y métodos a sobreescribir).\\
-En la clase BufferWriter  se anotan las variables sources, y finalmente se
-retorna la versión .jif del aplicativo que se está analizando.\newline 
-Para la anotación del código se utiliza la librería Java Parser 1.8  que permite
-generar y visitar el árbol de sintaxis para la estructura del código de cada
-programa, haciendo posible la adición de los labels de seguridad respectivos.\\
-(Incluir Figura)\newline
-\label{subsec:anotador}
-\begin{figure}[t!]
-	\begin{center}
-	\includegraphics[width=12cm]{JifFilesystem.jpg}
-	\end{center}
-	\caption{Estructura de directorios en Jif.}
-	\label{fig:jifFilesystem} 
-\end{figure}
-
-\subsection{Ambiente y herramientas}
-\textit{Versión de la API de Android}\newline
-Las anotaciones a las clases de la API Android y las aplicaciones a anotar
-mediante el prototipo, corresponden a la versión Android 4.2.2(API Level 17).
-
-\textit{Versión del compilador de Jif}\newline
-El componente que verifica el cumplimiento de las políticas de seguridad,
-corresponde a la versión 3.4.2 del compilador de Jif.
-
-\textit{Estructura de trabajo en JIF}\newline
-El compilador de Jif maneja una estructura de directorios en la que se incluye
-el código fuente .jif de las aplicaciones a analizar. Como ilustra la figura
-\ref{fig:jifFilesystem} se tienen los directorios principales sig-src y jif-src.
-El directorio sig-src está destinado para incluir librerías adicionales.\newline 
-El directorio jif-src contiene todo el código jif correspondiente al programa
-como tal que se va evaluar mediante Jif. Para los propósitos del presente
-trabajo, se tienen los subdirectorios principales y project. En el subdirectorio
-principales se incluyen las autoridades requeridas, y en el subdirectorio
-project se incluyen, tanto las clases específicas de los aplicativos Android a
-analizar, como las clases de que estos heredan como: Activity.jif, Service.jif,
-etc.
-
-\subsection{Compilación, integración y finalmente ejecución }
-En \ref{sec:ejecutarPrototipo} se describen las instrucciones paso a paso de cómo
-ejecutar el anotador, y cómo compilar los aplicativos a analizar mediante Jif.
 
 
 

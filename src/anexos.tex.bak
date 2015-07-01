@@ -6,7 +6,7 @@ sección \ref{sec:diagramaClass} se ilustra el diagrama de clases para parte de
 la solución implementada \ref{ch:implementation}, en la sección
 \ref{sec:testcases} se describen uno a uno los casos de prueba que conforman el
 conjunto de evaluación \ref{ch:evaluacion}, por último, en las secciones
-\ref{sec:ejecutarPrototipo} y \ref{sec:FlowProto}, se dan las instrucciones
+\ref{sec:ejecutarPrototipo} y \ref{sec:FlowProto}, se dan las intrucciones
 detalladas de cómo utilizar la herramienta propuesta y la herramienta
 de análisis FlowDroid, ambas necesarias para la evaluación.
  

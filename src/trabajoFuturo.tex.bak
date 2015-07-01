@@ -1,6 +1,17 @@
 \label{ch:trabajoFuturo}
 \chapter{Trabajo Futuro y Conclusiones}
+
+En el presente capítulo se inicia discutiendo elementos como: 
+los limites y los retos de la solución propuesta(sección
+\ref{sec:discu}).\newline 
+Luego se plantean posibilidades de extensión al trabajo realizado(sección
+\ref{sec:tf}).\newline
+Finalmente, partiendo de la discusión con que inicia el capítulo y de los
+resultados de evaluación obtenidos(capítulo \ref{ch:evaluacion}) se definen las
+respectivas conclusiones(sección \ref{sec:conclu}).
+
 \section{Discusión}
+\label{sec:discu}
 \subsection{Límites de la solución propuesta}
 Las limitaciones del diseño de solución en que se enfoca el presente trabajo, se
 enmarcan en políticas de seguridad evaluables, tipos de aplicaciones evaluables 
@@ -90,9 +101,8 @@ sobreescritura de componentes específicos de la API Android, componentes como
 (activities, content providers, receivers, services), y cómo para indicar la
 sobreescritura de los respectivos métodos de un componente se requiere el
 Statement @Override cuya clase no es soportada por el sistema de anotaciones de
-Jif.
+Jif.\newline
 
-\newpage
 \emph{Características específicas del lenguaje Java estándar}\newline
 Otro reto importante para analizar aplicativos Android a través del sistema de
 anotación de Jif, es que la sintaxis del lenguaje java en la implementación del
@@ -124,6 +134,7 @@ En consecuencia, las aplicaciones Android a analizar deben tener definidas
 excepciones tipo runtime.
 
 \section{Trabajo Futuro}
+\label{sec:tf}
 % \textcolor{red}{Cómo puede ser extendido el trabajo y qué beneficios tendría esa
 % extensión}
 
@@ -136,17 +147,32 @@ Esto permitiría hacer análisis de flujo de información a aplicaciones
 Android más robustas. Por ejemplo, si se anotan todas las clases
 correspondientes para el manejo de intents(mensajes utilizados principalmente
 para comunicar diferentes aplicaciones), sería posible incluir en el análisis de
-flujo de información, el análisis vía interApp. 
+flujo de información, el análisis vía interApp.\newline
 
-El esquema de anotación propuesto podría ser
-extendido para definir y analizar políticas de integridad y mecanismos
-adicionales como declasificación y endorsement, verificables mediante el modelo
-de anotaciones de Jif. De este modo, el desarrollador también podría garantizar
-el cumplimiento de políticas de integridad, y contaría con mecanismos que le
-permitan flexibilizar la definición de las políticas tanto de confidencialidad
-como de integridad.
+
+Entre las extensiones que se podrían realizar al esquema de anotación propuesto,
+están:\newline 
+- Ampliar el conjunto de sources y sinks, de modo que se anoten políticas de
+confidencialidad adicionales, por ejemplo: incluyendo los métodos source
+\emph{loc.getCid} y \emph{loc.getLac}, que en combinación permiten conocer la
+ubicación del usuario, esto es, de acuerdo al area de red telefónica, se
+podría anotar una política de confidencialidad que busque garantizar que dicha
+información fluye hacia destinos apropiados.
+
+- Definir y analizar políticas de integridad y mecanismos adicionales como
+declasificación y endorsement, verificables mediante el modelo de anotaciones de
+Jif. De este modo, el desarrollador también podría garantizar el cumplimiento de
+políticas de integridad, y contaría con mecanismos que le permitan flexibilizar
+la definición de las políticas tanto de confidencialidad como de integridad.
+
+- Incluir otros Principales, con el fin de anotar políticas de seguridad con
+niveles de seguridad más granulares, puesto que, al tener varios Principales
+es posible delegar un listado de los mismos con autorización para leer y/o
+escribir la información proveniente de sources, ampliando así, los niveles de
+seguridad alto y bajo, con que se anota la información.
 
 \section{Conclusiones}
+\label{sec:conclu}
 El presente trabajo de investigación ha abordado la problemática enfrentada por
 el desarrollador de aplicaciones Android, a la hora de definir políticas de
 seguridad que regulen el flujo de información de sus aplicaciones. Puesto que,
@@ -207,17 +233,19 @@ es necesario adoptar mecanismos que permitan analizar el flujo de información e
 las aplicaciones que las requieran.
 
 - En el presente trabajo de investigación se dan los primeros pasos para el
-analisis de flujo de información de aplicativos Android mediante el sistema de
+análisis de flujo de información de aplicativos Android mediante el sistema de
 anotaciones de Jif, porque Jif permite anotar código Java pero no código
 Android, es decir, las anotaciones Jif son válidas para clases del lenguaje Java
 estándar, no para clases específicas de la API del framework Android, las cuales
 son indispensables para implementar las funcionalidades de aplicativos Android.
+En consecuencia, anotando clases del framework se posibilita el análisis de
+flujo de información en aplicativos Android con el sistema de anotaciones de Jif.
 
 - Finalmente, la presente tesis hace un aporte importante al brindar una
 herramienta para análisis de flujo de información de aplicativos Android
 mediante el sistema de anotaciones de Jif, la cual permite que el desarrollador
-analice flujos de información de la aplicación que implementa, para verificar el
-cumplimiento de políticas de confidencialidad.
+analice flujos de información en los aplicativos que implementa, con la
+finalidad de verificar el cumplimiento de políticas de confidencialidad.
 
 % la sirve como apoyo en las labores de verificación de las
 % 
