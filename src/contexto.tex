@@ -4,7 +4,7 @@
 
 Las soluciones propuestas para detectar fuga de información en aplicaciones
 Android, se enmarcan en el análisis estático o dinámico de la aplicación, en
-algunos casos, se combinan ambos tipos.\newline 
+algunos casos se combinan ambos tipos.\newline 
 En \textbf{análisis estático}\cite{Static-dynamic}, se estudia el código del
 programa para inferir todos los posibles caminos de ejecución. Esto se logra
 construyendo modelos de estado del programa, y determinando los estados posibles
@@ -39,7 +39,14 @@ De lo contrario, si se busca garantizar que a tiempo de
 ejecución la aplicación no incurre en fugas de información, resulta más
 conveniente aplicar análisis estático, porque cumplir con tales garantías
 implica definir políticas de confidencialidad y/o integridad desde la
-implementación de la aplicación\cite{DD2460}\cite{information-flow-control}.
+implementación de la
+aplicación\cite{DD2460}\cite{information-flow-control}.\newline 
+% Adicionalmente, debido a que una propiedad de seguridad no se prueba con
+% monitoreo, es decir, no se prueba durante la ejecución del programa, resulta
+% pertinente la aplicación de análisis estático, porque a través de este tipo
+% de análisis que se busca probar el cumplimiento de la propiedad
+% \cite{volpano}[page 4].
+
 
 Precisamente, el propósito fundamental del presente trabajo es ofrecer al
 desarrollador de aplicaciones Android una herramienta para aplicar políticas de

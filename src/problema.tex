@@ -1,8 +1,19 @@
-\label{ch:problema}
 \chapter{Descripción del Problema}
+\label{ch:problema}
+En el presente capítulo se contextualiza el problema de investigación,
+describiendo detalladamente en que consiste y a quién afecta; exponiendo
+propuetas ya existentes para afrontar el problema descrito; e ilustrando
+conceptos necesarios para una mejor entendimiento del contexto que se estudia.
+El capítulo está compuesto por tres secciones, en la sección
+\ref{sec:definicion} se define el problema, en la sección \ref{sec:trabajo} se
+describen trabajos relacionados, finalmente, en la sección \ref{sec:back} se
+ilustra el background requerido.
+
+\section{Definición del Problema}
+\label{sec:definicion}
 En Android, por defecto, el desarrollador no cuenta con mecanismos para definir
 políticas de confidencialidad e integridad que regulen el flujo de información
-de sus aplicaciones. Siendo complejo prevenir fugas de información del usuario,
+de sus aplicaciones, siendo complejo prevenir fugas de información del usuario,
 puesto que, el desarrollador carece de herramientas que le garanticen la
 ausencia de flujos indeseados. \newline
 Precisamente, una de las principales preocupaciones de seguridad en aplicativos
@@ -16,9 +27,6 @@ malware que comprometen información privada o sensible del usuario,
 puesto que, permiten que información como: su ubicación,
 acciones en el dispositivo y sus contactos telefónicos, sea enviada hacia
 servidores de compañías publicitarias\cite{McAfeeReport}(Pag 10).\newline
-y lo siguiente sería discutir como poder darle garantías al usuario \newline
-por ej. el usuario podría verificar el código fuente o parte de el usando la
-herramienta propuesta, en aplicaciones open source.
 %  mediante el uso
 % de librerías ad.
 % Las librerías ad son librerías de terceros que muestran información
@@ -43,7 +51,7 @@ herramienta propuesta, en aplicaciones open source.
 % registran la forma de uso del celular(mediante Wi-Fi o
 % mediante la red de telefonía), y 36\% conocen información de
 % las cuentas de usuario.\newline
-Si bien, el acceso a información privada del usuario, no necesariamente
+Si bien, el acceso a información privada del usuario no necesariamente
 implica acciones delictivas, el cuestionamiento de
 fondo es la forma y finalidad con que una aplicación manipula dicha información,
 y qué garantías puede ofrecer el desarrollador de que esa manipulación es
@@ -91,7 +99,7 @@ ejecución  del programa, superando el inconveniente de under-tainting, la
 detección de flujos implícitos es posible si, en la construcción de la
 herramienta de análisis se propaga el marcado de datos para flujos
 implícitos\cite{taint-analysis}. 
-Sin embargo, las propuestas que basan su análisis en data-flow estático,
+No obstante, las propuestas que basan su análisis en data-flow estático,
 suelen restringir la propagación del marcado de datos a flujos explícitos,
 ganando eficiencia en el análisis. Las propuestas mencionadas anteriormente, no
 son ajenas a tal generalidad(DidFail\cite{DidFail}[page 33],
@@ -105,24 +113,19 @@ identificar todos los posibles caminos que podrían tomar sus flujos de
 información, garantizando que a tiempo de ejecución, la aplicación respeta
 determinadas políticas de seguridad.
 
-Finalmente, partiendo del contexto que se plantea, donde es el propio
+Partiendo del contexto que se plantea, donde es el propio
 desarrollador Android quien requiere evaluar políticas de seguridad en su
-aplicación, para  garantizarle al usuario que la aplicación las cumple. Resulta
+aplicación, para  garantizarle al usuario que la aplicación las cumple, resulta
 apropiado proveerle una herramienta de apoyo, mediante la cual analice el flujo
 de información de la aplicación que implementa, y verifique el cumplimiento
 de políticas de seguridad.\newline
+A su vez, la herramienta serviría como medio de verificación para el usuario, ya
+que mediante la herramienta podría redefinir y verificar las políticas de
+seguridad en el aplicativo que adquiere(siempre y cuando sea código de
+abierto).\newline
 
 \input{trabajosRelacionados}
 \input{background}
-
-
-
-
-
-
-
-
-
 
 
 
