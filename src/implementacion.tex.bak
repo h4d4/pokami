@@ -1,19 +1,15 @@
 \chapter{Descripción implementación}
-\label{ch:implementation}
-En el presente capítulo se describen detalles del diseño de solución a
-implementar, describiendo tanto las limitaciones encontradas, como herramientas
-y lenguajes utilizados. De este modo, se inicia describiendo cuáles son las limitaciones
-técnicas para implementar la solución(sección \ref{sec:limitaciones-tec}), qué
-parte del diseño se implementa(sección \ref{sec:detallesImp}) y bajo qué
-ambiente se lleva a cabo la implementación(secciones \ref{sec:ambiente}
-y \ref{sec:compilacion}).
 
 \section{Limitaciones técnicas}
 \label{sec:limitaciones-tec}
 Antes de iniciar con la implementación del esquema de anotación propuesto, tanto
 para las clases de la API \ref{subsec:api}, como para los aplicativos a analizar
-\ref{subsec:apps}, se listan una serie de limitaciones del lenguaje
-Jif.
+\ref{subsec:apps}, se identifican una serie de limitaciones del lenguaje
+Jif para anotar código de la API de Android. 
+Tales limitaciones son adicionales a las características del lenguaje Java no
+soportadas por Jif, a continuación se describen tanto las encontradas, como las
+especificadas en el manual de referencia de Jif.
+
 \subsection{Características del lenguaje Java no soportadas por jif}
 % -\textit{Características del lenguaje Java no soportadas por jif}\newline
 Si bien, el sistema de anotaciones de Jif hace extensiones al lenguaje java,
@@ -46,9 +42,9 @@ implementando(activities, content providers, receivers, services), se requiere
 sobreescribir métodos de la clase que extienda el componente. Así, cuando se
 define un componente tipo Activity, que debe extender de la clase Activiy.java, 
 se sobreescriben métodos como Oncreate. Cada que se sobreescribe
-un método se utiliza la sentencia @Override, con el cual se informa al
+un método se utiliza el statement @Override, con el cual se informa al
 compilador de Java que el método es sobreescrito. No obstante, al implementar la
-versión Jif de aplicaciones Android con dicha sentencia, el compilador de Jif
+versión Jif de aplicaciones Android con dicho statement, el compilador de Jif
 no lo reconoce. La dificultad que se presenta está en el reconocimiento del
 statement(carácter @ y clase Override), y no en la sobreescritura de métodos,
 puesto que Jif soporta tal característica.\newline 
@@ -102,7 +98,7 @@ así se omite el casting y se puede analizar el flujo de información.
 \subsection{Clase nested R}
 \label{sec:nested}
 El framework de Android utiliza identificadores para hacer referencia a recursos
-utilizados por la aplicación, recursos como strings, estilos, widgets, layouts, e
+utilizados por la aplicación, recursos como strings, stilos, widgets, layouts, e
 interfaces xml, tales identificadores son autogenerados en la clase R.java, allí
 cada recurso es descrito como una clase individual. Al tratarse de una clase
 nested, la clase R no puede ser anotada con jif. Esto puede solucionarse
@@ -171,14 +167,13 @@ su implementación las estructuras de datos descritas.\newline
 %- \textit{Paso de statements dentro de los argumentos de un método
 %(\{\}):}\newline
 \section{Detalles de implementación}
-\label{sec:detallesImp}
 Como se describió anteriormente, la implementación del diseño requiere
 anotaciones a la API de Android y anotaciones en los aplicativos a
 analizar.\newline 
-En el caso de las anotaciones requeridas para la API \ref{subsec:api},
-su anotación se hace manualmente.\newline 
-En el caso de las anotaciones en el
-aplicativo a analizar \ref{subsec:apps}, para las que se propuso un esquema de anotación automatizable, se implementa un
+En el caso de las anotaciones requeridas para la API \ref{subsec:api}, su
+implementación se hace manualmente.\newline
+En el caso de las anotaciones en el aplicativo a analizar \ref{subsec:apps},
+para las que se propuso un esquema de anotación automatizable, se implementa un
 prototipo de anotación en lenguaje Java. En la sección \ref{sec:diagramaClass}
 de los anexos, se incluye su respectivo diagrama de clases.\newline 
 El anotador está implementado en lenguaje Java y consta de cinco clases:
@@ -217,7 +212,6 @@ programa, haciendo posible la adición de los labels de seguridad respectivos.\\
 \end{figure}
 
 \section{Ambiente y herramientas}
-\label{sec:ambiente}
 \textit{Versión de la API de Android}\newline
 Las anotaciones a las clases de la API Android y las aplicaciones a anotar
 mediante el prototipo, corresponden a la versión Android 4.2.2(API Level 17).
@@ -240,8 +234,6 @@ analizar, como las clases de que estos heredan como: Activity.jif, Service.jif,
 etc.
 
 \section{Compilación, integración y finalmente ejecución }
-\label{sec:compilacion}
-Las instrucciones para ejecutar la herramienta de análisis que se propone son
-descritas en la sección \ref{sec:ejecutarPrototipo} de los anexos, allí se
-ilustra paso a paso cómo ejecutar el anotador, y cómo compilar los aplicativos
-a analizar mediante Jif.
+En la sección \ref{sec:ejecutarPrototipo} de los anexos, se describen las
+instrucciones paso a paso de cómo ejecutar el anotador, y cómo compilar los
+aplicativos a analizar mediante Jif.

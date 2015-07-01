@@ -1,10 +1,11 @@
-\subsection{Técnicas de análisis de código}
-\label{subsec:contexto}
-\subsubsection{Análisis estático y dinámico}
+\section{Técnicas de análisis de código}
+\label{sec:contexto}
+%-(Lina: falta actualizar contenido)\newline
+\subsection{Análisis estático y dinámico}
 
 Las soluciones propuestas para detectar fuga de información en aplicaciones
 Android, se enmarcan en el análisis estático o dinámico de la aplicación, en
-algunos casos se combinan ambos tipos.\newline 
+algunos casos, se combinan ambos tipos.\newline 
 En \textbf{análisis estático}\cite{Static-dynamic}, se estudia el código del
 programa para inferir todos los posibles caminos de ejecución. Esto se logra
 construyendo modelos de estado del programa, y determinando los estados posibles
@@ -39,14 +40,7 @@ De lo contrario, si se busca garantizar que a tiempo de
 ejecución la aplicación no incurre en fugas de información, resulta más
 conveniente aplicar análisis estático, porque cumplir con tales garantías
 implica definir políticas de confidencialidad y/o integridad desde la
-implementación de la
-aplicación\cite{DD2460}\cite{information-flow-control}.\newline 
-% Adicionalmente, debido a que una propiedad de seguridad no se prueba con
-% monitoreo, es decir, no se prueba durante la ejecución del programa, resulta
-% pertinente la aplicación de análisis estático, porque a través de este tipo
-% de análisis que se busca probar el cumplimiento de la propiedad
-% \cite{volpano}[page 4].
-
+implementación de la aplicación. REFERNCIA
 
 Precisamente, el propósito fundamental del presente trabajo es ofrecer al
 desarrollador de aplicaciones Android una herramienta para aplicar políticas de
@@ -54,7 +48,7 @@ confidencialidad en la aplicación que implementa, así, la aplicación se
 ejecutará exitosamente, si y sólo si, cumple con las políticas definidas, de lo
 contrario, el desarrollador puede revisar y corregir su código.\newline
  
-\subsubsection{Técnicas utilizadas en análisis estático } 
+\subsection{Técnicas mediante análisis estático} 
 Generalmente, para verificar el cumplimiento de políticas de seguridad mediante
 análisis estático, se aplican técnicas de seguridad de tipado
 (Typed-Inference/Security-Typed Analysis) y técnicas de flujo de
@@ -68,7 +62,7 @@ flujo, o al flujo de datos, respectivamente. Estás técnicas suelen utilizar
 grafos de Control de Flujo CFG(Control Flow Graph), Grafos de Flujo de Datos
 DFG( Data Flow Graph) y Grafos de llamadas CG (Call Graphs).
 
-Acorde a literatura científica en el ámbito de seguridad de aplicativos
+Acorde a literatura científica en el ambito de seguridad de aplicativos
 Android, parte importante de las propuestas para análisis de fuga de
 información(TaintDroid\cite{TaintDroid}, Flow-Droid\cite{FlowDroid-Thesis},
 DidFail\cite{DidFail}, DroidForce\cite{DroidForce}), parten del bytecode para
@@ -78,7 +72,7 @@ datos, donde se hace seguimiento al flujo de datos entre un conjunto de fuentes
 consideradas privadas y/o sensibles; y un conjunto de destinos considerados no
 confiables, sources y sinks, respectivamente.\newline 
 Si bien, tales propuestas permiten detectar flujos de datos indebidos en
-aplicaciones Android, están enfocadas en analizar aplicaciones ya implementadas,
+aplicaciones Android, están enfocadas a analizar aplicaciones ya implementadas,
 y no, en garantizar el cumplimiento de determinadas políticas de seguridad desde
 su construcción.
 % Tales propuestas se enfocan en analizar aplicativos de terceros para detectar
@@ -113,15 +107,15 @@ seguridad en las aplicaciones que se implementa, puesto que,
 % Ahora, 
 las reglas para evaluar control de flujo de
 información pueden definirse mediante técnicas Security-Typed, por ejemplo como
-se definen con Jif \ref{sec:JIF-Tool}, un lenguaje tipado de seguridad para
-realizar control de flujo de información en aplicativos Java.
+se definen con Jif \ref{JIF-Tool}, un lenguaje tipado de seguridad para realizar
+control de flujo de información en aplicativos Java.
 % 
 % el inconveniente es que está implementada para
 % aplicaciones en Java, y no para aplicativos Android.\newline 
-\subsubsection{Security Typed Languages}
-Las herramientas basadas en técnicas de análisis Security-Typed, involucran
-conceptos como flujo de información, políticas de confidencialidad e integridad,
-y chequeo de tipos.
+\subsection{Security Typed Languages}
+En general, herramientas basadas en técnicas de análisis
+Security-Typed, involucran conceptos como flujo de información, políticas de
+confidencialidad e integridad, y chequeo de tipos.
 
 \emph{Flujo de información}: el flujo de información describe el
 comportamiento de un programa, desde la entrada de los datos hasta la salida de
@@ -131,10 +125,9 @@ los mismos.
 son políticas de seguridad aplicables mediante control de flujo de información.
 Mientras la confidencialidad busca prevenir que la información fluya hacia
 destinos no apropiados, la integridad busca prevenir que la información provenga
-de fuentes no apropiadas\cite{LanguageIFS-2013}.\newline
-% Una importante diferencia
-% entre confidencialidad e integridad, es que la integridad de la información de
-% un programa puede ser alterada sin la interacción con agentes externos.\newline %\textcolor{red}{(por qué es importante?)}
+de fuentes no apropiadas. Una importante diferencia entre confidencialidad e
+integridad, es que la integridad de la información de un programa puede ser
+alterada sin la interacción con agentes externos.\newline %\textcolor{red}{(por qué es importante?)}
 Ambas políticas son fundamentales para garantizar propiedades de
 seguridad.\newline 
 Con políticas de confidencialidad, es posible garantizar ausencia de fugas de

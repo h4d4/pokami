@@ -11,43 +11,34 @@ Los requerimientos iniciales para construir tal herramienta son: un lenguaje
 tipado de seguridad que permita anotar código fuente Android, y el conjunto de
 reglas que evaluarán las políticas de seguridad.\newline 
 Al consultar literatura científica al respecto, se encuentran herramientas como
-Jif \ref{sec:JIF-Tool} y Joana \ref{sec:JOANA-Tool}, especializadas en anotar
-código Java, pero no código Android. Es decir, las anotaciones son válidas para clases
-del lenguaje java estándar, pero no para clases específicas de la API de Android.
+JIF \ref{JIF-Tool} y JOANA \ref{JOANA-Tool}, especializadas en anotar código
+Java, pero no código Android. Es decir, las anotaciones son válidas para clases
+del lenguaje java estandar, pero no para clases específicas de la API de Android.
 
-Si bien, ambas herramientas analizan flujos de información en aplicaciones Java,
-y podrían ser extendidas para anotar código Android, sus técnicas de análisis y
-forma de anotación son diferentes.
-Por un lado, Jif es un lenguaje tipado de seguridad que basa su análisis en el
-chequeo de tipos.
-Por el otro, Joana es un framework basado en análisis de grafos de
-dependencia, enfocado a precisión.\newline
-Mientras Jif se basa un un modelo de anotaciones(DML), permitiendo la
-implementación de aplicativos con políticas de seguridad; Joana sólo requiere
-anotaciones para el nivel de seguridad de la información a analizar, en
-aplicativos ya implementados.\newline
-Adicionalmente, el modelo de anotaciones (DLM) de Jif, define  la lattice de
+Si bien, ambas analizan flujos de información en aplicaciones Java, y
+podrían ser extendidas para anotar código Android, las técnicas utilizadas por cada una
+son diferentes, por un lado, JIF es un lenguaje tipado de seguridad que basa su
+análisis en el chequeo de tipos. Por el otro, JOANA es un framework basado en
+análisis de grafos de dependencia. Mientras JOANA se enfoca en precisión, JIF
+posee un modelo de anotaciones (DLM) encargado de definir la lattice de
 seguridad adecuada para las anotaciones en el código fuente, ofreciendo un
 maduro sistema que además de evaluar políticas de confidencialidad, e
-integridad, permite definir características adicionales como declasificación y
-endorsement, a través de las cuales es posible flexibilizar las
-políticas de confidencialidad e integridad(respectivamente) que se
-definen.\newline 
-Acorde a los propósitos del presente trabajo, Jif ofrece los
-beneficios de un lenguaje tipado de seguridad y un sistema  sólido  de anotaciones, facilitando la definición de las propiedades de seguridad a verificar.
-
-Partiendo de Jif como el lenguaje tipado de seguridad, los retos subsiguientes
-son: implementar el setup de Jif para Android e integrar un clasificador
-para sources y sinks de Android.\newline 
-El setup de Jif para Android consiste en implementar adaptaciones necesarias
-a las clases de la API Android, de modo que, el compilador de Jif reconozca
-anotaciones Jif en aplicaciones Android. Estas adaptaciones son necesarias
-porque, aunque Jif permite extender al lenguaje Java, y en el fondo las clases
-de la API Android están implementadas en Java, si no se cuenta con una versión
-Jif de tales clases, el compilador de Jif no tiene como reconocerlas.\newline
-% , y por
-% tanto, no admite anotaciones en programas que usen esas clases(aplicativos
-% Android).\newline
+integridad, permite definir características de seguridad adicionales como
+declasificación y endorsement.
+Acorde a los propósitos del presente trabajo, JIF ofrece los beneficios de un
+lenguaje tipado de seguridad y un sistema  sólido  de anotaciones, facilitando
+la definición de las propiedades de seguridad a verificar.\newline 
+Partiendo de JIF como el lenguaje tipado de seguridad, los retos subsiguientes
+son: implementar el setup de JIF para Android e integrar un clasificador
+para sources y sinks de Android. 
+El setup de JIF para Android consiste en implementar adaptaciones necesarias
+a las clases de la API de Android, de modo que el compilador de Jif las
+reconozca, y sea posible adicionar anotaciones de Jif dentro de aplicaciones
+Android. Puesto que, aunque Jif permite extender al lenguaje Java, y en el fondo
+las clases de la API Android están implementadas en Java, si no se cuenta con
+una versión Jif de tales clases, el compilador de Jif no tiene como
+reconocerlas, por tanto, no admite anotaciones en programas que usen esas
+clases(aplicativos Android.)\newline
 % en implementar las adaptaciones necesarias
 % para que el lenguaje JIF reconozca código de la API de Android, y admita
 % anotaciones JIF dentro de código Android, pues aunque en esencia el código
@@ -56,16 +47,14 @@ Con la integración de un clasificador de sources y sinks para Android al sistem
 de anotaciones de JIF, se provee información necesaria para construir las
 políticas de seguridad. Porque, al conocer qué código de la API de Android,
 es considerado como source o como sink, se tiene el criterio para decidir su
-anotación.
-% Permitiendo conocer el nivel de seguridad con que deben ser
-% anotados el código tanto de la API como el código del aplicativo a
-% analizar.\newline
+anotación. Permitiendo conocer el nivel de seguridad con que deben ser
+anotados el código tanto de la API como el código del aplicativo a
+analizar.\newline
 %Si el desarrollador no sabe que es source y que es sink, cómo sabe que nivel
 % de seguridad anotar durante la implementación de la versión JIf que va a
 % evaluar 
 % La figura \ref{fig:desingInteger} expone los elementos necesarios para construir la
 % herramienta de análisis.
-
 Básicamente, se requiere un módulo que extienda las clases en JIF para que el
 lenguaje reconozca código de la API Android(\emph{Android Jif Setup}), más un
 módulo que integre el clasificador de sources y sinks para Android(\emph{Sources

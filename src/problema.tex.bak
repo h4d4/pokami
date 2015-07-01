@@ -1,0 +1,119 @@
+\label{ch:problema}
+\chapter{Descripción del Problema}
+
+En Android, por defecto, el desarrollador no cuenta con mecanismos para
+definir políticas de confidencialidad e integridad que regulen
+el flujo de información de sus aplicaciones. Siendo complejo prevenir fugas de
+información del usuario, puesto que, el desarrollador carece de herramientas que
+le garanticen la ausencia de flujos indeseados.\newline
+Precisamente, una de las principales preocupaciones de seguridad en aplicativos
+Android, es la manipulación de información del usuario.
+Así lo evidencia un
+estudio reciente de seguridad en dispositivos móviles, publicado por
+McAfee\cite{McAfeeReport}, este señala  que una importante cantidad de
+aplicaciones Android invaden la privacidad del usuario, reuniendo información
+detallada de su desplazamiento, acciones en el dispositivo, y su vida personal.
+De este modo, 80\% reúnen información de la ubicación, 82\%
+hacen seguimiento de alguna acción en el dispositivo, 57\%
+registran la forma de uso del celular(mediante Wi-Fi o
+mediante la red de telefonía), y 36\% conocen información de
+las cuentas de usuario.\newline
+Las motivaciones para este tipo de acciones varían acorde al tipo de
+información, por ejemplo: monitorear información de ubicación para mostrar
+publicidad no solicitada; seguir las acciones sobre el dispositivo, para conocer
+qué aplicaciones son rentables de desarrollar, o para ayudar a aplicaciones
+maliciosas a evadir defensas; acceder a información de cuentas del usuario con
+fines delictivos; obtener información de contactos y calendario
+del usuario, buscando modificar los datos; obtener información del
+celular(número, estado, registro de MMS y SMS) para interceptar llamadas y
+enviar mensajes sin consentimiento del usuario.\newline 
+Con o sin autorización de acceso, existen motivaciones suficientes para que un
+tercero desee manipular información del usuario.\newline
+Adicionalmente, el informe señala que una aplicación invasiva no necesariamente
+contiene malware, y que su finalidad no siempre implica fraude; de las
+aplicaciones que más vulneran la privacidad del usuario, 35\% contienen
+malware.\newline 
+Si bien, aplicaciones invasivas no necesariamente implican malware y/o acciones
+delictivas, el cuestionamiento de fondo es la forma y finalidad con que una
+aplicación manipula la información del usuario, y qué garantías puede ofrecer el
+desarrollador para que tal manipulación sea consentida.
+
+La falta de control sobre los flujos de información de la aplicación puede
+ocasionar fugas de información, generando problemas de seguridad tanto para
+quien la implementa como para quien la usa.\newline
+Como contramedida a este problema, la API de Android ofrece herramientas de
+seguridad basadas en políticas de control de acceso, y el desarrollador puede
+implementarlas en su aplicación. Sin embargo, estos mecanismos se centran en
+regular el acceso de los usuarios del sistema a determinados recursos, y no en
+verificar qué sucede con la información una vez es accedida. 
+
+Para superar dicha carencia, diferentes trabajos de investigación han abordado
+el problema de fuga de información en aplicaciones Android, tanto desde un enfoque
+dinámico como desde un enfoque estático, la literatura existente al
+respecto(TaintDroid\cite{TaintDroid}, Flow-Droid\cite{FlowDroid-Thesis},
+DidFail\cite{DidFail}, DroidForce\cite{DroidForce}), indica que la mayoría de
+propuestas hacen data-flow analysis mediante técnicas de análisis 
+tainting, partiendo del bytecode
+Enfocandose en la precisión y eficiencia del análisis para detectar fugas de
+datos en aplicaciones de terceros ya implementadas. Por consiguiente,
+la finalidad del análisis no es garantizar el cumplimiento de políticas de
+confidencialidad e integridad desde la construcción del aplicativo.
+
+Partir de tales propuestas para analizar aplicaciones propias y garantizar
+políticas de confidencialidad e integridad desde su construcción, puede implicar
+incompletitud en el análisis(under-tainting) y no detección de flujos
+implícitos. Esto debido a que,
+% aún cuando el
+% desarrollador conoce la funcionalidad de su propio código, las optimizaciones
+% realizadas por el compilador pueden adicionar complejidad al
+% mismo\cite[pag.~43]{SecureProgramming}; 
+por un lado, al realizar análisis tainting de forma dinámica, el marcado de
+datos se propaga únicamente a través de caminos del programa actualmente
+ejecutados. Así, si existen datos que son influenciados por los datos marcados,
+pero no están dentro de los actuales caminos de ejecución, quedan sin la
+propagación de la marca, dando lugar al problema de
+undertainting\cite{dynamic-tainting}\cite{Bit-Level-Taint-Analysis}. Es
+decir, se obtiene precisión en el análisis, pero se pierde completitud.\newline
+Por el otro, aún cuando se hace análisis tainting de forma estática, y el
+marcado de datos puede ser propagado para todos los caminos posibles de
+ejecución  del programa, superando el inconveniente de under-tainting, la
+detección de flujos implícitos es posible si, en la construcción de la
+herramienta de análisis se propaga el marcado de datos para flujos
+implícitos\cite{taint-analysis}. 
+Sin embargo, las propuestas que basan su análisis en data-flow estático,
+suelen restringir la propagación del marcado de datos a flujos explícitos,
+ganando eficiencia en el análisis. Las propuestas mencionadas anteriormente, no
+son ajenas a tal generalidad(DidFail\cite{DidFail}[page 33],
+FlowDroid\cite{FlowDroid-Thesis}[page 30]).
+
+Ahora bien, la falta de garantías en el cumplimiento de determinadas
+políticas de seguridad en la aplicación que se implementa, puede superarse
+usando control de flujo de información, Information Flow Control(IFC), puesto
+que, con esta técnica la aplicación  es analizada estáticamente  para
+identificar todos los posibles caminos que podrían tomar sus flujos de
+información, garantizando que a tiempo de ejecución, la aplicación respeta
+determinadas políticas de seguridad.
+
+Finalmente, partiendo del contexto que se plantea, donde es el propio
+desarrollador Android quien requiere evaluar políticas de seguridad en su
+aplicación, para  garantizarle al usuario que la aplicación las cumple. Resulta
+apropiado proveerle una herramienta de apoyo, mediante la cual analice el flujo
+de información de la aplicación que implementa, y verifique el cumplimiento
+de políticas de seguridad.
+ 
+\input{trabajosRelacionados}
+\input{background}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

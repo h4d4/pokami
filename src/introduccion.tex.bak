@@ -1,16 +1,11 @@
-\chapter{Introducción}
 \label{ch:introduccion}
-Este capítulo introduce el tema de investigación a tratar en el presente
-trabajo, dando un contexto general del problema, limitaciones de los trabajos
-relacionados, la propuesta de solucón planteada y la evaluación
-realizada.\newline
-
+\chapter{Introducción}
 En aplicativos Android, el manejo de la información del usuario es una de las
 principales preocupaciones de seguridad. Según un estudio reciente de seguridad
 en dispositivos móviles publicado por McAfee\cite{McAfeeReport}, una importante
 cantidad de aplicaciones Android invaden la privacidad del usuario, recolectando
 información detallada de su desplazamiento, acciones en el dispositivo, y su
-vida personal, con el fin de enviar tal información hacia servidores de
+vida personal, con el fin de envíar tal información hacia servidores de
 compañías publicitarias.\newline 
 Por otro lado, para controlar el acceso a información manipulada por sus
 aplicaciones, el desarrollador cuenta con los mecanismos de seguridad proveídos
@@ -23,7 +18,7 @@ aplicaciones Android, o al utilizar librerías de terceros, para el desarrollado
 es difícil verificar el cumplimiento de políticas de confidencialidad e
 integridad en la aplicación próxima a liberar. Por consiguiente, el
 desarrollador no tiene cómo garantizarle al usuario la ausencia de fugas de
-información en la aplicación que le provee.\newline 
+información en la apliación que le provee.\newline 
 Ahora bien, aunque en el campo de aplicativos Android se han propuesto
 diferentes trabajos para detectar fuga de información(propuestas como
 Flow-Droid\cite{FlowDroid-Thesis}, JoDroid\cite{JoDroid-Paper},
@@ -52,8 +47,8 @@ Teniendo la respectiva implementación de la propuesta planteada, se parte de
 Droibench \cite{DroidBenchBenchmarks}, un benchmark diseñado específicamente
 para verificar fugas de información en aplicativos Android. De este benchmark se
 define un conjunto que permite evaluar la política de seguridad definida.\newline
-Los resultados de evaluar el conjunto de pruebas coinciden con las hipótesis
-iniciales, puesto que, al estar basada en control de flujo de información, el análisis es más rápido,
+Los resultados de evaluación coinciden con las hipótesis iniciales, puesto que,
+al estar basada en control de flujo de información, el análisis es más rápido,
 menos preciso pero a la vez completo. Es decir, se reportan más falsos positivos
 pero a la vez, se pierden menos fugas de información.
 

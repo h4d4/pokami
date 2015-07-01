@@ -1,30 +1,15 @@
-\chapter{Evaluación}
 \label{ch:evaluacion}
+\chapter{Evaluación}
 % Ventajas y limitaciones de la solución.\newline 
 % Si aplica, evaluación de desempeño.  \newline 
 % Si aplica, evaluación de usabilidad.  
 % Hay otras soluciones similares? \newline 
 % Cuáles son las diferencias y las ventajas y desventajas con respecto a esas soluciones.
-El presente capítulo incia describiendo dos elementos: ambiente de pruebas y
-conjunto de evaluación(secciones \ref{sec:consi-eval} y
-\ref{sec:evalSet}).\newline
-Para el ambiente de pruebas se precisan las características bajo las cuales se lleva a cabo la evaluación. En el conjunto de
-evaluación, se describe un grupo de casos de prueba que permite evaluar la
-propuesta de solución planteada.\newline
-Teniendo el conjunto de casos de prueba, se evalua la herramienta de solución
-propuesta para comparar y analizar los resultados frente a las herramientas de
-análisis estático: FlowDroid y JoDroid (secciones \ref{subsec:fvsp}, \ref{sec:jod-prot} y
-\ref{subsec:fjp}).\newline
-Finalmente, se establecen ventajas y desventas ofrecidas por las técnicas de
-análisis en que se basa cada herramienta: la herramienta propuesta, FlowDroid y
-JoDroid(sección \ref{sec:compare}).
-
 
 \section{Consideraciones de evaluación}
-\label{sec:consi-eval}
 El flujo de información es analizado al interior de una sola aplicación, no se
 consideran flujos de información vía interApp, es decir, la activación de
-componentes de aplicaciones externas vía intents.
+componentes de apliciones externas vía intents.
 
 Cabe anotar que los resultados de evaluación que se presentan a continuación son
 los obtenidos en el siguiente ambiente de pruebas: una máquina virtual con
@@ -138,7 +123,7 @@ Prototipo.\newline
 Los fundamentos\cite{Precision-Recall} para calificar los resultados del
 análisis son los siguientes:\newline 
 True Positive(TP) y False Positive(FP), para referenciar el número de Casos
-Positivos esperados que son correcta o incorrectamente identificados.\newline 
+Positivos esperados que son correcta o incorrectatamente identificados.\newline 
 True Negatives(TN) y False Negatives(FN), para referenciar el número de 
 Casos Negativos esperados que son correcta o incorrectamente
 identificados.\newline
@@ -399,7 +384,6 @@ para FlowDroid y el Prototipo: 100\%.
 
 
 \section{Evaluación JoDroid y Prototipo}
-\label{sec:jod-prot}
 % Del conjunto de casos de prueba JoDroid ignora las excepciones, ya que su actual
 % implementación no soporta análisis del flujo de información a través de
 % tales sentencias[pag 93 \cite{JoDroid-Thesis}]. Por tanto, los testcases
@@ -746,6 +730,7 @@ FlowDroid no.
 \begin{table}[H]
 %\begin{center}
 \small\addtolength{\tabcolsep}{-3pt}
+%\begin{tabular}{|p{4cm}|p{1cm}|p{1cm}|}
 \begin{tabular}{|p{4cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
 	\hline
 	{\multirow{2}{*}{\textbf{Item}}}
@@ -790,7 +775,6 @@ Prototipo frente a FlowDroid y JoDroid(respectivamente).\newline}
 \end{table}
 
 \section{Tipos de análisis y técnicas evaluadas}
-\label{sec:compare}
 % En las subsecciones anteriores(4.2.1 a 4.2.3), se analizaron los resultados de
 % evaluación con respecto a un conjunto de aplicaciones específico. En la presente
 % sección, el análisis se basa en las herramientas previamente evaluadas, pero

@@ -1,15 +1,28 @@
-\label{ch:anexos}
 \chapter{Anexos}
+\label{ch:anexos}
+
+En el presente capítulo se incluye información complementaria. Así, en la
+sección \ref{sec:diagramaClass} se ilustra el diagrama de clases para parte de
+la solución implementada \ref{ch:implementation}, en la sección
+\ref{sec:testcases} se describen uno a uno los casos de prueba que conforman el
+conjunto de evaluación \ref{ch:evaluacion}, por último, en las secciones
+\ref{sec:ejecutarPrototipo} y \ref{sec:FlowProto}, se dan las intrucciones
+detalladas de cómo utilizar la herramienta propuesta y la herramienta
+de análisis FlowDroid, ambas necesarias para la evaluación.
+ 
 
 \section{Diagrama de clases para el anotador}
 \label{sec:diagramaClass}
 \begin{figure}[H]
-	\includegraphics[width=13cm]{consolidado.png}
+\begin{center}
+	\includegraphics[width=7.9cm]{consolidado.png}
 	\caption{Clases necesarias para la implementación del anotador}
 	\label{fig:classDiagram} 
+\end{center}
 \end{figure}
 
 \section{Descripción de testcases para evaluación}
+\sección{sec:testcases}
 \label{tb:muestra-descripApps}
 \label{sec:testcases}
 En las tablas \ref{tab:descripApps1}, \ref{tab:descripApps2} y
@@ -407,6 +420,7 @@ salidas, por ejemplo, al evaluar el testcase AndroidSpecific\_LogNoLeak, el
 compilador retorna el prompt de la shell, sin ningún comentario.
 
 \section{Instrucciones para uso de FlowDroid}
+\label{sec:FlowProto}
 En el directorio \small{\ttfamily{/home/estudiante/eule}} también se encuentran
 los subdirectorios \small{\ttfamily{/FlowDroid}} y
 \small{\ttfamily{/DroidBench-master}} que contienen los elementos necesarios
